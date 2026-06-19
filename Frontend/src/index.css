@@ -1,1 +1,11 @@
 @import "tailwindcss";
+
+@theme {
+  --color-brand: #20b2aa;
+  --color-brand-dark: #178f88;
+  --color-brand-light: #e6f7f7;
+}
+
+body {
+  font-family: 'Roboto Condensed', sans-serif;
+}
