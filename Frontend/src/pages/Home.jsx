@@ -1011,7 +1011,7 @@ export default function Home() {
             <Link
               to="/products"
               className="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-[#033e74] font-bold py-4 px-10 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md border border-slate-200 hover:border-[#033e74]/30 hover:-translate-y-0.5 text-sm"
-            >
+         >
               Explore Li-Pro
             </Link>
           </div>

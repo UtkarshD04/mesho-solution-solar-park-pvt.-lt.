@@ -1,0 +1,4 @@
+# .gitignore file mein yeh hona chahiye
+node_modules/
+dist/
+.env
