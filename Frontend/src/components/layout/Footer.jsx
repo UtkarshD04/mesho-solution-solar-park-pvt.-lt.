@@ -185,7 +185,7 @@ export default function Footer() {
       {/* Bottom Bar */}
       <div className="border-t border-white/10 py-5 px-6 lg:px-10">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/40">
-          <span>© {new Date().getFullYear()} Mesho Solution Solar Park Pvt. Ltd. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} Myzo Solution Solar Park Pvt. Ltd. All rights reserved.</span>
           <div className="flex gap-6">
             <Link to="#" className="hover:text-white/70 transition-colors">Privacy Policy</Link>
             <Link to="#" className="hover:text-white/70 transition-colors">Terms of Service</Link>

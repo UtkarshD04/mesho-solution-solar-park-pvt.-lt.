@@ -138,7 +138,7 @@ const engineeringDivisions = [
   },
 ];
 
-/* ── NEW: Why Choose Mesho Battery Data ── */
+/* ── NEW: Why Choose Myzo Battery Data ── */
 const whyChooseData = [
   {
     icon: "⚡",
@@ -157,14 +157,14 @@ const whyChooseData = [
   {
     icon: "🛠️",
     title: "Zero Maintenance",
-    desc: "No water top-ups, no acid checks, no terminal cleaning. Mesho batteries are completely sealed and maintenance-free from day one.",
+    desc: "No water top-ups, no acid checks, no terminal cleaning. Myzo batteries are completely sealed and maintenance-free from day one.",
     color: "bg-blue-50 border-blue-100 hover:border-blue-300",
     iconBg: "bg-blue-100 text-blue-600",
   },
   {
     icon: "🌿",
     title: "Eco-Friendly",
-    desc: "No acid fumes, no toxic emissions, and a significantly smaller carbon footprint. Mesho batteries are designed for a cleaner, greener India.",
+    desc: "No acid fumes, no toxic emissions, and a significantly smaller carbon footprint. Myzo batteries are designed for a cleaner, greener India.",
     color: "bg-emerald-50 border-emerald-100 hover:border-emerald-300",
     iconBg: "bg-emerald-100 text-emerald-600",
   },
@@ -210,7 +210,7 @@ export default function Home() {
   const [ctaRef, ctaInView] = useInView();
 
   /* NEW refs */
-  const [meshoAboutRef, meshoAboutInView] = useInView();
+  const [MyzoAboutRef, MyzoAboutInView] = useInView();
   const [whyRef, whyInView] = useInView();
   const [liProRef, liProInView] = useInView();
   const [visionRef, visionInView] = useInView();
@@ -250,15 +250,15 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          NEW ── About Mesho Battery (Company)
+          NEW ── About Myzo Battery (Company)
       ══════════════════════════════════════ */}
       <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-teal-50/30 border-b border-slate-100 relative overflow-hidden">
         <div className="absolute -right-32 top-10 w-96 h-96 bg-[#20b2aa]/6 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -left-20 bottom-0 w-72 h-72 bg-[#033e74]/4 rounded-full blur-3xl pointer-events-none" />
 
         <div
-          ref={meshoAboutRef}
-          className={`max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center transition-all duration-1000 ${meshoAboutInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+          ref={MyzoAboutRef}
+          className={`max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center transition-all duration-1000 ${MyzoAboutInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
         >
           {/* Left – Content */}
           <div className="space-y-7">
@@ -310,7 +310,7 @@ export default function Home() {
             <div className="relative bg-[#011d37] rounded-3xl overflow-hidden shadow-2xl border border-slate-800 group">
               <img
                 src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
-                alt="Mesho Battery – Lithium Power Backup"
+                alt="Myzo Battery – Lithium Power Backup"
                 className="w-full h-80 object-cover opacity-80 group-hover:scale-105 group-hover:opacity-95 transition-all duration-700"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#011d37] via-[#011d37]/50 to-transparent" />
@@ -336,7 +336,7 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          NEW ── Why Choose Mesho Battery
+          NEW ── Why Choose Myzo Battery
       ══════════════════════════════════════ */}
       <section className="py-24 bg-white border-b border-slate-100 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_#20b2aa_0%,_transparent_60%)] opacity-[0.03] pointer-events-none" />
@@ -377,7 +377,7 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          NEW ── Mesho Li-Pro Product Highlight
+          NEW ── Myzo Li-Pro Product Highlight
       ══════════════════════════════════════ */}
       <section className="py-24 bg-slate-50 relative overflow-hidden">
         <div className="absolute -right-20 top-20 w-80 h-80 bg-[#033e74]/5 rounded-full blur-3xl pointer-events-none" />
@@ -418,7 +418,7 @@ export default function Home() {
               <div className="bg-[#011d37] rounded-3xl overflow-hidden shadow-2xl border border-slate-800 group h-full min-h-[400px] flex flex-col justify-end relative">
                 <img
                   src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80"
-                  alt="Mesho Li-Pro Lithium Inverter Battery"
+                  alt="Myzo Li-Pro Lithium Inverter Battery"
                   className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#011d37] via-[#011d37]/60 to-transparent" />
@@ -957,7 +957,7 @@ export default function Home() {
       </section>
 
       {/* ══════════════════════════════════════
-          NEW ── Final Mesho Battery CTA
+          NEW ── Final Myzo Battery CTA
       ══════════════════════════════════════ */}
       <section
         ref={finalCtaRef}
@@ -975,7 +975,7 @@ export default function Home() {
             <h2 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
               Ready to Upgrade to{" "}
               <span className="text-[#033e74] relative inline-block">
-                Mesho Li-Pro?
+                Myzo Li-Pro?
                 <span className="absolute bottom-0.5 left-0 w-full h-0.5 bg-[#20b2aa] rounded-full" />
               </span>
             </h2>
