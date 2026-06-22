@@ -1,6 +1,4 @@
-import { useState } from "react";
 import { Link } from "react-router-dom";
- import Contact from "../pages/Contact.jsx";
 
 const socialLinks = [
   {
@@ -25,180 +23,172 @@ const socialLinks = [
   },
 ];
 
+const navLinks = [
+  { label: "Home", to: "/" },
+  { label: "Products", to: "/products" },
+  { label: "About Us", to: "/about" },
+  { label: "Customer Reviews", to: "/customer-review" },
+  { label: "Articles", to: "/article" },
+  { label: "Contact", to: "/contact" },
+];
+
+const branches = ["Lucknow", "Gorakhpur", "Noida", "Jaipur", "Gujarat", "Uttarakhand"];
+
 export default function Footer() {
-  
-
-  
   return (
-    <footer className="bg-[#178f88] text-white">
+    <footer className="bg-[#011d37] text-white">
 
-      {/* Top Section - Info + Contact Form */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-14">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
+      {/* Thin top accent line */}
+      <div className="h-0.5 w-full bg-gradient-to-r from-[#033e74] via-[#20b2aa] to-[#033e74]" />
 
-          {/* Left - Brand + Info */}
-          <div className="lg:col-span-1 space-y-8">
+      {/* Main Footer Grid */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
 
-            {/* Brand */}
+          {/* Column 1 - Brand */}
+          <div className="space-y-5 lg:col-span-1">
+            <img
+              src="/logofooter.png"
+              alt="Myzo Logo"
+              className="h-16 w-auto object-contain"
+              onError={(e) => { e.target.style.display = "none"; }}
+            />
+            <p className="text-white/60 text-sm leading-relaxed">
+              Revolutionizing Energy Storage with Advanced BESS Solutions. Delivering Reliable, Efficient and Sustainable Power Systems.
+            </p>
+
+            {/* Social Icons */}
             <div>
-              <img src="/logo2.png" alt="Myzo Logo" className="h-14 w-auto object-contain mb-3" onError={(e) => { e.target.style.display = "none"; }} />
-              <p className="text-white/75 text-sm leading-relaxed">
-                Revolutionizing Energy Storage with Advanced BESS Solutions. Delivering Reliable, Efficient and Sustainable Power Systems.
-              </p>
-            </div>
-
-            {/* Head Office */}
-            <div>
-              <h4 className="text-white font-semibold text-sm mb-3 border-b border-white/20 pb-2">Head Office</h4>
-              <div className="flex items-start gap-2 text-sm text-white/75">
-                <svg className="w-4 h-4 mt-0.5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span>Yogiraj Tower, Vibhuti Khand, Gomatinagar, Lucknow UP 226002</span>
-              </div>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h4 className="text-white font-semibold text-sm mb-3 border-b border-white/20 pb-2">Contact Info</h4>
-              <ul className="space-y-2 text-sm text-white/75">
-                <li className="flex items-center gap-2">
-                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
-                  </svg>
-                  <a href="tel:+917275565700" className="hover:text-white transition-colors">+91 7275565700</a>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
-                  </svg>
-                  <a href="mailto:aseemmishra82@gmail.com" className="hover:text-white transition-colors">aseemmishra82@gmail.com</a>
-                </li>
-                <li className="flex items-center gap-2">
-                  <svg className="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
-                  </svg>
-                  <span>Mon – Fri: 9AM – 6PM</span>
-                </li>
-              </ul>
-            </div>
-
-            {/* Branches */}
-            <div>
-              <h4 className="text-white font-semibold text-sm mb-3 border-b border-white/20 pb-2">Our Branches</h4>
-              <div className="grid grid-cols-2 gap-1.5 text-sm text-white/75">
-                {["Lucknow", "Gorakhpur", "Noida", "Jaipur", "Gujarat", "Uttarakhand"].map((city) => (
-                  <div key={city} className="flex items-center gap-1.5">
-                    <svg className="w-3 h-3 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                    {city}
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Social Media */}
-            <div>
-              <h4 className="text-white font-semibold text-sm mb-3 border-b border-white/20 pb-2">Follow Us</h4>
-              <div className="flex gap-3">
+              <p className="text-white/40 text-[10px] uppercase tracking-widest font-bold mb-3">Follow Us</p>
+              <div className="flex gap-2.5">
                 {socialLinks.map((s) => (
-                  <a key={s.name} href={s.href} title={s.name} className="w-8 h-8 bg-white/10 hover:bg-white/25 rounded-full flex items-center justify-center transition-colors">
+                  <a
+                    key={s.name}
+                    href={s.href}
+                    title={s.name}
+                    className="w-9 h-9 bg-white/8 hover:bg-[#20b2aa] rounded-lg flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-[#20b2aa]"
+                  >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">{s.icon}</svg>
                   </a>
                 ))}
               </div>
             </div>
-
           </div>
 
-          {/* Right - Contact Form (larger) */}
-          {/* <div className="lg:col-span-2 bg-white rounded-2xl p-8 border border-white/20">
-            <h3 className="text-xl font-bold text-white mb-6">Get In Touch</h3>
+          {/* Column 2 - Quick Links */}
+          <div className="space-y-5">
+            <h4 className="text-white font-bold text-sm uppercase tracking-widest after:block after:w-6 after:h-0.5 after:bg-[#20b2aa] after:mt-2">
+              Quick Links
+            </h4>
+            <ul className="space-y-2.5">
+              {navLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="text-white/60 hover:text-[#20b2aa] text-sm transition-colors duration-200 flex items-center gap-2 group"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-[#20b2aa]/40 group-hover:bg-[#20b2aa] transition-colors shrink-0" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
 
-            {sent ? (
-              <div className="text-center py-16">
-                <div className="text-5xl mb-4">✅</div>
-                <h3 className="text-lg font-bold mb-1">Message Sent!</h3>
-                <p className="text-white/70 text-sm mb-4">We'll get back to you within 24 hours.</p>
-                <button onClick={() => setSent(false)} className="text-white underline text-sm">Send Another</button>
-              </div>
-            ) : (
-              <form onSubmit={handleSubmit} className="space-y-5">
+          {/* Column 3 - Contact Info */}
+          <div className="space-y-5">
+            <h4 className="text-white font-bold text-sm uppercase tracking-widest after:block after:w-6 after:h-0.5 after:bg-[#20b2aa] after:mt-2">
+              Contact Info
+            </h4>
+            <ul className="space-y-4 text-sm text-white/60">
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-medium text-white/80 mb-1.5">Country <span className="text-red-300">*</span></label>
-                    <select name="country" required value={form.country} onChange={handleChange}
-                      className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm text-white focus:outline-none focus:border-white placeholder-white/50">
-                      <option value="" className="text-gray-800">Select Country</option>
-                      {["India", "United States", "United Kingdom", "UAE", "Australia", "Canada", "Germany", "Singapore"].map(c => (
-                        <option key={c} className="text-gray-800">{c}</option>
-                      ))}
-                    </select>
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-white/80 mb-1.5">City <span className="text-red-300">*</span></label>
-                    <input type="text" name="city" required placeholder="Enter your city" value={form.city} onChange={handleChange}
-                      className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-white" />
-                  </div>
+              {/* Address */}
+              <li className="flex items-start gap-3">
+                <div className="w-7 h-7 rounded-lg bg-[#033e74] flex items-center justify-center shrink-0 mt-0.5">
+                  <svg className="w-3.5 h-3.5 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
                 </div>
+                <span className="leading-relaxed">Yogiraj Tower, Vibhuti Khand, Gomatinagar, Lucknow UP 226002</span>
+              </li>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-medium text-white/80 mb-1.5">Postal Code <span className="text-red-300">*</span></label>
-                    <input type="text" name="postalCode" required placeholder="Enter postal code" value={form.postalCode} onChange={handleChange}
-                      className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-white" />
-                  </div>
-                  <div>
-                    <label className="block text-xs font-medium text-white/80 mb-1.5">Mobile No. <span className="text-red-300">*</span></label>
-                    <input type="tel" name="mobile" required placeholder="+91 XXXXX XXXXX" value={form.mobile} onChange={handleChange}
-                      className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-white" />
-                  </div>
+              {/* Phone */}
+              <li className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-lg bg-[#033e74] flex items-center justify-center shrink-0">
+                  <svg className="w-3.5 h-3.5 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                  </svg>
                 </div>
+                <a href="tel:+917275565700" className="hover:text-[#20b2aa] transition-colors">+91 7275565700</a>
+              </li>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
-                  <div>
-                    <label className="block text-xs font-medium text-white/80 mb-1.5">Telephone</label>
-                    <input type="tel" name="telephone" placeholder="Enter telephone number" value={form.telephone} onChange={handleChange}
-                      className="w-full bg-white/10 border border-white/20 rounded-lg px-3 py-2.5 text-sm text-white placeholder-white/50 focus:outline-none focus:border-white" />
-                  </div>
+              {/* Email */}
+              <li className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-lg bg-[#033e74] flex items-center justify-center shrink-0">
+                  <svg className="w-3.5 h-3.5 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                  </svg>
                 </div>
+                <a href="mailto:aseemmishra82@gmail.com" className="hover:text-[#20b2aa] transition-colors">aseemmishra82@gmail.com</a>
+              </li>
 
-                <div>
-                  <label className="block text-xs font-medium text-white/80 mb-3">I want to contact for <span className="text-red-300">*</span></label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    {contactReasons.map((reason) => (
-                      <label key={reason} className={`flex items-center gap-3 border rounded-lg px-4 py-2.5 cursor-pointer transition-colors ${
-                        form.reason === reason ? "border-white bg-white/20" : "border-white/20 hover:border-white/50"
-                      }`}>
-                        <input type="radio" name="reason" value={reason} checked={form.reason === reason} onChange={handleChange} className="accent-white" />
-                        <span className="text-sm text-white/90">{reason}</span>
-                      </label>
-                    ))}
-                  </div>
+              {/* Working Hours */}
+              <li className="flex items-center gap-3">
+                <div className="w-7 h-7 rounded-lg bg-[#033e74] flex items-center justify-center shrink-0">
+                  <svg className="w-3.5 h-3.5 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
                 </div>
+                <span>Mon – Fri: 9AM – 6PM</span>
+              </li>
 
-                <button type="submit" className="w-full py-3 rounded-xl bg-white text-[#178f88] font-semibold text-sm hover:bg-white/90 transition-colors">
-                  Send Message
-                </button>
+            </ul>
+          </div>
 
-              </form>
-            )}
-          </div> */}
+          {/* Column 4 - Our Branches */}
+          <div className="space-y-5">
+            <h4 className="text-white font-bold text-sm uppercase tracking-widest after:block after:w-6 after:h-0.5 after:bg-[#20b2aa] after:mt-2">
+              Our Branches
+            </h4>
+            <div className="grid grid-cols-2 gap-2.5">
+              {branches.map((city) => (
+                <div key={city} className="flex items-center gap-2 text-white/60 text-sm group hover:text-white/90 transition-colors cursor-default">
+                  <div className="w-5 h-5 rounded bg-[#033e74] flex items-center justify-center shrink-0">
+                    <svg className="w-3 h-3 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                  </div>
+                  {city}
+                </div>
+              ))}
+            </div>
+
+            {/* CTA */}
+            <div className="pt-2">
+              <Link
+                to="/contact"
+                className="inline-flex items-center gap-2 text-xs font-bold bg-[#20b2aa] hover:bg-[#1a948e] text-white px-4 py-2.5 rounded-lg transition-all duration-300"
+              >
+                <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                </svg>
+                Get In Touch
+              </Link>
+            </div>
+          </div>
 
         </div>
       </div>
 
       {/* Bottom Bar */}
-      <div className="border-t border-white/20 py-4 px-6 lg:px-10">
-        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 text-xs text-white/60">
+      <div className="border-t border-white/10 py-5 px-6 lg:px-10">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/40">
           <span>© {new Date().getFullYear()} Mesho Solution Solar Park Pvt. Ltd. All rights reserved.</span>
-          <div className="flex gap-4">
-            <Link to="#" className="hover:text-white transition-colors">Privacy Policy</Link>
-            <Link to="#" className="hover:text-white transition-colors">Terms of Service</Link>
+          <div className="flex gap-6">
+            <Link to="#" className="hover:text-white/70 transition-colors">Privacy Policy</Link>
+            <Link to="#" className="hover:text-white/70 transition-colors">Terms of Service</Link>
           </div>
         </div>
       </div>

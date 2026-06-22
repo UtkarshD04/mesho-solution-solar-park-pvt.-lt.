@@ -1,6 +1,6 @@
 export default function TopBar() {
   return (
-    <div className="fixed top-0 w-full z-50 bg-[#178f88] border-b border-[#147a74] py-1.5 px-6 lg:px-10">
+    <div className="fixed top-0 w-full z-50 bg-[#033e74] border-b border-[#022d55] py-1.5 px-6 lg:px-10">
       <div className="max-w-7xl mx-auto flex items-center gap-3 text-sm text-white font-medium">
 
         {/* Phone */}
