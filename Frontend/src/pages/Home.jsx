@@ -275,7 +275,7 @@ export default function Home() {
               Power Backup
             </h2>
             <p className="text-slate-600 leading-relaxed text-base">
-              <strong className="text-slate-800">Mesho Battery</strong> is a Lucknow-based company transforming the power backup industry with advanced lithium-ion battery technology. Our batteries are designed to replace traditional inverter systems by offering faster charging, longer lifespan, zero maintenance, and superior energy efficiency.
+              <strong className="text-slate-800">Myzo Battery</strong> is a Lucknow-based company transforming the power backup industry with advanced lithium-ion battery technology. Our batteries are designed to replace traditional inverter systems by offering faster charging, longer lifespan, zero maintenance, and superior energy efficiency.
             </p>
             <p className="text-slate-600 leading-relaxed text-base">
               With smart safety features, eco-friendly technology, and compact modern designs, Myzo Battery is committed to building a cleaner and more sustainable energy future — for homes, businesses, and solar energy applications across India.
@@ -426,7 +426,7 @@ export default function Home() {
                   <span className="bg-[#20b2aa] text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1.5 rounded-lg inline-block">
                     Flagship Model
                   </span>
-                  <h3 className="text-2xl font-black text-white tracking-tight">Mesho Li-Pro</h3>
+                  <h3 className="text-2xl font-black text-white tracking-tight">Myzo Li-Pro</h3>
                   <p className="text-white/60 text-xs leading-relaxed">
                     Advanced Lithium-Ion Inverter Battery — 1000VA | 1280Wh | 12-Year Lifespan
                   </p>
@@ -568,7 +568,7 @@ export default function Home() {
               &amp; BESS Solutions
             </h2>
             <p className="text-slate-600 leading-relaxed text-base">
-              <strong>Mesho Solution Solar Park Pvt. Ltd. (Myzo)</strong> is a state-of-the-art manufacturer of advanced energy storage systems. We build high-density lithium battery enclosures engineered specifically for heavy industrial peak-shaving, microgrid integration, and critical infrastructure backup.
+              <strong>Myzo Solution Solar Park Pvt. Ltd. (Myzo)</strong> is a state-of-the-art manufacturer of advanced energy storage systems. We build high-density lithium battery enclosures engineered specifically for heavy industrial peak-shaving, microgrid integration, and critical infrastructure backup.
             </p>
             <p className="text-slate-600 leading-relaxed text-base">
               Unlike general installers, we are dedicated battery manufacturers. We handle custom cell sorting, automated laser tab-welding, proprietary BMS configuration, and high-voltage climate testing at our production facilities.
