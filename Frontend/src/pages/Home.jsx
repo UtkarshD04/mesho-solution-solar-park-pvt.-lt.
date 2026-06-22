@@ -264,7 +264,7 @@ export default function Home() {
           <div className="space-y-7">
             <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 bg-[#20b2aa]/10 rounded-full inline-flex items-center gap-2">
               <span className="w-1.5 h-1.5 rounded-full bg-[#20b2aa] animate-pulse" />
-              About Mesho Battery
+              About Myzo Battery
             </span>
             <h2 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
               Lucknow's Pioneer in{" "}
@@ -278,7 +278,7 @@ export default function Home() {
               <strong className="text-slate-800">Mesho Battery</strong> is a Lucknow-based company transforming the power backup industry with advanced lithium-ion battery technology. Our batteries are designed to replace traditional inverter systems by offering faster charging, longer lifespan, zero maintenance, and superior energy efficiency.
             </p>
             <p className="text-slate-600 leading-relaxed text-base">
-              With smart safety features, eco-friendly technology, and compact modern designs, Mesho Battery is committed to building a cleaner and more sustainable energy future — for homes, businesses, and solar energy applications across India.
+              With smart safety features, eco-friendly technology, and compact modern designs, Myzo Battery is committed to building a cleaner and more sustainable energy future — for homes, businesses, and solar energy applications across India.
             </p>
 
             {/* Highlight Badges */}
@@ -348,9 +348,9 @@ export default function Home() {
             className={`max-w-2xl mx-auto text-center space-y-4 transition-all duration-1000 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
             <span className="text-[#033e74] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2">
-              <span className="w-8 h-px bg-[#033e74]" /> The Mesho Advantage <span className="w-8 h-px bg-[#033e74]" />
+              <span className="w-8 h-px bg-[#033e74]" /> The Myzo Advantage <span className="w-8 h-px bg-[#033e74]" />
             </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Why India Chooses Mesho Battery</h2>
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Why India Chooses Myzo Battery</h2>
             <p className="text-slate-500 text-sm leading-relaxed">
               Every feature is engineered to outperform traditional inverter systems — making your power backup smarter, safer, and more sustainable.
             </p>
@@ -392,7 +392,7 @@ export default function Home() {
               <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2">
                 <span className="w-8 h-px bg-[#20b2aa]" /> Flagship Product
               </span>
-              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Introducing Mesho Li-Pro</h2>
+              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Introducing Myzo Li-Pro</h2>
               <p className="text-slate-500 text-sm max-w-xl leading-relaxed">
                 An advanced lithium-ion inverter battery solution engineered for uninterrupted power backup and maximum efficiency — built for modern Indian homes and businesses.
               </p>
