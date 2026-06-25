@@ -282,7 +282,7 @@ export default function Home() {
             </p>
 
             {/* Highlight Badges */}
-            <div className="grid grid-cols-2 gap-4 pt-2">
+            {/* <div className="grid grid-cols-2 gap-4 pt-2">
               {[
                 { icon: "🏙️", title: "Lucknow HQ", sub: "Made in India" },
                 { icon: "☀️", title: "Solar Ready", sub: "Integrated Support" },
@@ -301,7 +301,7 @@ export default function Home() {
                   </div>
                 </div>
               ))}
-            </div>
+            </div> */}
           </div>
 
           {/* Right – Visual Card */}
@@ -795,119 +795,63 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          NEW ── Vision & Mission
-      ══════════════════════════════════════ */}
+      {/* ── Vision & Mission ─────────────── */}
       <section className="py-24 bg-white relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_80%,_#20b2aa_0%,_transparent_50%)] opacity-[0.04] pointer-events-none" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,_#033e74_0%,_transparent_50%)] opacity-[0.04] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,_#033e74_0%,_transparent_60%)] opacity-[0.04] pointer-events-none" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-16">
-          {/* Section Label */}
+        <div className="max-w-5xl mx-auto px-6 lg:px-10">
+
           <div
             ref={visionRef}
-            className={`max-w-2xl mx-auto text-center space-y-4 transition-all duration-1000 ${visionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`text-center mb-16 transition-all duration-1000 ${visionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
             <span className="text-[#033e74] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2">
               <span className="w-8 h-px bg-[#033e74]" /> Our Purpose <span className="w-8 h-px bg-[#033e74]" />
             </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Vision &amp; Mission</h2>
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Driving India's transition to smarter, cleaner, and more reliable energy — guided by a clear purpose and unwavering commitment.
-            </p>
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-3">Vision &amp; Mission</h2>
           </div>
 
-          {/* Vision + Mission Cards */}
-          <div className="grid lg:grid-cols-2 gap-8">
-            {/* Vision */}
-            <div
-              className={`relative bg-gradient-to-br from-[#011d37] to-[#033e74] rounded-3xl p-10 overflow-hidden group cursor-default transition-all duration-1000 hover:shadow-2xl hover:-translate-y-1 ${visionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-              style={{ transitionDelay: "200ms" }}
-            >
-              {/* Glow blob */}
-              <div className="absolute -top-10 -right-10 w-48 h-48 bg-[#20b2aa]/15 rounded-full blur-3xl group-hover:bg-[#20b2aa]/25 transition-all duration-700 pointer-events-none" />
-              <div className="absolute -bottom-10 -left-10 w-40 h-40 bg-white/5 rounded-full blur-2xl pointer-events-none" />
+          <div className="grid lg:grid-cols-2 gap-px bg-slate-100 rounded-3xl overflow-hidden shadow-sm">
 
-              <div className="relative space-y-6">
-                <div className="flex items-center gap-4">
-                  <div className="w-14 h-14 rounded-2xl bg-[#20b2aa]/20 border border-[#20b2aa]/30 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                    🔭
-                  </div>
-                  <div>
-                    <p className="text-[#20b2aa] text-xs font-bold uppercase tracking-widest">Our Vision</p>
-                    <h3 className="text-xl font-extrabold text-white">Leading Lithium Innovation</h3>
-                  </div>
-                </div>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  To become a leading force in lithium battery innovation by replacing outdated inverter systems with smarter, cleaner, and more sustainable energy solutions.
-                </p>
-                <p className="text-white/70 text-sm leading-relaxed">
-                  We envision a future where every home, office, and business has access to reliable, maintenance-free power backed by advanced lithium technology.
-                </p>
-                <div className="pt-2 border-t border-white/10">
-                  <p className="text-white/50 text-xs leading-relaxed italic">
-                    "Contributing to environmental sustainability, energy efficiency, and technological advancement for future generations."
-                  </p>
-                </div>
-
-                {/* Vision Pillars */}
-                <div className="grid grid-cols-3 gap-3 pt-2">
-                  {[
-                    { icon: "🌱", label: "Sustainability" },
-                    { icon: "⚡", label: "Innovation" },
-                    { icon: "🚀", label: "Growth" },
-                  ].map((p) => (
-                    <div key={p.label} className="bg-white/[0.07] rounded-xl p-3 text-center hover:bg-white/[0.12] transition-all duration-300 hover:-translate-y-0.5 cursor-default">
-                      <div className="text-xl mb-1">{p.icon}</div>
-                      <p className="text-[10px] font-bold text-white/70 uppercase tracking-wider">{p.label}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-
-            {/* Mission */}
             <div
               ref={missionRef}
-              className={`bg-slate-50 border border-slate-100 rounded-3xl p-10 group cursor-default hover:shadow-xl hover:-translate-y-1 transition-all duration-500 space-y-6 ${missionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-              style={{ transitionDelay: "350ms" }}
+              className={`bg-white p-10 lg:p-14 transition-all duration-700 ${missionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: "100ms" }}
             >
-              <div className="flex items-center gap-4">
-                <div className="w-14 h-14 rounded-2xl bg-[#033e74]/10 border border-[#033e74]/20 flex items-center justify-center text-3xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300">
-                  🎯
-                </div>
-                <div>
-                  <p className="text-[#033e74] text-xs font-bold uppercase tracking-widest">Our Mission</p>
-                  <h3 className="text-xl font-extrabold text-slate-900">Powering India. Sustainably.</h3>
-                </div>
-              </div>
-              <p className="text-slate-600 text-sm leading-relaxed">
-                Our mission is to provide innovative, high-performance lithium battery solutions that deliver reliable backup power, exceptional durability, and sustainable energy efficiency.
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#20b2aa] mb-4">Our Vision</p>
+              <h3 className="text-2xl font-extrabold text-slate-900 leading-snug mb-6">
+                Leading India towards a smarter,{" "}
+                <span className="text-[#033e74]">cleaner energy future.</span>
+              </h3>
+              <p className="text-slate-500 text-sm leading-loose">
+                To become a leading force in lithium battery innovation — replacing outdated inverter systems with technology that is faster, greener, and built to last. We envision a future where every home, office, and business across India has access to reliable, maintenance-free power backed by advanced lithium technology.
               </p>
-
-              {/* Mission Points */}
-              <div className="space-y-3 pt-2">
-                {[
-                  { icon: "🏆", text: "Delivering world-class lithium battery technology." },
-                  { icon: "🌿", text: "Providing maintenance-free and eco-friendly power solutions." },
-                  { icon: "🏠", text: "Supporting residential, commercial, and solar energy sectors." },
-                  { icon: "🤝", text: "Building strong customer trust through quality and innovation." },
-                  { icon: "🇮🇳", text: "Promoting clean energy adoption across India." },
-                ].map((item, i) => (
-                  <div
-                    key={i}
-                    className="flex items-start gap-3 p-3 bg-white rounded-xl border border-slate-100 hover:border-[#20b2aa]/30 hover:shadow-sm transition-all duration-300 hover:-translate-x-0.5 cursor-default"
-                    style={{ transitionDelay: `${i * 60 + 400}ms` }}
-                  >
-                    <span className="text-base shrink-0 mt-0.5">{item.icon}</span>
-                    <p className="text-slate-600 text-xs leading-relaxed">{item.text}</p>
-                  </div>
-                ))}
+              <div className="mt-8 pt-8 border-t border-slate-100">
+                <p className="text-slate-400 text-sm italic leading-relaxed">
+                  &ldquo;Contributing to environmental sustainability, energy efficiency, and technological advancement for generations to come.&rdquo;
+                </p>
               </div>
-
-              {/* Animated bottom border */}
-              <div className="h-1 bg-gradient-to-r from-[#033e74] via-[#20b2aa] to-[#033e74] rounded-full w-0 group-hover:w-full transition-all duration-700" />
             </div>
+
+            <div
+              className={`bg-[#011d37] p-10 lg:p-14 transition-all duration-700 ${missionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: "250ms" }}
+            >
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#20b2aa] mb-4">Our Mission</p>
+              <h3 className="text-2xl font-extrabold text-white leading-snug mb-6">
+                Delivering power that is reliable,{" "}
+                <span className="text-[#20b2aa]">sustainable, and zero-hassle.</span>
+              </h3>
+              <p className="text-white/60 text-sm leading-loose">
+                Our mission is to provide innovative, high-performance lithium battery solutions that deliver dependable backup power with exceptional durability and zero maintenance. We are committed to making clean energy accessible — for homes, businesses, and solar installations across India.
+              </p>
+              <div className="mt-8 pt-8 border-t border-white/10">
+                <p className="text-white/40 text-sm italic leading-relaxed">
+                  &ldquo;Building strong customer trust through quality, innovation, and a genuine commitment to a greener India.&rdquo;
+                </p>
+              </div>
+            </div>
+
           </div>
         </div>
       </section>

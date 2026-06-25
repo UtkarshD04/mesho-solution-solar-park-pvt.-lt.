@@ -1,7 +1,169 @@
+const stats = [
+  { value: '2015', label: 'Founded' },
+  { value: '500+', label: 'MW Installed' },
+  { value: '200+', label: 'Projects Done' },
+  { value: '14+', label: 'Years Leadership' },
+]
+
+const values = [
+  { icon: '🌱', title: 'Sustainability', desc: 'Driving clean energy adoption across India with eco-conscious solutions.' },
+  { icon: '⚡', title: 'Innovation', desc: 'Continuously investing in advanced battery and solar technologies.' },
+  { icon: '🏆', title: 'Excellence', desc: 'Delivering highest quality standards in every product and project.' },
+  { icon: '🤝', title: 'Trust', desc: 'Building long-term relationships with customers and partners.' },
+]
+
 export default function About() {
   return (
-    <section className="pt-20 min-h-screen bg-gray-50 flex items-center justify-center">
-      <h1 className="text-3xl font-bold text-gray-800">About Us</h1>
-    </section>
-  );
+    <div className="min-h-screen bg-white">
+
+      {/* HERO */}
+      <section
+        className="relative min-h-[70vh] flex items-center justify-center text-white text-center"
+        style={{
+          backgroundImage: "url('https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1920&q=80')",
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+        }}
+      >
+        <div className="absolute inset-0 bg-gradient-to-b from-[#033e74]/80 via-[#033e74]/60 to-black/70" />
+        <div className="relative z-10 px-6 max-w-4xl mx-auto pt-20">
+          <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-4">Our Story</p>
+          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-tight mb-5">
+            About Us
+          </h1>
+          <p className="text-white/70 text-base max-w-2xl mx-auto leading-relaxed">
+            A decade of driving India's clean energy revolution through innovation, expertise and commitment.
+          </p>
+        </div>
+      </section>
+
+
+
+      {/* COMPANY BRIEFING — right image, left text */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+          {/* Left — Text */}
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#033e74] mb-3">Who We Are</p>
+            <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight mb-6">
+              Mesho Solution<br />Solar Park Pvt. Ltd.
+            </h2>
+            <div className="w-14 h-1 bg-[#033e74] mb-6 rounded-full" />
+            <p className="text-gray-600 leading-relaxed text-sm mb-4">
+              <strong className="text-gray-900">MESHO SOLUTION SOLAR PARK PVT. LTD. (Myzo)</strong> was founded in 2015 and is a dynamic and forward-thinking energy solutions company committed to driving innovation in the renewable energy and energy storage sector.
+            </p>
+            <p className="text-gray-600 leading-relaxed text-sm mb-4">
+              With a strong focus on advanced  BESS (Energy Battery Storage Systems) battery technologies, sustainable power solutions, and customer-centric services, the company delivers reliable and high-performance products tailored to evolving market needs.
+            </p>
+            <p className="text-gray-600 leading-relaxed text-sm">
+              Backed by a dedicated team and a vision for a greener future, Myzo continuously invests in technology, quality, and operational excellence. Through its commitment to innovation, productivity, and sustainability, the company aims to empower businesses and communities with efficient energy solutions while building a strong presence across domestic and international markets.
+            </p>
+          </div>
+
+          {/* Right — Image */}
+          <div className="relative">
+            <img
+              src="https://images.unsplash.com/photo-1680169291906-ce51dad35dc7?w=900&q=80"
+              alt="BESS Battery"
+              className="rounded-2xl w-full h-[420px] object-cover shadow-xl"
+            />
+            <div className="absolute -bottom-5 -left-5 w-28 h-28 bg-[#033e74] rounded-2xl flex items-center justify-center shadow-lg">
+              <div className="text-white text-center">
+                <p className="text-2xl font-black">10+</p>
+                <p className="text-[10px] uppercase tracking-wider font-semibold leading-tight">Years of<br/>Excellence</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* OWNER SECTION — left image, right speech */}
+      <section className="py-20 bg-gray-50">
+        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+
+          {/* Left — Owner Image */}
+          <div className="relative flex justify-center">
+            <div className="relative">
+              <img
+                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80"
+                alt="Mr. Aseem Mishra"
+                className="rounded-2xl w-80 h-[420px] object-cover shadow-xl"
+              />
+              {/* Name card */}
+              <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#033e74] text-white px-6 py-3 rounded-xl shadow-lg text-center whitespace-nowrap">
+                <p className="font-black text-sm uppercase">Mr. Aseem Mishra</p>
+                <p className="text-[10px] text-white/70 mt-0.5 uppercase tracking-wider">Business Head, Myzo</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Right — Speech */}
+          <div className="pt-8 md:pt-0">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#033e74] mb-3">Leadership</p>
+            <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight mb-6">
+              Message from<br />Our Business Head
+            </h2>
+            <div className="w-14 h-1 bg-[#033e74] mb-6 rounded-full" />
+
+            {/* Quote mark */}
+            <div className="text-[#033e74] text-6xl font-black leading-none mb-2 opacity-20 select-none">"</div>
+
+            <p className="text-gray-600 leading-relaxed text-sm mb-4">
+              Mr. Aseem Mishra, Business Head of Myzo, brings over <strong className="text-gray-900">14 years of extensive experience</strong> in the renewable energy industry. With a strong background in product development, manufacturing, and strategic business growth, he has established himself as a respected leader in the field.
+            </p>
+            <p className="text-gray-600 leading-relaxed text-sm mb-4">
+              Under his leadership, Myzo Battery is committed to delivering innovative, high-performance lithium-ion battery solutions for BESS (Energy Battery Storage Systems) energy storage systems, and industrial applications. His deep industry expertise, customer-centric approach, and focus on operational excellence drive the company's mission to create reliable, efficient, and sustainable energy solutions.
+            </p>
+            <p className="text-gray-600 leading-relaxed text-sm">
+              Through his strategic vision and commitment to innovation, Mr. Mishra continues to position Myzo at the forefront of the clean energy revolution, fostering long-term growth, technological advancement, and exceptional value for customers and stakeholders alike.
+            </p>
+
+            <div className="mt-8 flex items-center gap-4">
+              <div className="w-10 h-0.5 bg-[#033e74]" />
+              <div>
+                <p className="font-black text-gray-900 text-sm uppercase">Mr. Aseem Mishra</p>
+                <p className="text-[#033e74] text-xs font-semibold">Business Head — Myzo </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* VALUES */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-12">
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#033e74] mb-3">What Drives Us</p>
+            <h2 className="text-4xl font-black uppercase text-gray-900">Our Core Values</h2>
+          </div>
+          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {values.map(v => (
+              <div key={v.title} className="border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
+                <div className="text-3xl mb-4">{v.icon}</div>
+                <h3 className="font-black uppercase text-gray-900 text-sm mb-2">{v.title}</h3>
+                <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="py-20 bg-[#033e74] text-white text-center">
+        <div className="max-w-2xl mx-auto px-6">
+          <h2 className="text-4xl font-black uppercase mb-4">Ready to Partner With Us?</h2>
+          <p className="text-white/70 text-sm mb-8 leading-relaxed">
+            Join hundreds of businesses that trust Mesho Solution for their energy needs.
+          </p>
+          <a
+            href="/contact"
+            className="bg-white text-[#033e74] hover:bg-gray-100 font-black uppercase tracking-wider px-10 py-4 rounded-lg text-sm inline-block transition-colors"
+          >
+            Get In Touch
+          </a>
+        </div>
+      </section>
+
+    </div>
+  )
 }
