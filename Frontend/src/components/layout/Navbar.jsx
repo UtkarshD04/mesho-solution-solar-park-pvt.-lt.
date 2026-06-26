@@ -11,7 +11,6 @@ const navLinks = [
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [searchOpen, setSearchOpen] = useState(false);
   const [productsDropdown, setProductsDropdown] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [activeSeries, setActiveSeries] = useState(seriesGroups.find((series) => series !== "All") ?? "");
@@ -28,29 +27,14 @@ export default function Navbar() {
   return (
     <nav className="fixed top-8 w-full z-40 bg-white/95 backdrop-blur-sm shadow-sm border-b border-gray-100" style={{ fontFamily: "'Roboto', sans-serif" }}>
 
-      {/* Search Bar */}
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${searchOpen ? "max-h-16 opacity-100" : "max-h-0 opacity-0"}`}>
-        <div className="flex items-center w-full px-6 lg:px-10 gap-3 py-3">
-          <svg className="w-5 h-5 text-[#033e74] shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-          </svg>
-          <input type="text" autoFocus={searchOpen} placeholder="Search..." className="flex-1 text-sm focus:outline-none" />
-          <button onClick={() => setSearchOpen(false)} className="p-1 text-gray-500 hover:text-[#033e74] transition-colors shrink-0">
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </div>
-      </div>
-
       {/* Normal Navbar */}
-      <div className={`overflow-hidden transition-all duration-500 ease-in-out ${searchOpen ? "max-h-0 opacity-0" : "max-h-20 opacity-100"}`}>
+      <div>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="flex items-center justify-between py-2">
 
             {/* Logo */}
             <Link to="/" className="flex items-center">
-              <img src="/logo.jpg" alt="Logo" className="h-10 w-auto object-contain" onError={(e) => { e.target.style.display = "none"; }} />
+              <img src="/logo.png" alt="Logo" className="h-10 w-auto object-contain" onError={(e) => { e.target.style.display = "none"; }} />
             </Link>
 
             {/* Desktop Nav */}
@@ -149,20 +133,17 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Search Icon */}
-            <button className="hidden lg:block p-2 text-gray-500 hover:text-[#033e74] transition-colors duration-200" onClick={() => setSearchOpen(true)}>
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
+            {/* Customer Support Link */}
+            <Link
+              to="/customer-support"
+              className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#033e74] transition-colors duration-200"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
               </svg>
-            </button>
-
-            {/* Mobile icons */}
+              Support
+            </Link>
             <div className="flex lg:hidden items-center gap-1">
-              <button className="p-2 text-gray-500 hover:text-[#033e74] transition-colors" onClick={() => setSearchOpen(true)}>
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 1 1 5 11a6 6 0 0 1 12 0z" />
-                </svg>
-              </button>
               <button className="p-2 text-gray-600 hover:bg-gray-100 rounded" onClick={() => setMenuOpen(!menuOpen)}>
                 {menuOpen ? <span className="text-2xl">✕</span> : <span className="text-2xl">☰</span>}
               </button>
@@ -173,7 +154,7 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && !searchOpen && (
+      {menuOpen && (
         <div className="lg:hidden bg-white border-t border-gray-100 px-6 py-3 space-y-1 shadow-lg">
           {/* Products accordion */}
           <div>
@@ -235,6 +216,17 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
+          <NavLink
+            to="/customer-support"
+            onClick={() => setMenuOpen(false)}
+            className={({ isActive }) =>
+              `block py-2 text-sm font-medium transition-colors duration-200 ${
+                isActive ? "text-[#033e74]" : "text-gray-600 hover:text-[#033e74]"
+              }`
+            }
+          >
+            Customer Support
+          </NavLink>
         </div>
       )}
     </nav>

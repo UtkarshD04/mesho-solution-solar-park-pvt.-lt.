@@ -13,8 +13,8 @@ import Contact from "./pages/Contact";
 import Articles from "./pages/Articles";
 import ProductEnquiry from "./components/contact/ProductEnquiry";
 import BecomePartner from "./components/contact/BecomePartner";
+import CustomerSupport from "./pages/CustomerSupport";
 import AfterSalesService from "./components/contact/AfterSalesService";
-
 function App() {
   return (
     <BrowserRouter>
@@ -29,8 +29,9 @@ function App() {
         <Route path="/article" element={<Article />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/contact/product-enquiry" element={<ProductEnquiry />} />
+        <Route path="/contact/after-sales-service" element={<AfterSalesService />} />
         <Route path="/contact/become-partner" element={<BecomePartner />} />
-        <Route path="/contact/after-sales" element={<AfterSalesService />} />
+        <Route path="/customer-support" element={<CustomerSupport />} />
          {/* <Route path="/articles" element={<Articles />} /> */}
       </Routes>
       <Footer />
