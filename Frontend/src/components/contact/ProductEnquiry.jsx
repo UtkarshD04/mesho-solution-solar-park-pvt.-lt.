@@ -104,6 +104,7 @@ export default function ProductEnquiry() {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
+    console.log("Form Data:", form);
     setSubmitted(true);
   };
 

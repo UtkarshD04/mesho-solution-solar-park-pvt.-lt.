@@ -5,6 +5,28 @@
   --color-brand: #20b2aa;
   --color-brand-dark: #178f88;
   --color-brand-light: #e6f7f7;
+
+  /* Custom animations */
+  --animate-spin-slow: spin 25s linear infinite;
+  --animate-float-medium: float 3s ease-in-out infinite;
+  --animate-pulse-slow: pulse 4s ease-in-out infinite;
+  --animate-pulse-medium: pulse 6s ease-in-out infinite reverse;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.25; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.05); }
 }
 
 body {

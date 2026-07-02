@@ -1,10 +1,10 @@
 import AfterSalesService from '../components/contact/AfterSalesService'
+
 const THEME = '#033e74'
 
 export default function CustomerSupport() {
   return (
     <div className="min-h-screen bg-white">
-
       {/* HERO */}
       <section
         className="relative min-h-[50vh] flex items-center justify-center text-white text-center"
@@ -23,26 +23,19 @@ export default function CustomerSupport() {
         </div>
       </section>
 
-      {/* SUPPORT CHANNELS */}
-    
-
       {/* SERVICE REQUEST FORM */}
       <section className="py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6">
           <div className="text-center mb-10">
             <p className="text-xs font-bold uppercase tracking-[0.3em] mb-3" style={{ color: THEME }}>Raise a Ticket</p>
-            
-            in the details below and our service team will get back to you within 24 hours.
-        
+            <p className="text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed">
+              Fill in the details below and our service team will get back to you within 24 hours.
+            </p>
           </div>
 
           <AfterSalesService />
         </div>
       </section>
-
-          
-     
-
     </div>
   )
 }

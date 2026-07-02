@@ -30,11 +30,11 @@ export default function Navbar() {
       {/* Normal Navbar */}
       <div>
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="flex items-center justify-between py-2">
+          <div className="flex items-center justify-between py-2 overflow-visible">
 
             {/* Logo */}
             <Link to="/" className="flex items-center">
-              <img src="/logo.png" alt="Logo" className="h-10 w-auto object-contain" onError={(e) => { e.target.style.display = "none"; }} />
+              <img src="/logo.png" alt="Logo" className="h-20 w-auto object-contain -my-3" onError={(e) => { e.target.style.display = "none"; }} />
             </Link>
 
             {/* Desktop Nav */}
@@ -155,7 +155,7 @@ export default function Navbar() {
 
       {/* Mobile Menu */}
       {menuOpen && (
-        <div className="lg:hidden bg-white border-t border-gray-100 px-6 py-3 space-y-1 shadow-lg">
+        <div className="lg:hidden bg-white border-t border-gray-100 px-10 py-3 space-y-1 shadow-lg">
           {/* Products accordion */}
           <div>
             <button

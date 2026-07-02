@@ -76,6 +76,7 @@ export default function AfterSalesService() {
     serial: "",
     date: "",
     issue: "",
+    invoice: null,
   });
 
   useEffect(() => {
@@ -107,6 +108,7 @@ export default function AfterSalesService() {
       setErrors(errs);
       return;
     }
+    console.log("Form Data:", form);
     setSubmitted(true);
   };
 
@@ -217,6 +219,7 @@ export default function AfterSalesService() {
                 <input
                   type="date"
                   value={form.date}
+                  max={new Date().toISOString().split('T')[0]}
                   onChange={(e) => handle('date', e.target.value)}
                   className="w-full bg-transparent text-sm text-gray-900 py-1.5 focus:outline-none"
                 />
@@ -235,6 +238,25 @@ export default function AfterSalesService() {
                   />
                 </Field>
               </UnderlineInput>
+            </div>
+
+            <div className="sm:col-span-2">
+              <div className="flex flex-col gap-1">
+                <label className="text-sm font-medium text-gray-700">Invoice Image</label>
+                <label className="mt-1 flex cursor-pointer items-center justify-between rounded-2xl border border-dashed border-slate-300 bg-slate-50 px-4 py-4 transition hover:border-[#033e74]">
+                  <span className="text-sm text-slate-600">
+                    {form.invoice ? form.invoice.name : 'Upload invoice image from gallery'}
+                  </span>
+                  <span className="text-sm font-semibold text-[#033e74]">Choose File</span>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    className="hidden"
+                    onChange={(e) => handle('invoice', e.target.files?.[0] || null)}
+                  />
+                </label>
+                <p className="text-xs text-slate-500">PNG, JPG, JPEG, WEBP</p>
+              </div>
             </div>
           </div>
 

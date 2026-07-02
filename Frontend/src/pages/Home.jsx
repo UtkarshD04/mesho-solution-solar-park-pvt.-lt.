@@ -184,19 +184,6 @@ const whyChooseData = [
   },
 ];
 
-/* ── NEW: Li-Pro Product Specs ── */
-const liProSpecs = [
-  { label: "Capacity", value: "1000 VA" },
-  { label: "Inbuilt Battery", value: "1280 Wh Li-Ion" },
-  { label: "Lifespan", value: "Up to 12 Years" },
-  { label: "Charging Current", value: "18A Fast Charge" },
-  { label: "Full Charge Time", value: "~4 Hours" },
-  { label: "Maintenance", value: "Zero" },
-  { label: "Display", value: "LCD + LED Smart" },
-  { label: "Emissions", value: "No Acid / No Fumes" },
-  { label: "Technology", value: "Eco-Friendly Li-Ion" },
-  { label: "Design", value: "Compact & Modern" },
-];
 
 /* ─────────────────────────────────────────
    MAIN COMPONENT
@@ -212,7 +199,6 @@ export default function Home() {
   /* NEW refs */
   const [MyzoAboutRef, MyzoAboutInView] = useInView();
   const [whyRef, whyInView] = useInView();
-  const [liProRef, liProInView] = useInView();
   const [visionRef, visionInView] = useInView();
   const [missionRef, missionInView] = useInView();
   const [finalCtaRef, finalCtaInView] = useInView();
@@ -252,85 +238,59 @@ export default function Home() {
       {/* ══════════════════════════════════════
           NEW ── About Myzo Battery (Company)
       ══════════════════════════════════════ */}
-      <section className="py-24 bg-gradient-to-br from-slate-50 via-white to-teal-50/30 border-b border-slate-100 relative overflow-hidden">
-        <div className="absolute -right-32 top-10 w-96 h-96 bg-[#20b2aa]/6 rounded-full blur-3xl pointer-events-none" />
-        <div className="absolute -left-20 bottom-0 w-72 h-72 bg-[#033e74]/4 rounded-full blur-3xl pointer-events-none" />
+      <section className="py-20 sm:py-24 bg-gradient-to-br from-white via-blue-50 to-teal-50 relative overflow-hidden">
+        <div className="absolute -top-10 -left-10 w-64 h-64 bg-blue-200/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob" />
+        <div className="absolute -bottom-10 -right-10 w-64 h-64 bg-teal-200/20 rounded-full mix-blend-multiply filter blur-3xl opacity-70 animate-blob animation-delay-2000" />
 
         <div
           ref={MyzoAboutRef}
           className={`max-w-7xl mx-auto px-6 lg:px-10 grid lg:grid-cols-2 gap-16 items-center transition-all duration-1000 ${MyzoAboutInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
         >
           {/* Left – Content */}
-          <div className="space-y-7">
-            <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 bg-[#20b2aa]/10 rounded-full inline-flex items-center gap-2">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#20b2aa] animate-pulse" />
+          <div className="space-y-6 lg:space-y-8">
+            <span className="text-blue-700 text-sm font-bold uppercase tracking-widest px-4 py-2 bg-blue-100 rounded-full inline-flex items-center gap-2 shadow-sm">
+              <span className="w-2 h-2 rounded-full bg-blue-600 animate-pulse" />
               About Myzo Battery
             </span>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Lucknow's Pioneer in{" "}
-              <span className="text-[#033e74] relative inline-block">
+            <h2 className="text-4xl lg:text-5xl font-extrabold text-slate-900 tracking-tight leading-tight">
+              Lucknow\'s Pioneer in{" "}
+              <span className="text-teal-600 relative inline-block">
                 Lithium-Ion
-                <span className="absolute bottom-0.5 left-0 w-full h-0.5 bg-[#20b2aa] rounded-full" />
+                <span className="absolute bottom-1 left-0 w-full h-1 bg-teal-300 rounded-full opacity-70" />
               </span>{" "}
               Power Backup
             </h2>
-            <p className="text-slate-600 leading-relaxed text-base">
+            <p className="text-slate-600 text-lg leading-relaxed">
               <strong className="text-slate-800">Myzo Battery</strong> is a Lucknow-based company transforming the power backup industry with advanced lithium-ion battery technology. Our batteries are designed to replace traditional inverter systems by offering faster charging, longer lifespan, zero maintenance, and superior energy efficiency.
             </p>
-            <p className="text-slate-600 leading-relaxed text-base">
+            <p className="text-slate-600 text-lg leading-relaxed">
               With smart safety features, eco-friendly technology, and compact modern designs, Myzo Battery is committed to building a cleaner and more sustainable energy future — for homes, businesses, and solar energy applications across India.
             </p>
-
-            {/* Highlight Badges */}
-            {/* <div className="grid grid-cols-2 gap-4 pt-2">
-              {[
-                { icon: "🏙️", title: "Lucknow HQ", sub: "Made in India" },
-                { icon: "☀️", title: "Solar Ready", sub: "Integrated Support" },
-                { icon: "🔒", title: "Smart Safety", sub: "Built-In Protection" },
-                { icon: "🌱", title: "Zero Emissions", sub: "No Acid Fumes" },
-              ].map((b, i) => (
-                <div
-                  key={b.title}
-                  className="flex items-center gap-3 p-3.5 bg-white rounded-xl border border-slate-100 hover:border-[#20b2aa]/40 hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 cursor-default"
-                  style={{ transitionDelay: `${i * 80}ms` }}
-                >
-                  <span className="text-2xl">{b.icon}</span>
-                  <div>
-                    <h4 className="text-sm font-bold text-slate-800">{b.title}</h4>
-                    <p className="text-[11px] text-slate-500">{b.sub}</p>
-                  </div>
-                </div>
-              ))}
-            </div> */}
           </div>
 
           {/* Right – Visual Card */}
-          <div className="relative">
-            <div className="absolute -inset-4 rounded-3xl border-2 border-dashed border-[#20b2aa]/20 pointer-events-none" style={{ animation: "spin 25s linear infinite" }} />
-            <div className="relative bg-[#011d37] rounded-3xl overflow-hidden shadow-2xl border border-slate-800 group">
+          <div className="relative flex justify-center items-center">
+            <div className="relative w-full max-w-md bg-gradient-to-br from-slate-800 to-slate-950 rounded-3xl overflow-hidden shadow-2xl border border-slate-700 group transform hover:scale-105 transition-transform duration-700 ease-out">
               <img
                 src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=80"
                 alt="Myzo Battery – Lithium Power Backup"
-                className="w-full h-80 object-cover opacity-80 group-hover:scale-105 group-hover:opacity-95 transition-all duration-700"
+                className="w-full h-72 sm:h-80 object-cover opacity-70 group-hover:opacity-90 transition-opacity duration-700"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#011d37] via-[#011d37]/50 to-transparent" />
-              <div className="absolute bottom-0 inset-x-0 p-6 space-y-3">
+              <div className="absolute inset-0 bg-gradient-to-t from-slate-950 via-slate-900/60 to-transparent" />
+              <div className="absolute bottom-0 inset-x-0 p-6 space-y-4">
                 <div className="flex gap-3 flex-wrap">
                   {["Lithium-Ion Tech", "Zero Maintenance", "12-Year Life"].map((tag) => (
-                    <span key={tag} className="text-[10px] font-bold bg-[#20b2aa]/20 text-[#20b2aa] border border-[#20b2aa]/30 px-2.5 py-1 rounded-full uppercase tracking-wider">
+                      <span key={tag} className="text-xs font-bold bg-teal-400/20 text-teal-200 border border-teal-400/30 px-3 py-1.5 rounded-full uppercase tracking-wider shadow-inner">
                       {tag}
                     </span>
                   ))}
                 </div>
-                <p className="text-white/80 text-xs leading-relaxed">
+                <p className="text-white/80 text-sm leading-relaxed">
                   Replacing outdated inverter systems with smarter, cleaner, and more sustainable energy — one home at a time.
                 </p>
               </div>
             </div>
-            {/* Floating badge */}
-            <div className="absolute -bottom-4 -left-4 bg-[#033e74] text-white rounded-2xl px-4 py-3 shadow-xl shadow-blue-900/30 text-sm font-bold" style={{ animation: "float 3s ease-in-out infinite" }}>
-              🇮🇳 Made in India
-            </div>
+
           </div>
         </div>
       </section>
@@ -338,185 +298,58 @@ export default function Home() {
       {/* ══════════════════════════════════════
           NEW ── Why Choose Myzo Battery
       ══════════════════════════════════════ */}
-      <section className="py-24 bg-white border-b border-slate-100 relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_#20b2aa_0%,_transparent_60%)] opacity-[0.03] pointer-events-none" />
+      <section className="py-16 bg-white border-b border-slate-100 relative overflow-hidden">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,_#20b2aa_0%,_transparent_40%)] opacity-[0.05] pointer-events-none" />
+        <div className="absolute right-0 top-0 h-64 w-64 rounded-full bg-[#033e74]/8 blur-3xl" />
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-14">
-          {/* Heading */}
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-8">
           <div
             ref={whyRef}
-            className={`max-w-2xl mx-auto text-center space-y-4 transition-all duration-1000 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`grid lg:grid-cols-[1.1fr_0.9fr] items-end gap-8 transition-all duration-1000 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
-            <span className="text-[#033e74] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2">
-              <span className="w-8 h-px bg-[#033e74]" /> The Myzo Advantage <span className="w-8 h-px bg-[#033e74]" />
-            </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Why India Chooses Myzo Battery</h2>
-            <p className="text-slate-500 text-sm leading-relaxed">
-              Every feature is engineered to outperform traditional inverter systems — making your power backup smarter, safer, and more sustainable.
-            </p>
+            <div className="space-y-4">
+              <span className="text-[#033e74] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2">
+                <span className="w-8 h-px bg-[#033e74]" /> The Myzo Advantage <span className="w-8 h-px bg-[#033e74]" />
+              </span>
+              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Why India Chooses Myzo Battery</h2>
+              <p className="text-slate-500 text-sm leading-relaxed max-w-xl">
+                Reliable backup, long life, and simple ownership — designed to make everyday power more dependable.
+              </p>
+            </div>
+
+            <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5">
+              <div className="flex items-center gap-3">
+                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#20b2aa]/10 text-[#20b2aa] text-lg">
+                  ⚡
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-slate-800">Cleaner energy, smarter backup</p>
+                  <p className="text-xs text-slate-500">Built for modern homes and businesses</p>
+                </div>
+              </div>
+            </div>
           </div>
 
-          {/* Cards */}
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid md:grid-cols-2 xl:grid-cols-3 gap-5">
             {whyChooseData.map((item, i) => (
               <div
                 key={item.title}
-                className={`p-6 ${item.color} rounded-2xl border transition-all duration-500 hover:shadow-xl hover:-translate-y-2 group cursor-default space-y-4 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+                className={`rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-500 hover:shadow-md cursor-default ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
                 style={{ transitionDelay: `${i * 100 + 200}ms`, transitionDuration: "700ms" }}
               >
-                <div className={`w-12 h-12 rounded-xl ${item.iconBg} flex items-center justify-center text-2xl group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                <div className={`mb-4 flex h-12 w-12 items-center justify-center rounded-xl ${item.iconBg} text-2xl`}>
                   {item.icon}
                 </div>
-                <h3 className="text-base font-bold text-slate-800 group-hover:text-[#033e74] transition-colors duration-300">{item.title}</h3>
-                <p className="text-slate-500 text-xs leading-relaxed">{item.desc}</p>
-                <div className="h-0.5 bg-gradient-to-r from-[#033e74] to-[#20b2aa] rounded-full w-0 group-hover:w-full transition-all duration-500" />
+                <h3 className="text-base font-bold text-slate-800">{item.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{item.desc}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          NEW ── Myzo Li-Pro Product Highlight
-      ══════════════════════════════════════ */}
-      <section className="py-24 bg-slate-50 relative overflow-hidden">
-        <div className="absolute -right-20 top-20 w-80 h-80 bg-[#033e74]/5 rounded-full blur-3xl pointer-events-none" />
-
-        <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          {/* Section Label */}
-          <div
-            ref={liProRef}
-            className={`mb-14 flex flex-col md:flex-row justify-between items-start md:items-end gap-4 transition-all duration-1000 ${liProInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-          >
-            <div className="space-y-3">
-              <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2">
-                <span className="w-8 h-px bg-[#20b2aa]" /> Flagship Product
-              </span>
-              <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Introducing Myzo Li-Pro</h2>
-              <p className="text-slate-500 text-sm max-w-xl leading-relaxed">
-                An advanced lithium-ion inverter battery solution engineered for uninterrupted power backup and maximum efficiency — built for modern Indian homes and businesses.
-              </p>
-            </div>
-            <Link
-              to="/products"
-              className="group flex items-center gap-2 text-white bg-[#033e74] hover:bg-[#022d55] font-bold text-sm tracking-wider uppercase px-5 py-2.5 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg shrink-0"
-            >
-              <span>View All Products</span>
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </Link>
-          </div>
-
-          {/* Product Layout */}
-          <div
-            className={`grid lg:grid-cols-12 gap-10 items-stretch transition-all duration-1000 ${liProInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-            style={{ transitionDelay: "200ms" }}
-          >
-            {/* Left: Image Card */}
-            <div className="lg:col-span-5 relative">
-              <div className="bg-[#011d37] rounded-3xl overflow-hidden shadow-2xl border border-slate-800 group h-full min-h-[400px] flex flex-col justify-end relative">
-                <img
-                  src="https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=800&q=80"
-                  alt="Myzo Li-Pro Lithium Inverter Battery"
-                  className="absolute inset-0 w-full h-full object-cover opacity-75 group-hover:scale-105 transition-transform duration-700"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-[#011d37] via-[#011d37]/60 to-transparent" />
-                <div className="relative z-10 p-7 space-y-3">
-                  <span className="bg-[#20b2aa] text-white text-[10px] font-extrabold uppercase tracking-widest px-3 py-1.5 rounded-lg inline-block">
-                    Flagship Model
-                  </span>
-                  <h3 className="text-2xl font-black text-white tracking-tight">Myzo Li-Pro</h3>
-                  <p className="text-white/60 text-xs leading-relaxed">
-                    Advanced Lithium-Ion Inverter Battery — 1000VA | 1280Wh | 12-Year Lifespan
-                  </p>
-                  <div className="flex gap-3 flex-wrap pt-1">
-                    {["Zero Maintenance", "No Fumes", "Fast Charge"].map((t) => (
-                      <span key={t} className="text-[10px] font-bold bg-white/10 text-white border border-white/20 px-2.5 py-1 rounded-full">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Right: Specs + Features */}
-            <div className="lg:col-span-7 grid sm:grid-cols-2 gap-5">
-              {/* Specs Table Card */}
-              <div className="bg-white rounded-2xl border border-slate-100 shadow-sm p-6 space-y-4 hover:shadow-lg transition-shadow duration-300">
-                <h4 className="text-sm font-extrabold text-slate-800 uppercase tracking-wider flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-[#20b2aa] inline-block" />
-                  Technical Specs
-                </h4>
-                <ul className="space-y-2.5">
-                  {liProSpecs.map(({ label, value }) => (
-                    <li key={label} className="flex justify-between items-center text-xs border-b border-slate-50 pb-2 last:border-0 last:pb-0">
-                      <span className="text-slate-400 font-medium">{label}</span>
-                      <span className="font-bold text-slate-800 text-right">{value}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Feature Highlights Stack */}
-              <div className="space-y-4">
-                {[
-                  {
-                    icon: "⚡",
-                    title: "4X Faster Charging",
-                    desc: "Full charge in ~4 hours with 18A fast charging — back to full power before you know it.",
-                    border: "border-amber-100 hover:border-amber-300 bg-amber-50",
-                  },
-                  {
-                    icon: "🔋",
-                    title: "1280Wh Powerhouse",
-                    desc: "Substantial energy reserve to keep your home or office running reliably through extended outages.",
-                    border: "border-teal-100 hover:border-teal-300 bg-teal-50",
-                  },
-                  {
-                    icon: "🛡️",
-                    title: "Smart BMS Protection",
-                    desc: "Intelligent battery management with overcharge, over-discharge, and short-circuit protection built in.",
-                    border: "border-blue-100 hover:border-blue-300 bg-blue-50",
-                  },
-                  {
-                    icon: "☀️",
-                    title: "Solar Compatible",
-                    desc: "Seamlessly integrates with rooftop solar panels for an off-grid or hybrid clean energy setup.",
-                    border: "border-emerald-100 hover:border-emerald-300 bg-emerald-50",
-                  },
-                ].map((f, i) => (
-                  <div
-                    key={f.title}
-                    className={`flex gap-4 p-4 ${f.border} rounded-xl border transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 group cursor-default`}
-                    style={{ transitionDelay: `${i * 80}ms` }}
-                  >
-                    <span className="text-xl shrink-0 group-hover:scale-110 transition-transform duration-300">{f.icon}</span>
-                    <div>
-                      <h5 className="text-sm font-bold text-slate-800 group-hover:text-[#033e74] transition-colors duration-300">{f.title}</h5>
-                      <p className="text-[11px] text-slate-500 leading-relaxed mt-0.5">{f.desc}</p>
-                    </div>
-                  </div>
-                ))}
-
-                <Link
-                  to="/contact"
-                  className="group flex items-center justify-center gap-2 w-full bg-[#033e74] hover:bg-[#022d55] text-white text-sm font-bold py-3 px-6 rounded-xl transition-all duration-300 shadow-md hover:shadow-lg hover:-translate-y-0.5"
-                >
-                  Get a Quote
-                  <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                  </svg>
-                </Link>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ── About Manufacturing ─────────── */}
-      <section className="py-24 bg-white border-b border-slate-100 relative overflow-hidden">
+      <section className="py-16 bg-white border-b border-slate-100 relative overflow-hidden">
         <div className="absolute -right-32 top-10 w-96 h-96 bg-[#033e74]/5 rounded-full blur-3xl pointer-events-none" />
         <div className="absolute -left-20 bottom-10 w-64 h-64 bg-[#20b2aa]/5 rounded-full blur-3xl pointer-events-none" />
 
@@ -526,29 +359,27 @@ export default function Home() {
         >
           {/* Left - Visual */}
           <div className="lg:col-span-5 relative">
-            <div className="absolute -inset-4 rounded-3xl border-2 border-dashed border-[#033e74]/15 pointer-events-none" style={{ animation: "spin 20s linear infinite" }} />
-            <div className="relative bg-slate-900 rounded-3xl overflow-hidden shadow-2xl border border-slate-800 group">
+            <div className="relative bg-slate-900 rounded-3xl overflow-hidden shadow-xl border border-slate-800">
               <img
                 src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=800&q=80"
                 alt="Myzo Advanced Lithium-ion Testing Line"
-                className="w-full h-80 object-cover opacity-90 group-hover:scale-105 group-hover:opacity-100 transition-all duration-700"
+                className="w-full h-80 object-cover opacity-90"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-[#011d37] via-[#011d37]/60 to-transparent" />
-              <div className="absolute inset-0 bg-[#20b2aa]/0 group-hover:bg-[#20b2aa]/5 transition-all duration-700" />
               <div className="absolute bottom-0 inset-x-0 p-6">
                 <div className="flex gap-6 justify-between text-white">
-                  <div className="group/stat">
-                    <p className="text-2xl font-black text-[#20b2aa] group-hover/stat:scale-110 transition-transform inline-block">350+ MWh</p>
+                  <div>
+                    <p className="text-2xl font-black text-[#20b2aa]">350+ MWh</p>
                     <p className="text-[10px] uppercase tracking-wider text-slate-300">Annual Plant Capacity</p>
                   </div>
-                  <div className="border-l border-white/20 pl-6 group/stat">
-                    <p className="text-2xl font-black text-white group-hover/stat:scale-110 transition-transform inline-block">6000+</p>
+                  <div className="border-l border-white/20 pl-6">
+                    <p className="text-2xl font-black text-white">6000+</p>
                     <p className="text-[10px] uppercase tracking-wider text-slate-300">LFP Cycle Lifespan</p>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="absolute -bottom-5 -right-5 bg-[#20b2aa] text-white rounded-2xl px-5 py-3 shadow-xl shadow-teal-500/30 text-sm font-bold" style={{ animation: "float 3s ease-in-out infinite" }}>
+            <div className="absolute -bottom-5 -right-5 bg-[#20b2aa] text-white rounded-2xl px-5 py-3 shadow-lg text-sm font-bold">
               ⚡ ISO Certified Plant
             </div>
           </div>
@@ -597,35 +428,34 @@ export default function Home() {
       </section>
 
       {/* ── Engineering Divisions ────────── */}
-      <section className="py-24 bg-slate-50 relative overflow-hidden">
+      <section className="py-16 bg-slate-50 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,_#033e74_0%,_transparent_60%)] opacity-[0.03] pointer-events-none" />
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-14">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-8">
           <div
             ref={divRef}
-            className={`max-w-2xl mx-auto text-center space-y-4 transition-all duration-1000 ${divInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`max-w-3xl mx-auto text-center space-y-3 transition-all duration-1000 ${divInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
             <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2">
               <span className="w-8 h-px bg-[#20b2aa]" /> Our Specializations <span className="w-8 h-px bg-[#20b2aa]" />
             </span>
-            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Lithium Battery Engineering Divisions</h2>
+            <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">Focused Expertise Across Every Battery Solution</h2>
             <p className="text-slate-500 text-sm leading-relaxed">
-              We design, assemble, compile, and distribute specialized battery enclosures from the cell level to complete megawatt containers.
+              From compact backup packs to large-scale energy storage systems, we bring deep engineering focus to every stage of battery development.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-5">
             {engineeringDivisions.map((d, i) => (
               <div
                 key={d.title}
-                className={`bg-white p-8 rounded-2xl border border-slate-100 shadow-sm hover:shadow-xl transition-all duration-500 group hover:-translate-y-2 text-left space-y-4 cursor-default ${divInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-                style={{ transitionDelay: `${i * 120 + 200}ms`, transitionDuration: "700ms" }}
+                className={`rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition-all duration-500 hover:shadow-sm cursor-default ${divInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+                style={{ transitionDelay: `${i * 100 + 200}ms`, transitionDuration: "700ms" }}
               >
-                <div className={`w-12 h-12 rounded-xl ${d.icon_bg} flex items-center justify-center group-hover:scale-110 group-hover:rotate-3 transition-all duration-300`}>
+                <div className={`mb-4 flex h-11 w-11 items-center justify-center rounded-xl ${d.icon_bg}`}>
                   {d.icon}
                 </div>
-                <h3 className="text-lg font-bold text-slate-800 group-hover:text-[#033e74] transition-colors duration-300">{d.title}</h3>
-                <p className="text-slate-500 text-xs leading-relaxed">{d.desc}</p>
-                <div className="h-0.5 bg-gradient-to-r from-[#033e74] to-[#20b2aa] rounded-full w-0 group-hover:w-full transition-all duration-500" />
+                <h3 className="text-base font-bold text-slate-800">{d.title}</h3>
+                <p className="mt-2 text-sm leading-6 text-slate-500">{d.desc}</p>
               </div>
             ))}
           </div>
@@ -633,9 +463,9 @@ export default function Home() {
       </section>
 
       {/* ── Featured Products ────────────── */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-16 bg-white relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none" style={{ backgroundImage: "radial-gradient(circle, #e2e8f0 1px, transparent 1px)", backgroundSize: "32px 32px" }} />
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-12 relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 space-y-8 relative">
           <div
             ref={prodRef}
             className={`flex flex-col md:flex-row justify-between items-start md:items-end gap-4 transition-all duration-1000 ${prodInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
@@ -664,14 +494,14 @@ export default function Home() {
             {batteryProducts.map((p, i) => (
               <div
                 key={p.id}
-                className={`bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-2xl transition-all duration-500 flex flex-col group hover:-translate-y-2 ${prodInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
+                className={`bg-white rounded-2xl overflow-hidden border border-slate-100 shadow-sm hover:shadow-lg transition-all duration-500 flex flex-col group ${prodInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}
                 style={{ transitionDelay: `${i * 130 + 150}ms`, transitionDuration: "700ms" }}
               >
                 <div className="h-48 overflow-hidden relative bg-slate-900">
                   <img
                     src={p.image}
                     alt={p.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 opacity-90"
+                    className="w-full h-full object-cover transition-transform duration-700 opacity-90"
                   />
                   <div className={`absolute inset-0 bg-gradient-to-br ${p.color} opacity-0 group-hover:opacity-30 transition-opacity duration-500`} />
                   <span className="absolute top-3 left-3 bg-[#033e74] text-white text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-md shadow-lg">
@@ -710,14 +540,14 @@ export default function Home() {
       </section>
 
       {/* ── Technical Advantages ─────────── */}
-      <section className="py-24 bg-slate-950 text-white relative overflow-hidden">
+      <section className="py-16 bg-slate-950 text-white relative overflow-hidden">
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#033e74]/25 rounded-full blur-[100px]" style={{ animation: "pulse 4s ease-in-out infinite" }} />
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#20b2aa]/10 rounded-full blur-[80px]" style={{ animation: "pulse 6s ease-in-out infinite reverse" }} />
+          <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#033e74]/25 rounded-full blur-[100px]" />
+          <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#20b2aa]/10 rounded-full blur-[80px]" />
           <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#fff 1px, transparent 1px), linear-gradient(90deg, #fff 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
         </div>
 
-        <div className="max-w-7xl mx-auto px-6 lg:px-10 relative space-y-14">
+        <div className="max-w-7xl mx-auto px-6 lg:px-10 relative space-y-8">
           <div
             ref={techRef}
             className={`max-w-2xl mx-auto text-center space-y-4 transition-all duration-1000 ${techInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
@@ -757,10 +587,10 @@ export default function Home() {
             ].map((t, i) => (
               <div
                 key={t.title}
-                className={`p-8 bg-white/[0.04] border border-white/10 rounded-3xl space-y-4 hover:bg-white/[0.08] transition-all duration-500 group cursor-default ${t.glow} ${techInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+                className={`p-8 bg-white/[0.04] border border-white/10 rounded-3xl space-y-4 hover:bg-white/[0.08] transition-all duration-500 group cursor-default ${techInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
                 style={{ transitionDelay: `${i * 150 + 200}ms`, transitionDuration: "700ms" }}
               >
-                <div className={`w-11 h-11 rounded-xl border ${t.color} flex items-center justify-center group-hover:scale-110 group-hover:rotate-6 transition-all duration-300`}>
+                <div className={`w-11 h-11 rounded-xl border ${t.color} flex items-center justify-center transition-all duration-300`}>
                   {t.icon}
                 </div>
                 <h3 className="text-lg font-bold text-white">{t.title}</h3>
@@ -796,62 +626,62 @@ export default function Home() {
       </section>
 
       {/* ── Vision & Mission ─────────────── */}
-      <section className="py-24 bg-white relative overflow-hidden">
+      <section className="py-16 bg-gradient-to-br from-slate-50 via-white to-[#20b2aa]/5 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_50%_0%,_#033e74_0%,_transparent_60%)] opacity-[0.04] pointer-events-none" />
+        <div className="absolute top-10 right-10 h-32 w-32 rounded-full bg-[#20b2aa]/10 blur-3xl" />
+        <div className="absolute bottom-0 left-10 h-40 w-40 rounded-full bg-[#033e74]/10 blur-3xl" />
 
-        <div className="max-w-5xl mx-auto px-6 lg:px-10">
-
+        <div className="max-w-6xl mx-auto px-6 lg:px-10 relative">
           <div
             ref={visionRef}
-            className={`text-center mb-16 transition-all duration-1000 ${visionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+            className={`text-center mb-10 transition-all duration-1000 ${visionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
           >
             <span className="text-[#033e74] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2">
               <span className="w-8 h-px bg-[#033e74]" /> Our Purpose <span className="w-8 h-px bg-[#033e74]" />
             </span>
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight mt-3">Vision &amp; Mission</h2>
+            <p className="mt-3 text-slate-500 text-sm max-w-2xl mx-auto leading-relaxed">
+              Creating a cleaner and more reliable energy future for homes and businesses.
+            </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-px bg-slate-100 rounded-3xl overflow-hidden shadow-sm">
-
+          <div className="relative flex flex-col lg:flex-row items-center justify-center gap-6 lg:gap-8">
             <div
               ref={missionRef}
-              className={`bg-white p-10 lg:p-14 transition-all duration-700 ${missionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`w-full lg:w-[calc(50%-3rem)] rounded-3xl border border-slate-200 bg-white p-8 lg:p-10 shadow-sm transition-all duration-700 hover:-translate-y-1 hover:shadow-xl ${missionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ transitionDelay: "100ms" }}
             >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#20b2aa] mb-4">Our Vision</p>
-              <h3 className="text-2xl font-extrabold text-slate-900 leading-snug mb-6">
-                Leading India towards a smarter,{" "}
-                <span className="text-[#033e74]">cleaner energy future.</span>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#20b2aa] mb-3">Our Vision</p>
+              <h3 className="text-2xl font-extrabold text-slate-900 leading-snug mb-4">
+                Leading India toward a smarter, <span className="text-[#033e74]">cleaner energy future.</span>
               </h3>
-              <p className="text-slate-500 text-sm leading-loose">
-                To become a leading force in lithium battery innovation — replacing outdated inverter systems with technology that is faster, greener, and built to last. We envision a future where every home, office, and business across India has access to reliable, maintenance-free power backed by advanced lithium technology.
+              <p className="text-slate-600 text-sm leading-7">
+                Building smarter battery solutions that replace outdated systems with cleaner, longer-lasting technology.
               </p>
-              <div className="mt-8 pt-8 border-t border-slate-100">
-                <p className="text-slate-400 text-sm italic leading-relaxed">
-                  &ldquo;Contributing to environmental sustainability, energy efficiency, and technological advancement for generations to come.&rdquo;
-                </p>
+            </div>
+
+            <div className="relative z-10 flex-shrink-0">
+              <div className="h-40 w-40 lg:h-48 lg:w-48 rounded-full border-[8px] border-[#20b2aa]/20 bg-white p-2 shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?auto=format&fit=crop&w=800&q=80"
+                  alt="Clean energy vision"
+                  className="h-full w-full rounded-full object-cover"
+                />
               </div>
             </div>
 
             <div
-              className={`bg-[#011d37] p-10 lg:p-14 transition-all duration-700 ${missionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`w-full lg:w-[calc(50%-3rem)] rounded-3xl bg-[#011d37] p-8 lg:p-10 text-white shadow-sm transition-all duration-700 hover:-translate-y-1 hover:shadow-xl ${missionInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ transitionDelay: "250ms" }}
             >
-              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#20b2aa] mb-4">Our Mission</p>
-              <h3 className="text-2xl font-extrabold text-white leading-snug mb-6">
-                Delivering power that is reliable,{" "}
-                <span className="text-[#20b2aa]">sustainable, and zero-hassle.</span>
+              <p className="text-xs font-bold uppercase tracking-[0.2em] text-[#20b2aa] mb-3">Our Mission</p>
+              <h3 className="text-2xl font-extrabold leading-snug mb-4">
+                Delivering power that is <span className="text-[#20b2aa]">reliable, sustainable, and zero-hassle.</span>
               </h3>
-              <p className="text-white/60 text-sm leading-loose">
-                Our mission is to provide innovative, high-performance lithium battery solutions that deliver dependable backup power with exceptional durability and zero maintenance. We are committed to making clean energy accessible — for homes, businesses, and solar installations across India.
+              <p className="text-white/70 text-sm leading-7">
+                Delivering reliable, zero-maintenance lithium battery systems built for modern energy needs.
               </p>
-              <div className="mt-8 pt-8 border-t border-white/10">
-                <p className="text-white/40 text-sm italic leading-relaxed">
-                  &ldquo;Building strong customer trust through quality, innovation, and a genuine commitment to a greener India.&rdquo;
-                </p>
-              </div>
             </div>
-
           </div>
         </div>
       </section>
@@ -859,12 +689,12 @@ export default function Home() {
       {/* ── CTA Banner (Original) ─────────── */}
       <section
         ref={ctaRef}
-        className="py-20 relative overflow-hidden"
+        className="py-16 relative overflow-hidden"
       >
         <div className="absolute inset-0 bg-gradient-to-br from-[#011d37] via-[#033e74] to-[#033e74]" />
         <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-[#20b2aa]/15 rounded-full blur-3xl" style={{ animation: "float 6s ease-in-out infinite" }} />
-          <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[#033e74]/40 rounded-full blur-3xl" style={{ animation: "float 8s ease-in-out infinite reverse" }} />
+          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-[#20b2aa]/15 rounded-full blur-3xl" />
+          <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[#033e74]/40 rounded-full blur-3xl" />
         </div>
 
         <div
@@ -900,72 +730,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══════════════════════════════════════
-          NEW ── Final Myzo Battery CTA
-      ══════════════════════════════════════ */}
-      <section
-        ref={finalCtaRef}
-        className="py-20 bg-slate-50 border-t border-slate-100 relative overflow-hidden"
-      >
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,_#20b2aa_0%,_transparent_70%)] opacity-[0.04] pointer-events-none" />
-
-        <div
-          className={`max-w-4xl mx-auto px-6 lg:px-10 text-center space-y-8 transition-all duration-1000 ${finalCtaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        >
-          <div className="space-y-4">
-            <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em] inline-flex items-center gap-2 justify-center">
-              <span className="w-8 h-px bg-[#20b2aa]" /> Switch to Lithium Today <span className="w-8 h-px bg-[#20b2aa]" />
-            </span>
-            <h2 className="text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight">
-              Ready to Upgrade to{" "}
-              <span className="text-[#033e74] relative inline-block">
-                Myzo Li-Pro?
-                <span className="absolute bottom-0.5 left-0 w-full h-0.5 bg-[#20b2aa] rounded-full" />
-              </span>
-            </h2>
-            <p className="text-slate-500 text-base leading-relaxed max-w-2xl mx-auto">
-              Join thousands of homes and businesses across India making the switch to zero-maintenance, eco-friendly lithium power backup. Faster charging, longer life, zero hassle.
-            </p>
-          </div>
-
-          {/* Quick Specs Strip */}
-          <div className="flex flex-wrap justify-center gap-3">
-            {["1000VA Capacity", "1280Wh Battery", "12-Year Life", "18A Fast Charge", "Zero Maintenance", "No Acid Fumes"].map((spec, i) => (
-              <span
-                key={spec}
-                className="text-xs font-bold bg-white text-slate-700 border border-slate-200 px-4 py-2 rounded-full hover:border-[#20b2aa]/50 hover:text-[#033e74] hover:shadow-md transition-all duration-300 hover:-translate-y-0.5 cursor-default"
-                style={{ transitionDelay: `${i * 60}ms` }}
-              >
-                ✓ {spec}
-              </span>
-            ))}
-          </div>
-
-          {/* CTA Buttons */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center pt-2">
-            <Link
-              to="/contact"
-              className="group flex items-center justify-center gap-2 bg-[#033e74] hover:bg-[#022d55] text-white font-bold py-4 px-10 rounded-xl transition-all duration-300 shadow-lg shadow-blue-900/20 hover:shadow-blue-900/40 hover:-translate-y-0.5 text-sm"
-            >
-              Get a Free Quote
-              <svg className="w-4 h-4 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-            <Link
-              to="/products"
-              className="flex items-center justify-center gap-2 bg-white hover:bg-slate-50 text-[#033e74] font-bold py-4 px-10 rounded-xl transition-all duration-300 shadow-sm hover:shadow-md border border-slate-200 hover:border-[#033e74]/30 hover:-translate-y-0.5 text-sm"
-         >
-              Explore Li-Pro
-            </Link>
-          </div>
-
-          {/* Trust Line */}
-          <p className="text-slate-400 text-xs">
-            🔋 Advanced Lithium Technology &nbsp;·&nbsp; 🌿 Eco-Friendly &nbsp;·&nbsp; 🇮🇳 Made in India &nbsp;·&nbsp; 🛡️ Smart BMS Protected
-          </p>
-        </div>
-      </section>
 
       {/* Keyframes */}
       <style>{`
@@ -978,6 +742,14 @@ export default function Home() {
           0%, 100% { opacity: 0.6; transform: scale(1); }
           50% { opacity: 1; transform: scale(1.08); }
         }
+        @keyframes blob {
+          0% { transform: translate(0px, 0px) scale(1); }
+          33% { transform: translate(30px, -50px) scale(1.1); }
+          66% { transform: translate(-20px, 20px) scale(0.9); }
+          100% { transform: translate(0px, 0px) scale(1); }
+        }
+        .animation-delay-2000 { animation-delay: 2s; }
+        .animation-delay-4000 { animation-delay: 4s; }
       `}</style>
     </div>
   );
