@@ -63,194 +63,72 @@ export default function ProductDetail() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#0a0f1a]">
+    <div className="relative min-h-screen overflow-hidden bg-[#050b18] text-white">
+      <div className="absolute inset-0 bg-[#02050f]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,_rgba(14,165,233,0.16),transparent_20%),radial-gradient(circle_at_bottom_right,_rgba(34,211,238,0.12),transparent_24%)] pointer-events-none" />
 
-      {/* ── Hero Section with Full-Screen Product Showcase ── */}
-      <div className="relative min-h-screen flex items-center justify-center overflow-hidden">
-        
-        {/* Animated gradient background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[#0a0f1a] via-[#0f1829] to-[#1a1f35]" />
-        <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-0 left-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "4s" }} />
-          <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl animate-pulse" style={{ animationDuration: "6s", animationDelay: "1s" }} />
-        </div>
+      <div className="relative min-h-screen bg-[rgba(10,14,30,0.76)] backdrop-blur-xl">
+        <div className="absolute inset-0 bg-[linear-gradient(180deg,_rgba(15,23,42,0.85)_0%,_rgba(15,23,42,0.45)_55%,_rgba(15,23,42,0.95)_100%)]" />
 
-        {/* Back navigation */}
-        <div
-          className="absolute top-28 left-6 z-20"
-          style={{ opacity: visible ? 1 : 0, transition: "opacity 0.5s ease 0.2s" }}
-        >
-       
-        </div>
+        <div className="relative z-10 max-w-6xl mx-auto px-6 py-24">
+          <div className="rounded-[2rem] border border-white/10 bg-white/5 p-8 shadow-[0_40px_120px_-60px_rgba(14,165,233,0.65)] backdrop-blur-2xl">
+            <div className="grid gap-12 lg:grid-cols-[1.2fr_0.8fr] items-center">
+              <div className="space-y-6">
+                <span className="inline-block text-xs font-semibold uppercase tracking-[0.35em] text-cyan-300">
+                  {meta.label}
+                </span>
+                <h1 className="text-5xl sm:text-6xl font-black leading-tight text-white">
+                  {product.model}
+                </h1>
+                <p className="text-lg text-cyan-300">{product.tagline}</p>
+                <p className="max-w-xl text-gray-300">{product.description}</p>
 
-        <div className="relative z-10 max-w-7xl mx-auto px-6 py-20">
-          <div className="grid lg:grid-cols-2 gap-16 items-center">
-            
-            {/* Left - Product Image/Icon */}
-            <div
-              className="relative"
-              style={{ opacity: visible ? 1 : 0, transform: visible ? "scale(1)" : "scale(0.9)", transition: "opacity 0.8s ease 0.2s, transform 0.8s ease 0.2s" }}
-            >
-              <div className="relative rounded-3xl overflow-hidden bg-gradient-to-br from-white/5 to-white/[0.02] backdrop-blur-xl border border-white/10 p-10 shadow-2xl">
+                <div className="grid gap-4 sm:grid-cols-2">
+                  {product.specs.slice(0, 4).map((spec, i) => (
+                    <div key={spec.label} className="rounded-3xl border border-white/10 bg-white/5 p-4 backdrop-blur-xl transition duration-300 hover:border-cyan-400/40 hover:bg-white/10">
+                      <p className="text-[10px] uppercase tracking-[0.28em] text-gray-400">{spec.label}</p>
+                      <p className="mt-3 text-sm font-semibold text-white">{spec.value}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-2xl shadow-cyan-500/10">
                 {product.image ? (
                   <img
                     src={product.image}
                     alt={product.model}
                     onLoad={() => setImgLoaded(true)}
-                    className="w-full h-auto transition-all duration-700 hover:scale-105"
+                    className="w-full h-full min-h-[420px] object-cover transition-all duration-700 ease-out"
                     style={{ opacity: imgLoaded ? 1 : 0 }}
                   />
                 ) : (
-                  <div className="w-full h-96 flex items-center justify-center">
-                    <div className="w-64 h-64 transition-transform duration-500 hover:scale-110" dangerouslySetInnerHTML={{ __html: iconSvg }} />
+                  <div className="flex h-96 items-center justify-center bg-white/5">
+                    <div className="w-56 h-56" dangerouslySetInnerHTML={{ __html: iconSvg }} />
                   </div>
                 )}
-                
-                {/* Floating badge */}
-                <div className="absolute top-6 right-6 px-4 py-2 rounded-full text-xs font-bold backdrop-blur-xl" style={{ background: `${meta.color}30`, color: "white", border: "1px solid rgba(255,255,255,0.2)" }}>
+                <div className="absolute top-6 right-6 rounded-full border border-white/10 bg-white/10 px-4 py-2 text-xs font-bold uppercase tracking-[0.2em] text-cyan-200 backdrop-blur-xl">
                   {product.type}
                 </div>
               </div>
-
-              {/* Glow effect */}
-              <div className="absolute -inset-8 bg-gradient-to-r from-blue-500/20 to-cyan-500/20 rounded-full blur-3xl -z-10" />
             </div>
+          </div>
+        </div>
 
-            {/* Right - Product Info */}
-            <div
-              style={{ opacity: visible ? 1 : 0, transform: visible ? "translateX(0)" : "translateX(30px)", transition: "opacity 0.8s ease 0.4s, transform 0.8s ease 0.4s" }}
-            >
-              <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400 mb-4 inline-block">
-                {meta.label}
-              </span>
-              <h1 className="text-5xl sm:text-6xl font-black text-white leading-tight mb-4 bg-gradient-to-r from-white to-gray-400 bg-clip-text text-transparent">
-                {product.model}
-              </h1>
-              <p className="text-xl font-medium text-cyan-400 mb-6">{product.tagline}</p>
-              <p className="text-gray-400 leading-relaxed mb-8 text-base">{product.description}</p>
-
-              {/* Quick stats */}
-              <div className="grid grid-cols-2 gap-4 mb-8">
-                {product.specs.slice(0, 4).map((spec, i) => (
-                  <div
-                    key={spec.label}
-                    className="bg-white/5 backdrop-blur-xl rounded-2xl p-4 border border-white/10 hover:bg-white/10 hover:border-cyan-500/50 transition-all duration-300 group"
-                    style={{ transitionDelay: `${i * 80 + 500}ms` }}
-                  >
-                    <div className="text-[10px] text-gray-500 uppercase tracking-wider mb-1.5">{spec.label}</div>
-                    <div className="text-sm font-bold text-white group-hover:text-cyan-400 transition-colors">{spec.value}</div>
-                  </div>
-                ))}
+        <div className="pointer-events-none absolute inset-0 flex items-center justify-center px-4 py-8 z-20">
+          <div className="relative w-full max-w-xl rounded-[2rem] border border-white/15 bg-black/75 p-10 text-center shadow-[0_30px_80px_-30px_rgba(14,165,233,0.8)] backdrop-blur-3xl transition duration-700 ease-out">
+            <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,_rgba(14,165,233,0.22),transparent_35%),radial-gradient(circle_at_bottom_right,_rgba(56,189,248,0.16),transparent_30%)] opacity-90" />
+            <div className="relative z-10 space-y-5">
+              <p className="text-xs uppercase tracking-[0.4em] text-cyan-300 animate-pulse">Coming Soon</p>
+              <h2 className="text-4xl font-black text-white">Product page is coming soon</h2>
+              <p className="max-w-xl mx-auto text-sm text-slate-300">We’re preparing the full product experience. Everything is intentionally blurred until the page is ready.</p>
+              <div className="mx-auto mt-6 inline-flex items-center gap-2 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-4 py-2 text-xs uppercase tracking-[0.28em] text-cyan-200 shadow-[0_0_0_1px_rgba(56,189,248,0.18)]">
+                Smooth launch transition
               </div>
-
-              <button
-                className="px-10 py-4 rounded-xl text-white text-base font-bold shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 relative overflow-hidden group"
-                style={{ background: "linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%)" }}
-              >
-                <span className="relative z-10">Request a Quote</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              </button>
             </div>
           </div>
         </div>
       </div>
-
-      {/* ── Product Features Section ── */}
-      <div className="relative py-24 bg-gradient-to-b from-[#0a0f1a] to-[#0f1520]">
-        <div className="max-w-7xl mx-auto px-6">
-          
-          <div
-            ref={featuresRef}
-            className={`text-center mb-16 transition-all duration-700 ${featuresInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          >
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400 mb-3 inline-block">Advanced Technology</span>
-            <h2 className="text-4xl font-black text-white mb-4">Product Features</h2>
-            <p className="text-gray-400 max-w-2xl mx-auto">Engineered with cutting-edge technology for unmatched performance and reliability</p>
-          </div>
-
-          {/* Features Grid with Hero-style Images */}
-          <div className="grid lg:grid-cols-3 gap-6">
-            {keyFeatures.map((feature, i) => (
-              <div
-                key={i}
-                className={`relative group transition-all duration-700 ${featuresInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-                style={{ transitionDelay: `${i * 100}ms` }}
-              >
-                <div className="relative rounded-2xl overflow-hidden">
-                  
-                  {/* Feature Image with minimal overlay */}
-                  <div className="relative h-52 overflow-hidden">
-                    <img
-                      src={`https://images.unsplash.com/photo-${
-                        i === 0 ? '1620714223084-8fcacc2dbe4d' :
-                        i === 1 ? '1558618666-fcd25c85cd64' :
-                        i === 2 ? '1451187580459-43490279c0fa' :
-                        i === 3 ? '1473341304170-971dccb5ac1e' :
-                        i === 4 ? '1581091226825-a6a2a5aee158' :
-                        '1565008576549-57569a49371d'
-                      }?w=600&q=80`}
-                      alt={feature.title}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
-                    
-                    {/* Only title and value at bottom */}
-                    <div className="absolute bottom-0 left-0 right-0 p-5">
-                      <h3 className="text-lg font-bold text-white mb-1">{feature.title}</h3>
-                      <p className="text-2xl font-black text-cyan-400">{feature.value}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-
-      {/* ── Full Specifications ── */}
-      <div className="relative py-24 bg-[#0a0f1a]">
-        <div className="max-w-6xl mx-auto px-6">
-          
-          <div
-            ref={specsRef}
-            className={`text-center mb-12 transition-all duration-700 ${specsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          >
-            <span className="text-xs font-bold uppercase tracking-[0.2em] text-cyan-400 mb-3 inline-block">Technical Data</span>
-            <h2 className="text-4xl font-black text-white mb-4">Full Specifications</h2>
-          </div>
-
-          <div
-            className={`rounded-3xl overflow-hidden bg-white/5 backdrop-blur-xl border border-white/10 transition-all duration-700 ${specsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-            style={{ transitionDelay: "200ms" }}
-          >
-            {product.specs.map((spec, i) => (
-              <div
-                key={i}
-                className="flex justify-between items-center px-8 py-5 border-b border-white/5 last:border-0 hover:bg-white/5 transition-all duration-200 group"
-              >
-                <span className="text-sm text-gray-400 uppercase tracking-wider group-hover:text-cyan-400 transition-colors">{spec.label}</span>
-                <span className="text-base text-white font-semibold text-right">{spec.value}</span>
-              </div>
-            ))}
-          </div>
-
-          <p className="text-center text-xs text-gray-500 mt-8">
-            * Specifications are for reference only. Official datasheet shall prevail.
-          </p>
-
-          {/* CTA */}
-          <div className="text-center mt-12">
-            <button
-              className="px-12 py-5 rounded-xl text-white text-lg font-bold shadow-2xl transition-all duration-300 hover:scale-105 hover:shadow-cyan-500/50 relative overflow-hidden group"
-              style={{ background: "linear-gradient(135deg, #0ea5e9 0%, #3b82f6 100%)" }}
-            >
-              <span className="relative z-10">Download Datasheet</span>
-              <div className="absolute inset-0 bg-gradient-to-r from-cyan-400 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-            </button>
-          </div>
-        </div>
-      </div>
-
     </div>
   );
 }

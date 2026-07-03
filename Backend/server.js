@@ -1,11 +1,11 @@
-const express = require("express");
+require("dotenv").config();
 
-const app = express();
+const app = require("./app");
+const connectDB = require("./db/db");
 
-app.get("/", (req, res) => {
-  res.send("MMYZO Backend Running");
-});
+connectDB();
 
-app.listen(5000, () => {
-  console.log("Server running on port 5000");
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
 });

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import { useUser } from "../../context/UserContext";
 
 const THEME = "#033e74";
 const THEME_DARK = "#022d56";
@@ -73,8 +74,10 @@ function Field({ children }) {
 
 export default function BecomePartner() {
   const navigate = useNavigate();
+  const { submitBecomePartner, loading } = useUser();
   const [visible, setVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState("");
   const [errors, setErrors] = useState({});
 
   const [form, setForm] = useState({
@@ -104,19 +107,24 @@ export default function BecomePartner() {
     if (!form.phone) e.phone = "Please provide your mobile number";
     if (!form.email.trim()) e.email = "Please provide your email";
     if (!form.pinCode.trim() || form.pinCode.length !== 6) e.pinCode = "Please provide a valid 6 digit pincode of your address";
-    if (!form.businessName.trim()) e.businessName = "Please provide your business name";
+
     if (!form.businessType) e.businessType = "Please select business type";
     if (!form.interestedCity) e.interestedCity = "Please select the city for your proposed dealership";
     if (!form.hearAbout) e.hearAbout = "Please select an option";
     return e;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    console.log("Form Data:", form);
-    setSubmitted(true);
+    setServerError("");
+    try {
+      await submitBecomePartner(form);
+      setSubmitted(true);
+    } catch (err) {
+      setServerError(err.message || "Submission failed. Please try again.");
+    }
   };
 
   if (submitted) {
@@ -216,9 +224,9 @@ export default function BecomePartner() {
                 </Field>
               </UnderlineInput>
 
-              <UnderlineInput label="Current Business Name" required error={errors.businessName}>
+              <UnderlineInput label="Current Business Name" error={errors.businessName}>
                 <Field>
-                  <input type="text" placeholder="Current Business Name*" value={form.businessName}
+                  <input type="text" placeholder="Current Business Name" value={form.businessName}
                     onChange={(e) => handle("businessName", e.target.value)}
                     className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
                   />
@@ -274,13 +282,14 @@ export default function BecomePartner() {
           </div>
 
           <div className="text-center pt-4">
-            <button type="submit"
-              className="text-white font-black uppercase tracking-wider px-16 py-4 rounded-lg text-sm transition-all duration-200 hover:shadow-lg hover:scale-[1.02]"
+            {serverError && <p className="text-sm text-red-500 mb-4">{serverError}</p>}
+            <button type="submit" disabled={loading}
+              className="text-white font-black uppercase tracking-wider px-16 py-4 rounded-lg text-sm transition-all duration-200 hover:shadow-lg hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ backgroundColor: THEME }}
-              onMouseOver={e => e.currentTarget.style.backgroundColor = THEME_DARK}
-              onMouseOut={e => e.currentTarget.style.backgroundColor = THEME}
+              onMouseOver={e => !loading && (e.currentTarget.style.backgroundColor = THEME_DARK)}
+              onMouseOut={e => (e.currentTarget.style.backgroundColor = THEME)}
             >
-              Submit Application
+              {loading ? "Submitting..." : "Submit Application"}
             </button>
             <p className="text-xs text-gray-400 mt-3">Our partnership team will review and contact you shortly.</p>
           </div>

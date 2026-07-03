@@ -2,7 +2,7 @@ const products = [
   {
     id: 1,
     series: "LIGHT Series",
-    model: "HeroEE 1",
+    model: "MyzoEE 1",
     tagline: "Portable Power for Daily Life",
     type: "Power Station",
     badge: "Entry Level",
@@ -33,7 +33,7 @@ const products = [
   {
     id: 2,
     series: "LIGHT Series",
-    model: "HeroEE LIGHT 1",
+    model: "MyzoEE LIGHT 1",
     tagline: "Plug and Play Power, Anywhere",
     type: "Power Station",
     badge: "Fast Charge",
@@ -64,7 +64,7 @@ const products = [
   {
     id: 3,
     series: "LIGHT Series",
-    model: "HeroEE 2",
+    model: "MyzoEE 2",
     tagline: "Double the Power, Double the Peace of Mind",
     type: "Power Station",
     badge: "Best Seller",

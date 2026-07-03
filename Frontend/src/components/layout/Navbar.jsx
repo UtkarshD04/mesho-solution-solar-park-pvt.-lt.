@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { products, seriesGroups, seriesMeta } from "../../data/productDetails";
+import { useUser } from "../../context/UserContext";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -14,8 +15,11 @@ export default function Navbar() {
   const [productsDropdown, setProductsDropdown] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
   const [activeSeries, setActiveSeries] = useState(seriesGroups.find((series) => series !== "All") ?? "");
+  const [signupDropdown, setSignupDropdown] = useState(false);
+  const signupTimeout = useRef(null);
   const dropdownTimeout = useRef(null);
   const navigate = useNavigate();
+  const { isLoggedIn, logout } = useUser();
 
   const categories = seriesGroups.filter((series) => series !== "All");
 
@@ -55,7 +59,7 @@ export default function Navbar() {
                       }}
                     >
                       <button
-                        className="relative text-sm font-medium tracking-wide text-gray-600 hover:text-[#033e74] transition-colors duration-200 inline-flex items-center gap-1"
+                        className="relative text-base font-medium tracking-wide text-gray-600 hover:text-[#033e74] transition-colors duration-200 inline-flex items-center gap-1"
                         type="button"
                       >
                         Products
@@ -117,7 +121,7 @@ export default function Navbar() {
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
-                      `relative text-sm font-medium tracking-wide transition-colors duration-200 group ${
+                      `relative text-base font-medium tracking-wide transition-colors duration-200 group ${
                         isActive ? "text-[#033e74]" : "text-gray-600 hover:text-[#033e74]"
                       }`
                     }
@@ -134,15 +138,77 @@ export default function Navbar() {
             </div>
 
             {/* Customer Support Link */}
-            <Link
-              to="/customer-support"
-              className="hidden lg:flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#033e74] transition-colors duration-200"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-              </svg>
-              Support
-            </Link>
+            <div className="hidden lg:flex items-center gap-3">
+              <Link
+                to="/customer-support"
+                className="flex items-center gap-1.5 text-sm font-medium text-gray-600 hover:text-[#033e74] transition-colors duration-200"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
+                </svg>
+                Support
+              </Link>
+
+              {/* Sign In / Logout */}
+              {isLoggedIn ? (
+                <button
+                  type="button"
+                  onClick={() => { logout(); navigate('/'); }}
+                  className="flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-red-500 bg-white px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                  </svg>
+                  Logout
+                </button>
+              ) : (
+              <div
+                className="relative"
+                onMouseEnter={() => { clearTimeout(signupTimeout.current); setSignupDropdown(true); }}
+                onMouseLeave={() => { signupTimeout.current = setTimeout(() => setSignupDropdown(false), 150); }}
+              >
+                <button
+                  type="button"
+                  className="flex items-center gap-1.5 text-sm font-semibold text-gray-600 hover:text-[#033e74] bg-white px-4 py-2 rounded-lg transition-colors duration-200"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  Sign In
+                </button>
+
+                <div
+                  className={`absolute right-0 top-full mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden transition-all duration-200 ${
+                    signupDropdown ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-1"
+                  }`}
+                  onMouseEnter={() => { clearTimeout(signupTimeout.current); setSignupDropdown(true); }}
+                  onMouseLeave={() => { signupTimeout.current = setTimeout(() => setSignupDropdown(false), 150); }}
+                >
+                  <Link
+                    to="/signup"
+                    onClick={() => setSignupDropdown(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-[#e8eef7] hover:text-[#033e74] transition-colors"
+                  >
+                    <svg className="w-4 h-4 text-[#033e74]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                    </svg>
+                    Sign In
+                  </Link>
+                  <div className="h-px bg-gray-100" />
+                  <Link
+                    to="/create-account"
+                    onClick={() => setSignupDropdown(false)}
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-medium text-gray-700 hover:bg-[#e8eef7] hover:text-[#033e74] transition-colors"
+                  >
+                    <svg className="w-4 h-4 text-[#033e74]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+                    </svg>
+                    Create Account
+                  </Link>
+                </div>
+              </div>
+              )}
+            </div>
             <div className="flex lg:hidden items-center gap-1">
               <button className="p-2 text-gray-600 hover:bg-gray-100 rounded" onClick={() => setMenuOpen(!menuOpen)}>
                 {menuOpen ? <span className="text-2xl">✕</span> : <span className="text-2xl">☰</span>}
@@ -160,7 +226,7 @@ export default function Navbar() {
           <div>
             <button
               type="button"
-              className="flex items-center justify-between w-full py-2 text-sm font-medium text-gray-600"
+              className="flex items-center justify-between w-full py-2 text-base font-medium text-gray-600"
               onClick={() => setMobileProductsOpen(!mobileProductsOpen)}
             >
               Products
@@ -208,7 +274,7 @@ export default function Navbar() {
                 to={link.to}
                 onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `block py-2 text-sm font-medium transition-colors duration-200 ${
+                  `block py-2 text-base font-medium transition-colors duration-200 ${
                     isActive ? "text-[#033e74]" : "text-gray-600 hover:text-[#033e74]"
                   }`
                 }
@@ -220,7 +286,7 @@ export default function Navbar() {
             to="/customer-support"
             onClick={() => setMenuOpen(false)}
             className={({ isActive }) =>
-              `block py-2 text-sm font-medium transition-colors duration-200 ${
+              `block py-2 text-base font-medium transition-colors duration-200 ${
                 isActive ? "text-[#033e74]" : "text-gray-600 hover:text-[#033e74]"
               }`
             }

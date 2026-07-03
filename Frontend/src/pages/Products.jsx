@@ -23,20 +23,8 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 font-sans">
-      <nav className="bg-white border-b border-gray-100 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-2">
-            <span className="text-base font-black tracking-tight" style={{ color: BRAND }}></span>
-            <span className="text-base font-light text-gray-400"></span>
-          </div>
-          <span className="text-xs font-semibold uppercase tracking-widest text-gray-400">Products</span>
-          <a href="" target="_blank" rel="noopener noreferrer" className="text-xs font-semibold px-4 py-2 rounded-lg" style={{ color: BRAND, background: `${BRAND}10` }}>
-            hero-ee.com ↗
-          </a>
-        </div>
-      </nav>
 
-      <section className="bg-white border-b border-gray-100">
+      <section className="bg-white border-b border-gray-100 pt-36">
         <div className="max-w-7xl mx-auto px-6 py-16 md:py-20">
           <div className="max-w-2xl">
             <p className="text-xs font-bold uppercase tracking-widest mb-4" style={{ color: BRAND }}>Shenzhen Hithium Hero Energy</p>
@@ -59,7 +47,7 @@ export default function ProductsPage() {
         </div>
       </section>
 
-      <section className="bg-white border-b border-gray-100 sticky top-16 z-30">
+      <section className="bg-white border-b border-gray-100 sticky top-[calc(2rem+4rem)] z-30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 py-4">
             <div className="flex flex-wrap gap-1.5">
@@ -146,7 +134,7 @@ export default function ProductsPage() {
         <div className="max-w-7xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-2">
             <span className="text-sm font-black" style={{ color: BRAND }}>HiTHIUM</span>
-            <span className="text-sm text-gray-300">HeroEE</span>
+            <span className="text-sm text-gray-300">MyzoEE</span>
           </div>
           <p className="text-xs text-gray-400 text-center">Shenzhen Hithium Hero Energy Equity Technology Co., Ltd · 601 Room, Building 2, San Yi Yun Du Industrial Park, Longhua New District</p>
           <a href="https://www.hero-ee.com" className="text-xs font-semibold" style={{ color: BRAND }}>www.hero-ee.com ↗</a>

@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
+import { useUser } from "../../context/UserContext";
 
 const THEME = "#033e74";
 const THEME_DARK = "#022d56";
@@ -65,8 +66,10 @@ function Field({ children }) {
 
 export default function ProductEnquiry() {
   const navigate = useNavigate();
+  const { submitProductEnquiry, loading } = useUser();
   const [visible, setVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
+  const [serverError, setServerError] = useState("");
   const [errors, setErrors] = useState({});
 
   const [form, setForm] = useState({
@@ -100,12 +103,17 @@ export default function ProductEnquiry() {
     return e;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const errs = validate();
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
-    console.log("Form Data:", form);
-    setSubmitted(true);
+    setServerError("");
+    try {
+      await submitProductEnquiry(form);
+      setSubmitted(true);
+    } catch (err) {
+      setServerError(err.message || "Submission failed. Please try again.");
+    }
   };
 
   if (submitted) {
@@ -256,13 +264,14 @@ export default function ProductEnquiry() {
           </div>
 
           <div className="text-center pt-4">
-            <button type="submit"
-              className="text-white font-black uppercase tracking-wider px-16 py-4 rounded-lg text-sm transition-all duration-200 hover:shadow-lg hover:scale-[1.02]"
+            {serverError && <p className="text-sm text-red-500 mb-4">{serverError}</p>}
+            <button type="submit" disabled={loading}
+              className="text-white font-black uppercase tracking-wider px-16 py-4 rounded-lg text-sm transition-all duration-200 hover:shadow-lg hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
               style={{ backgroundColor: THEME }}
-              onMouseOver={e => e.currentTarget.style.backgroundColor = THEME_DARK}
-              onMouseOut={e => e.currentTarget.style.backgroundColor = THEME}
+              onMouseOver={e => !loading && (e.currentTarget.style.backgroundColor = THEME_DARK)}
+              onMouseOut={e => (e.currentTarget.style.backgroundColor = THEME)}
             >
-              Submit Enquiry
+              {loading ? "Submitting..." : "Submit Enquiry"}
             </button>
             <p className="text-xs text-gray-400 mt-3">We typically respond within 24 business hours.</p>
           </div>

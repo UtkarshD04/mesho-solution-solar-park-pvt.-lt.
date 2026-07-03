@@ -5,13 +5,6 @@ const stats = [
   { value: '14+', label: 'Years Leadership' },
 ]
 
-const values = [
-  { icon: '🌱', title: 'Sustainability', desc: 'Driving clean energy adoption across India with eco-conscious solutions.' },
-  { icon: '⚡', title: 'Innovation', desc: 'Continuously investing in advanced battery and solar technologies.' },
-  { icon: '🏆', title: 'Excellence', desc: 'Delivering highest quality standards in every product and project.' },
-  { icon: '🤝', title: 'Trust', desc: 'Building long-term relationships with customers and partners.' },
-]
-
 export default function About() {
   return (
     <div className="min-h-screen bg-white">
@@ -129,24 +122,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* VALUES */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6">
-          <div className="text-center mb-12">
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#033e74] mb-3">What Drives Us</p>
-            <h2 className="text-4xl font-black uppercase text-gray-900">Our Core Values</h2>
-          </div>
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {values.map(v => (
-              <div key={v.title} className="border border-gray-100 rounded-2xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300">
-                <div className="text-3xl mb-4">{v.icon}</div>
-                <h3 className="font-black uppercase text-gray-900 text-sm mb-2">{v.title}</h3>
-                <p className="text-gray-500 text-sm leading-relaxed">{v.desc}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* CTA */}
       <section className="py-20 bg-[#033e74] text-white text-center">
