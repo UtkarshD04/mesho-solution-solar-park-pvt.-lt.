@@ -7,7 +7,7 @@ const formsRoutes = require("./routes/forms.routes");
 
 const app = express();
 
-const cors = require("cors");
+
 
 app.use(cors({
     origin: [
