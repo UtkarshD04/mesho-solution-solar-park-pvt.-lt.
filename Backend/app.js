@@ -7,7 +7,15 @@ const formsRoutes = require("./routes/forms.routes");
 
 const app = express();
 
-app.use(cors({ origin: process.env.CLIENT_URL, credentials: true }));
+const cors = require("cors");
+
+app.use(cors({
+    origin: [
+        "https://mmyzo.com",
+        "https://www.mmyzo.com"
+    ],
+    credentials: true
+}));
 app.use(express.json());
 app.use(cookieParser());
 
