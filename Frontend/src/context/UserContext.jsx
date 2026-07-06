@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 
 const UserContext = createContext(null);
+const API_BASE = import.meta.env.VITE_API_URL?.replace(/\/$/, '') ?? '';
 
 export function UserProvider({ children }) {
   const [loading, setLoading] = useState(false);
@@ -21,7 +22,7 @@ export function UserProvider({ children }) {
 
   const logout = async () => {
     try {
-      await fetch('/users/logout', {
+      await fetch(`${API_BASE}/users/logout`, {
         credentials: 'include',
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
@@ -36,7 +37,8 @@ export function UserProvider({ children }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(url, {
+      const fetchUrl = url.startsWith('http') ? url : `${API_BASE}${url}`;
+      const res = await fetch(fetchUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
@@ -57,7 +59,8 @@ export function UserProvider({ children }) {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch(url, { method: 'POST', body: formData });
+      const fetchUrl = url.startsWith('http') ? url : `${API_BASE}${url}`;
+      const res = await fetch(fetchUrl, { method: 'POST', body: formData });
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || 'Something went wrong.');
       return json;

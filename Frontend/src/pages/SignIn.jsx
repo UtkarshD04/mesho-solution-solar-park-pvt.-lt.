@@ -4,6 +4,7 @@ import { useUser } from "../context/UserContext";
 
 const THEME = "#033e74";
 const THEME_DARK = "#022d56";
+const API_BASE = import.meta.env.VITE_API_URL?.replace(/\/$/, '') ?? '';
 
 export default function SignIn() {
   const navigate = useNavigate();
@@ -32,7 +33,7 @@ export default function SignIn() {
     if (Object.keys(errs).length > 0) { setErrors(errs); return; }
     setLoading(true);
     try {
-      const res = await fetch("/users/login", {
+      const res = await fetch(`${API_BASE}/users/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         credentials: "include",
