@@ -50,7 +50,7 @@ export default function Navbar() {
       {/* Navbar Content */}
       <div className="relative z-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
-          <div className="flex items-center justify-between py-3 overflow-visible">
+          <div className="flex items-center justify-between py-1.5 overflow-visible">
 
             {/* Logo */}
             <Link to="/" className="flex items-center group">

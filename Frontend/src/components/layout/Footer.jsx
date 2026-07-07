@@ -28,7 +28,6 @@ const navLinks = [
   { label: "Products", to: "/products" },
   { label: "About Us", to: "/about" },
   { label: "Customer Reviews", to: "/customer-review" },
-  { label: "Articles", to: "/article" },
   { label: "Contact", to: "/contact" },
 ];
 
