@@ -32,7 +32,16 @@ const navLinks = [
   { label: "Contact", to: "/contact" },
 ];
 
-const branches = ["Lucknow", "Gorakhpur", "Noida", "Jaipur", "Gujarat", "Uttarakhand"];
+const officeAddresses = [
+  {
+    title: "Corporate Office",
+    address: "Yograj Tower, Near Madhurima Sweets, Vibhuti Khand, Gomati Nagar, Lucknow, UP 226002",
+  },
+  {
+    title: "Head Office / Branch Office",
+    address: "413 - Fortune Gateway, TP-13, Channi, Vadodara, Gujarat - 390024",
+  },
+];
 
 export default function Footer() {
   return (
@@ -146,21 +155,16 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 - Our Branches */}
+          {/* Column 4 - Office Addresses */}
           <div className="space-y-5">
             <h4 className="text-white font-bold text-sm uppercase tracking-widest after:block after:w-6 after:h-0.5 after:bg-[#20b2aa] after:mt-2">
-              Our Branches
+              Office Addresses
             </h4>
-            <div className="grid grid-cols-2 gap-2.5">
-              {branches.map((city) => (
-                <div key={city} className="flex items-center gap-2 text-white/60 text-sm group hover:text-white/90 transition-colors cursor-default">
-                  <div className="w-5 h-5 rounded bg-[#033e74] flex items-center justify-center shrink-0">
-                    <svg className="w-3 h-3 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                    </svg>
-                  </div>
-                  {city}
+            <div className="space-y-4">
+              {officeAddresses.map((office) => (
+                <div key={office.title} className="rounded-xl border border-white/10 bg-white/5 p-3">
+                  <div className="text-sm font-semibold text-[#20b2aa] mb-1">{office.title}</div>
+                  <p className="text-sm leading-relaxed text-white/70">{office.address}</p>
                 </div>
               ))}
             </div>
