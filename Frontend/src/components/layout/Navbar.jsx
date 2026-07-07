@@ -38,7 +38,7 @@ export default function Navbar() {
 
   return (
     <nav
-      className="fixed top-12 lg:top-12 w-full z-40"
+      className="fixed top-0 lg:top-12 w-full z-40"
       style={{ fontFamily: "'Roboto', sans-serif" }}
     >
       {/* Shutter background */}
