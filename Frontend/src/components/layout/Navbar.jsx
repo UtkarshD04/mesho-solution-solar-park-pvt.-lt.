@@ -37,17 +37,18 @@ export default function Navbar() {
   }, {});
 
   return (
-    <nav 
-      className={`fixed top-12 lg:top-12 w-full z-40 transition-all duration-300 ${
-        scrolled 
-          ? "bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200" 
-          : "bg-transparent"
-      }`} 
+    <nav
+      className="fixed top-12 lg:top-12 w-full z-40"
       style={{ fontFamily: "'Roboto', sans-serif" }}
     >
+      {/* Shutter background */}
+      <div
+        className="absolute inset-0 bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200 transition-transform duration-500 ease-in-out"
+        style={{ transformOrigin: "top", transform: scrolled ? "scaleY(1)" : "scaleY(0)" }}
+      />
 
-      {/* Normal Navbar */}
-      <div>
+      {/* Navbar Content */}
+      <div className="relative z-10">
         <div className="max-w-7xl mx-auto px-6 lg:px-10">
           <div className="flex items-center justify-between py-3 overflow-visible">
 
