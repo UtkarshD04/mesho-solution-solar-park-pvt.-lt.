@@ -3,16 +3,10 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-RUN pwd
-RUN ls -la
-
-COPY . .
-
-RUN echo "===== AFTER COPY ====="
-RUN ls -la
-
+COPY Frontend/package*.json ./
 RUN npm install
 
+COPY Frontend/ ./
 RUN npm run build
 
 # ---------- Production Stage ----------
