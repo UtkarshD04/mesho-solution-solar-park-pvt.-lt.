@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
 
 const THEME = "#033e74";
 const TEAL = "#20b2aa";
@@ -25,6 +27,8 @@ const TIPS = [
 ];
 
 export default function ChangePassword() {
+  const { logout } = useUser();
+  const navigate = useNavigate();
   const [form, setForm]       = useState({ currentPassword: "", newPassword: "", confirmPassword: "" });
   const [show, setShow]       = useState({ current: false, new: false, confirm: false });
   const [loading, setLoading] = useState(false);
@@ -48,8 +52,9 @@ export default function ChangePassword() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || data.message || "Failed to change password.");
-      setSuccess("Password changed successfully.");
+      setSuccess("Password changed! Logging you out...");
       setForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
+      setTimeout(async () => { await logout(); navigate("/signup"); }, 1500);
     } catch (err) { setError(err.message); }
     finally { setLoading(false); }
   };
