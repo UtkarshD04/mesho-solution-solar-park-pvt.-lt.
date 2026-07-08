@@ -1,0 +1,2 @@
+[variables]
+NIXPACKS_NGINX_CONF = "nginx.conf"
