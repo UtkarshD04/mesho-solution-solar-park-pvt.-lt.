@@ -178,20 +178,19 @@ export default function Navbar() {
 
               {/* Sign In / Logout */}
               {isLoggedIn ? (
-                <button
-                  type="button"
-                  onClick={() => { logout(); navigate('/'); }}
-                  className={`flex items-center gap-2 text-base font-bold px-4 py-2 rounded-lg transition-all duration-200 ${
-                    scrolled 
-                      ? "text-red-600 hover:text-red-700 bg-red-50 hover:bg-red-100" 
-                      : "text-white hover:text-red-200 bg-white/10 hover:bg-white/20"
+                <Link
+                  to="/my-account"
+                  className={`flex items-center gap-2 text-base font-bold px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg ${
+                    scrolled
+                      ? "text-white bg-gradient-to-r from-[#033e74] to-[#20b2aa] hover:from-[#022d55] hover:to-[#1a948e]"
+                      : "text-white bg-white/20 hover:bg-white/30"
                   }`}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                   </svg>
-                  Logout
-                </button>
+                  My Account
+                </Link>
               ) : (
                 <div
                   className="relative"
@@ -346,16 +345,16 @@ export default function Navbar() {
           <div className="h-px bg-slate-200 my-2" />
 
           {isLoggedIn ? (
-            <button
-              type="button"
-              onClick={() => { logout(); navigate('/'); setMenuOpen(false); }}
-              className="flex items-center gap-2 py-3 text-base font-bold text-red-600 hover:text-red-700 transition-colors duration-200"
+            <Link
+              to="/my-account"
+              onClick={() => setMenuOpen(false)}
+              className="flex items-center gap-2 py-3 text-base font-bold text-[#033e74] transition-colors duration-200"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
-              Logout
-            </button>
+              My Account
+            </Link>
           ) : (
             <Link
               to="/signup"

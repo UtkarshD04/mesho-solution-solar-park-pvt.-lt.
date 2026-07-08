@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 
@@ -8,7 +8,11 @@ const API_BASE = import.meta.env.VITE_API_URL?.replace(/\/$/, '') ?? '';
 
 export default function SignIn() {
   const navigate = useNavigate();
-  const { login } = useUser();
+  const { login, isLoggedIn } = useUser();
+
+  useEffect(() => {
+    if (isLoggedIn) navigate("/");
+  }, [isLoggedIn]);
   const [form, setForm] = useState({ email: "", password: "" });
   const [errors, setErrors] = useState({});
   const [showPassword, setShowPassword] = useState(false);

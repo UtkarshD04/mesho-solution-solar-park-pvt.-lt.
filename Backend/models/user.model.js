@@ -34,6 +34,10 @@ const userSchema = new mongoose.Schema({
     socketId: {
         type: String,
     },
+    address: {
+        type: String,
+        default: ''
+    },
 }, { timestamps: true });
 
 userSchema.methods.generateAuthToken = function () {

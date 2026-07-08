@@ -60,31 +60,43 @@ module.exports.getUserProfile = async (req, res) => {
  }
 module.exports.logoutUser = async (req, res) => {
     res.clearCookie('token');
-    const token = req.cookies.token || req.headers.authorization.split(' ')[ 1 ];
-
-    await blacklistTokenModel.create({ token });
-
+    const token = req.cookies.token || req.headers.authorization?.split(' ')?.[1];
+    if (token) {
+        await blacklistTokenModel.create({ token });
+    }
     res.status(200).json({ message: 'Logged out' });
-
 }
 
 module.exports.updateProfile = async (req, res) => {
     try {
-        const { fullname, email, phone } = req.body;
+        const { fullname, email, phone, address } = req.body;
         const userId = req.user._id;
         
         const updatedUser = await userModel.findByIdAndUpdate(
             userId,
-            {
-                fullname,
-                email,
-                phone
-            },
+            { fullname, email, phone, address },
             { new: true }
         );
         
         res.status(200).json({ user: updatedUser });
     } catch (error) {
         res.status(500).json({ error: 'Failed to update profile' });
+    }
+}
+
+module.exports.changePassword = async (req, res) => {
+    try {
+        const { currentPassword, newPassword } = req.body;
+        const user = await userModel.findById(req.user._id).select('+password');
+        
+        const isMatch = await user.comparePassword(currentPassword);
+        if (!isMatch) return res.status(400).json({ error: 'Current password is incorrect.' });
+        
+        user.password = await userModel.hashPassword(newPassword);
+        await user.save();
+        
+        res.status(200).json({ message: 'Password changed successfully.' });
+    } catch (error) {
+        res.status(500).json({ error: 'Failed to change password.' });
     }
 }
