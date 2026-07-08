@@ -37,7 +37,7 @@ export default function MyAccount() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    if (!isLoggedIn) { navigate("/signup"); return; }
+    if (!isLoggedIn) { navigate("/"); return; }
     fetch(`${API_BASE}/users/profile`, {
       headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
       credentials: "include",

@@ -54,7 +54,7 @@ export default function ChangePassword() {
       if (!res.ok) throw new Error(data.error || data.message || "Failed to change password.");
       setSuccess("Password changed! Logging you out...");
       setForm({ currentPassword: "", newPassword: "", confirmPassword: "" });
-      setTimeout(async () => { await logout(); navigate("/signup"); }, 1500);
+      setTimeout(async () => { await logout(); navigate("/"); }, 1500);
     } catch (err) { setError(err.message); }
     finally { setLoading(false); }
   };
