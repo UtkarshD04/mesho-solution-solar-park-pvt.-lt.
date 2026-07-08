@@ -18,7 +18,7 @@ export default function About() {
           backgroundPosition: 'center',
         }}
       >
-        <div className="absolute inset-0 bg-gradient-to-b from-[#033e74]/80 via-[#033e74]/60 to-black/70" />
+        <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         <div className="relative z-10 px-6 max-w-4xl mx-auto pt-20">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-4">Our Story</p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-tight mb-5">
@@ -36,17 +36,18 @@ export default function About() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
           {/* Left — Text */}
-          <div>
+          <div className="relative pl-6 sm:pl-8">
+            <div className="absolute left-0 top-2 h-[88%] w-1 rounded-full bg-[#20b2aa]" />
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#033e74] mb-3">Who We Are</p>
             <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight mb-6">
               Mesho Solution<br />Solar Park Pvt. Ltd.
             </h2>
-            <div className="w-14 h-1 bg-[#033e74] mb-6 rounded-full" />
+            <div className="w-24 h-[2px] bg-[#20b2aa] mb-6" />
             <p className="text-gray-600 leading-relaxed text-sm mb-4">
               <strong className="text-gray-900">MESHO SOLUTION SOLAR PARK PVT. LTD. (Myzo)</strong> was founded in 2015 and is a dynamic and forward-thinking energy solutions company committed to driving innovation in the renewable energy and energy storage sector.
             </p>
             <p className="text-gray-600 leading-relaxed text-sm mb-4">
-              With a strong focus on advanced  BESS (Energy Battery Storage Systems) battery technologies, sustainable power solutions, and customer-centric services, the company delivers reliable and high-performance products tailored to evolving market needs.
+              With a strong focus on advanced BESS (Energy Battery Storage Systems) battery technologies, sustainable power solutions, and customer-centric services, the company delivers reliable and high-performance products tailored to evolving market needs.
             </p>
             <p className="text-gray-600 leading-relaxed text-sm">
               Backed by a dedicated team and a vision for a greener future, Myzo continuously invests in technology, quality, and operational excellence. Through its commitment to innovation, productivity, and sustainability, the company aims to empower businesses and communities with efficient energy solutions while building a strong presence across domestic and international markets.
@@ -91,15 +92,15 @@ export default function About() {
           </div>
 
           {/* Right — Speech */}
-          <div className="pt-8 md:pt-0">
+          <div className="relative pt-8 md:pt-0 pl-6 sm:pl-8">
+            <div className="absolute left-0 top-2 h-[88%] w-1 rounded-full bg-[#20b2aa]" />
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#033e74] mb-3">Leadership</p>
             <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight mb-6">
               Message from<br />Our Business Head
             </h2>
-            <div className="w-14 h-1 bg-[#033e74] mb-6 rounded-full" />
+            <div className="w-24 h-[2px] bg-[#20b2aa] mb-6" />
 
-            {/* Quote mark */}
-            <div className="text-[#033e74] text-6xl font-black leading-none mb-2 opacity-20 select-none">"</div>
+            <div className="text-[#20b2aa] text-6xl font-black leading-none mb-2 opacity-30 select-none">"</div>
 
             <p className="text-gray-600 leading-relaxed text-sm mb-4">
               Mr. Aseem Mishra, Business Head of Myzo, brings over <strong className="text-gray-900">14 years of extensive experience</strong> in the renewable energy industry. With a strong background in product development, manufacturing, and strategic business growth, he has established himself as a respected leader in the field.
@@ -111,8 +112,7 @@ export default function About() {
               Through his strategic vision and commitment to innovation, Mr. Mishra continues to position Myzo at the forefront of the clean energy revolution, fostering long-term growth, technological advancement, and exceptional value for customers and stakeholders alike.
             </p>
 
-            <div className="mt-8 flex items-center gap-4">
-              <div className="w-10 h-0.5 bg-[#033e74]" />
+            <div className="mt-8 flex items-center gap-4 border-l-2 border-[#20b2aa] pl-4">
               <div>
                 <p className="font-black text-gray-900 text-sm uppercase">Mr. Aseem Mishra</p>
                 <p className="text-[#033e74] text-xs font-semibold">Business Head — Myzo </p>

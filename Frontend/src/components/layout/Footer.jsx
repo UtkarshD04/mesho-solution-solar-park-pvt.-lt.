@@ -37,7 +37,7 @@ const officeAddresses = [
     address: "Yograj Tower, Near Madhurima Sweets, Vibhuti Khand, Gomati Nagar, Lucknow, UP 226002",
   },
   {
-    title: "Head Office / Branch Office",
+    title: "Head Office",
     address: "413 - Fortune Gateway, TP-13, Channi, Vadodara, Gujarat - 390024",
   },
 ];

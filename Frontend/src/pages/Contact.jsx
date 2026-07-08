@@ -127,7 +127,7 @@ export default function Contact() {
           alt="Solar Energy"
           className="w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#033e74]/90 via-[#033e74]/70 to-[#033e74]/90" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#033e74]/40 via-[#033e74]/20 to-[#033e74]/40" />
         <div className="absolute inset-0 flex items-center justify-center">
           <div className="text-center px-6">
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-cyan-400 mb-4">Our Commitment</p>

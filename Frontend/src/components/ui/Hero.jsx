@@ -66,18 +66,23 @@ export default function Hero() {
                 {/* 3D Headline */}
                 <div className="space-y-1">
                   <h1
-                    className="text-5xl lg:text-7xl font-black text-white leading-none tracking-tight"
+                    className="text-5xl lg:text-7xl font-black leading-none tracking-[-0.03em]"
                     style={{
-                      textShadow: "2px 2px 0px #0B3C5D, 4px 4px 0px #033e74, 6px 6px 0px rgba(3,62,116,0.4), 0 8px 32px rgba(0,0,0,0.6)",
+                      color: "#f8fbff",
+                      textShadow: "0 1px 0 rgba(255,255,255,0.16), 0 2px 0 rgba(3,62,116,0.35), 0 4px 0 rgba(3,62,116,0.28), 0 8px 0 rgba(3,62,116,0.18), 0 12px 24px rgba(0,0,0,0.6)",
+                      transform: "translateZ(0)",
+                      filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.45))",
                     }}
                   >
                     {slide.headline1}
                   </h1>
                   <h1
-                    className="text-5xl lg:text-7xl font-black leading-none tracking-tight"
+                    className="text-5xl lg:text-7xl font-black leading-none tracking-[-0.03em]"
                     style={{
                       color: "#20b2aa",
-                      textShadow: "2px 2px 0px #0e6b65, 4px 4px 0px #0a4f4b, 6px 6px 0px rgba(10,79,75,0.4), 0 8px 32px rgba(0,0,0,0.5)",
+                      textShadow: "0 1px 0 rgba(255,255,255,0.14), 0 2px 0 rgba(14,107,101,0.35), 0 4px 0 rgba(10,79,75,0.28), 0 8px 0 rgba(10,79,75,0.2), 0 12px 24px rgba(0,0,0,0.6)",
+                      transform: "translateZ(0)",
+                      filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.45))",
                     }}
                   >
                     {slide.headline2}
