@@ -1,7 +1,15 @@
 import { useState, useRef, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
-import { products, seriesGroups, seriesMeta } from "../../data/productDetails";
 import { useUser } from "../../context/UserContext";
+
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
+
+const seriesMeta = {
+  "LIGHT Series":    { label: "LIGHT Series" },
+  "MaxPower Series": { label: "MaxPower Series" },
+  "NeoPower Series": { label: "NeoPower Series" },
+  "LEGEND Series":   { label: "LEGEND Series" },
+};
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -14,9 +22,10 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsDropdown, setProductsDropdown] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
-  const [activeSeries, setActiveSeries] = useState(seriesGroups.find((series) => series !== "All") ?? "");
+  const [activeSeries, setActiveSeries] = useState("");
   const [signupDropdown, setSignupDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [products, setProducts] = useState([]);
   const signupTimeout = useRef(null);
   const dropdownTimeout = useRef(null);
   const navigate = useNavigate();
@@ -29,10 +38,22 @@ export default function Navbar() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
-  const categories = seriesGroups.filter((series) => series !== "All");
+  useEffect(() => {
+    fetch(`${API_BASE}/api/products`)
+      .then(r => r.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setProducts(data);
+          const first = [...new Set(data.map(p => p.series))][0];
+          if (first) setActiveSeries(first);
+        }
+      })
+      .catch(() => {});
+  }, []);
 
+  const categories = [...new Set(products.map(p => p.series))];
   const productOptions = categories.reduce((acc, series) => {
-    acc[series] = products.filter((product) => product.series === series);
+    acc[series] = products.filter(p => p.series === series);
     return acc;
   }, {});
 
@@ -125,7 +146,7 @@ export default function Navbar() {
                                   type="button"
                                   className="w-full text-left rounded-xl p-3 transition-all duration-200 border border-transparent hover:border-[#20b2aa] hover:bg-gradient-to-r hover:from-[#f0f9f9] hover:to-white"
                                   onMouseEnter={() => setProductsDropdown(true)}
-                                  onClick={() => { setProductsDropdown(false); navigate(`/products/${product.id}`); }}
+                                  onClick={() => { setProductsDropdown(false); navigate(`/products/${product._id}`); }}
                                 >
                                   <div className="text-sm font-bold text-slate-900 group-hover:text-[#033e74]">{product.model}</div>
                                   <p className="text-xs text-slate-500 mt-0.5">{product.type}</p>
@@ -303,7 +324,7 @@ export default function Navbar() {
                     <button
                       key={product.id}
                       type="button"
-                      onClick={() => { setMenuOpen(false); setMobileProductsOpen(false); navigate(`/products/${product.id}`); }}
+                      onClick={() => { setMenuOpen(false); setMobileProductsOpen(false); navigate(`/products/${product._id}`); }}
                       className="w-full text-left block rounded-lg px-3 py-2.5 border border-transparent hover:border-[#20b2aa] hover:bg-[#f0f9f9] transition-all"
                     >
                       <div className="text-sm font-bold text-slate-900">{product.model}</div>

@@ -11,7 +11,15 @@ export function UserProvider({ children }) {
 
   useEffect(() => {
     const token = localStorage.getItem('token');
-    if (token) setIsLoggedIn(true);
+    if (!token) return;
+    setIsLoggedIn(true);
+    fetch(`${API_BASE}/users/profile`, {
+      headers: { Authorization: `Bearer ${token}` },
+      credentials: 'include',
+    })
+      .then(r => r.json())
+      .then(data => { if (data.user) setUser(data.user); })
+      .catch(() => {});
   }, []);
 
   const login = (userData, token) => {
