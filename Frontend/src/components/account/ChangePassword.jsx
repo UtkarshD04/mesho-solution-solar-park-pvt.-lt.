@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../../context/UserContext";
 
 const THEME = "#033e74";
 const TEAL = "#20b2aa";
