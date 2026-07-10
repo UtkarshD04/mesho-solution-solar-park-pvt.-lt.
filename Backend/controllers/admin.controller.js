@@ -7,7 +7,7 @@ const Lead = require('../models/lead.model');
 const Employee = require('../models/employee.model');
 const User = require('../models/user.model');
 
-// ── Auth ──────────────────────────────────────────────────────────────────────
+// ── Auth ───────────────────────────────────────────────────────────
 exports.loginAdmin = async (req, res) => {
   const { email, password } = req.body;
   if (!email || !password) return res.status(400).json({ message: 'Email and password required.' });
