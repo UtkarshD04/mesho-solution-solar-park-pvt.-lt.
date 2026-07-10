@@ -62,10 +62,10 @@ export default function Navbar() {
       className="fixed top-0 lg:top-12 w-full z-40"
       style={{ fontFamily: "'Roboto', sans-serif" }}
     >
-      {/* Shutter background */}
+      {/* Shutter background — desktop only, hide on mobile when menu open */}
       <div
         className="absolute inset-0 bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200 transition-transform duration-500 ease-in-out"
-        style={{ transformOrigin: "top", transform: scrolled ? "scaleY(1)" : "scaleY(0)" }}
+        style={{ transformOrigin: "top", transform: (scrolled && !menuOpen) ? "scaleY(1)" : "scaleY(0)" }}
       />
 
       {/* Navbar Content */}
@@ -75,7 +75,7 @@ export default function Navbar() {
 
             {/* Logo */}
             <Link to="/" className="flex items-center group">
-              <img src="/logo.png" alt="Logo" className="h-16 w-auto object-contain transition-all duration-300 group-hover:scale-105" style={{ filter: scrolled ? "none" : "brightness(0) invert(1)" }} onError={(e) => { e.target.style.display = "none"; }} />
+              <img src="/logo.png" alt="Logo" className="h-16 w-auto object-contain transition-all duration-300 group-hover:scale-105" style={{ filter: (scrolled && !menuOpen) ? "none" : "brightness(0) invert(1)" }} onError={(e) => { e.target.style.display = "none"; }} />
             </Link>
 
             {/* Desktop Nav */}
@@ -271,7 +271,7 @@ export default function Navbar() {
             <div className="flex lg:hidden items-center gap-1">
               <button
                 className={`p-2 rounded-lg transition-colors ${
-                  scrolled ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
+                  (scrolled && !menuOpen) ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
                 }`}
                 onClick={() => setMenuOpen(!menuOpen)}
               >
