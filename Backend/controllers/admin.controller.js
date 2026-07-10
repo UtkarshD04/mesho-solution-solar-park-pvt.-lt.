@@ -176,7 +176,8 @@ exports.getEmployees = async (req, res) => {
 
 exports.createEmployee = async (req, res) => {
   try {
-    const employee = await Employee.create(req.body);
+    const employee = new Employee(req.body);
+    await employee.save();
     res.status(201).json(employee);
   } catch (err) {
     res.status(500).json({ message: err.message || 'Failed to create employee.' });
@@ -185,8 +186,10 @@ exports.createEmployee = async (req, res) => {
 
 exports.updateEmployee = async (req, res) => {
   try {
-    const employee = await Employee.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const employee = await Employee.findById(req.params.id);
     if (!employee) return res.status(404).json({ message: 'Employee not found.' });
+    Object.assign(employee, req.body);
+    await employee.save();
     res.status(200).json(employee);
   } catch (err) {
     res.status(500).json({ message: 'Failed to update employee.' });
