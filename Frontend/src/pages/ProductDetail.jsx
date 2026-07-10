@@ -1,6 +1,8 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { products, seriesMeta, icons } from "../data/productDetails";
+import { seriesMeta, icons } from "../data/productDetails";
+
+const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
 const seriesIconMap = {
   "LIGHT Series": "portable",
@@ -26,7 +28,8 @@ function useInView(threshold = 0.15) {
 export default function ProductDetail() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const product = products.find((p) => p.id === Number(id));
+  const [product, setProduct] = useState(null);
+  const [loading, setLoading] = useState(true);
   const [visible, setVisible] = useState(false);
   const [imgLoaded, setImgLoaded] = useState(false);
   const [featuresRef, featuresInView] = useInView();
@@ -35,15 +38,26 @@ export default function ProductDetail() {
   useEffect(() => {
     window.scrollTo({ top: 0 });
     setImgLoaded(false);
-    const t = setTimeout(() => setVisible(true), 40);
-    return () => clearTimeout(t);
+    setLoading(true);
+    fetch(`${API_BASE}/api/products/${id}`)
+      .then(r => r.json())
+      .then(data => { setProduct(data); setTimeout(() => setVisible(true), 40); })
+      .catch(() => setProduct(null))
+      .finally(() => setLoading(false));
   }, [id]);
 
-  if (!product) {
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-[#0a0f1a]">
+        <div className="w-10 h-10 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  if (!product || product.message) {
     return (
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 bg-[#0a0f1a]">
         <p className="text-gray-400 text-lg">Product not found.</p>
-      
       </div>
     );
   }
@@ -96,7 +110,7 @@ export default function ProductDetail() {
               <div className="relative overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 shadow-2xl shadow-cyan-500/10">
                 {product.image ? (
                   <img
-                    src={product.image}
+                    src={`${API_BASE}${product.image}`}
                     alt={product.model}
                     onLoad={() => setImgLoaded(true)}
                     className="w-full h-full min-h-[420px] object-cover transition-all duration-700 ease-out"

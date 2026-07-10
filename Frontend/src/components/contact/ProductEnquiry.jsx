@@ -66,7 +66,7 @@ function Field({ children }) {
 
 export default function ProductEnquiry() {
   const navigate = useNavigate();
-  const { submitProductEnquiry, loading } = useUser();
+  const { submitProductEnquiry, loading, user } = useUser();
   const [visible, setVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState("");
@@ -165,6 +165,16 @@ export default function ProductEnquiry() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-12">
+          {user && (
+            <div className="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
+              <p className="text-sm text-blue-700 font-medium">Logged in as <span className="font-black">{user.fullname?.firstname}</span></p>
+              <button type="button"
+                onClick={() => setForm(f => ({ ...f, firstName: user.fullname?.firstname || '', lastName: user.fullname?.lastname || '', email: user.email || '', phone: user.phone || '', address: user.address || '' }))}
+                className="text-xs font-black uppercase tracking-wider px-3 py-1.5 rounded-lg text-white" style={{ background: THEME }}>
+                Fill My Details
+              </button>
+            </div>
+          )}
           <div>
             <h3 className="text-2xl font-black uppercase text-center mb-8" style={{ color: THEME }}>
               Personal Information

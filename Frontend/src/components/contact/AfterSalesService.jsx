@@ -65,7 +65,7 @@ function UnderlineSelect({ placeholder, options, value, onChange }) {
 
 export default function AfterSalesService() {
   const navigate = useNavigate();
-  const { submitAfterSales, loading } = useUser();
+  const { submitAfterSales, loading, user } = useUser();
   const [visible, setVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState("");
@@ -157,6 +157,16 @@ export default function AfterSalesService() {
 
 
         <form onSubmit={handleSubmit} className="space-y-10">
+          {user && (
+            <div className="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
+              <p className="text-sm text-blue-700 font-medium">Logged in as <span className="font-black">{user.fullname?.firstname}</span></p>
+              <button type="button"
+                onClick={() => setForm(f => ({ ...f, firstName: user.fullname?.firstname || '', lastName: user.fullname?.lastname || '', email: user.email || '', phone: user.phone || '' }))}
+                className="text-xs font-black uppercase tracking-wider px-3 py-1.5 rounded-lg text-white" style={{ background: THEME }}>
+                Fill My Details
+              </button>
+            </div>
+          )}
           <div>
             <div className="grid sm:grid-cols-2 gap-x-10 gap-y-7">
               <UnderlineInput label="First Name" required error={errors.firstName}>
