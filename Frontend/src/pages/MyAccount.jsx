@@ -39,7 +39,7 @@ export default function MyAccount() {
   useEffect(() => {
     if (!isLoggedIn) { navigate("/"); return; }
     fetch(`${API_BASE}/users/profile`, {
-      headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
+      headers: {},
       credentials: "include",
     }).then(r => r.json()).then(setUser).catch(() => {});
   }, [isLoggedIn]);

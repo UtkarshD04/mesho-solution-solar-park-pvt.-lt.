@@ -5,29 +5,25 @@ const API_BASE = import.meta.env.VITE_API_URL ?? 'http://localhost:5000';
 
 export function AdminProvider({ children }) {
   const [admin, setAdmin] = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('adminToken'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('adminToken');
-    if (!token) return;
     fetch(`${API_BASE}/api/admin/profile`, {
-      headers: { Authorization: `Bearer ${token}` },
       credentials: 'include',
     })
       .then(r => r.json())
       .then(data => {
         if (data.admin) { setAdmin(data.admin); setIsLoggedIn(true); }
-        else { localStorage.removeItem('adminToken'); setIsLoggedIn(false); }
+        else setIsLoggedIn(false);
       })
-      .catch(() => { localStorage.removeItem('adminToken'); setIsLoggedIn(false); });
+      .catch(() => setIsLoggedIn(false));
   }, []);
 
   const authFetch = async (url, options = {}) => {
-    const token = localStorage.getItem('adminToken');
     const res = await fetch(`${API_BASE}${url}`, {
       ...options,
       credentials: 'include',
-      headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}`, ...options.headers },
+      headers: { 'Content-Type': 'application/json', ...options.headers },
     });
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || 'Request failed.');
@@ -36,14 +32,12 @@ export function AdminProvider({ children }) {
 
   const login = async (email, password) => {
     const data = await authFetch('/api/admin/login', { method: 'POST', body: JSON.stringify({ email, password }) });
-    localStorage.setItem('adminToken', data.token);
     setAdmin(data.admin);
     setIsLoggedIn(true);
   };
 
   const logout = async () => {
     try { await authFetch('/api/admin/logout', { method: 'POST' }); } catch (_) {}
-    localStorage.removeItem('adminToken');
     setAdmin(null);
     setIsLoggedIn(false);
   };
@@ -69,18 +63,14 @@ export function AdminProvider({ children }) {
       getUsers: () => authFetch('/api/admin/users'),
       getAllProducts: () => authFetch('/api/products/admin/all'),
       createProduct: (formData) => {
-        const token = localStorage.getItem('adminToken');
         return fetch(`${API_BASE}/api/products/admin`, {
           method: 'POST', credentials: 'include',
-          headers: { Authorization: `Bearer ${token}` },
           body: formData,
         }).then(async r => { const d = await r.json(); if (!r.ok) throw new Error(d.message || 'Failed'); return d; });
       },
       updateProduct: (id, formData) => {
-        const token = localStorage.getItem('adminToken');
         return fetch(`${API_BASE}/api/products/admin/${id}`, {
           method: 'PUT', credentials: 'include',
-          headers: { Authorization: `Bearer ${token}` },
           body: formData,
         }).then(async r => { const d = await r.json(); if (!r.ok) throw new Error(d.message || 'Failed'); return d; });
       },

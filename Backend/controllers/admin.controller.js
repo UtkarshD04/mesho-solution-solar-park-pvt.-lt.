@@ -7,6 +7,13 @@ const Lead = require('../models/lead.model');
 const Employee = require('../models/employee.model');
 const User = require('../models/user.model');
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === 'production',
+  sameSite: 'lax',
+  maxAge: 12 * 60 * 60 * 1000,
+};
+
 // ── Auth ───────────────────────────────────────────────────────────
 exports.loginAdmin = async (req, res) => {
   const { email, password } = req.body;
@@ -19,12 +26,12 @@ exports.loginAdmin = async (req, res) => {
   if (!isMatch) return res.status(401).json({ message: 'Invalid credentials.' });
 
   const token = admin.generateAuthToken();
-  res.cookie('adminToken', token, { httpOnly: true, maxAge: 12 * 60 * 60 * 1000 });
-  res.status(200).json({ token, admin: { _id: admin._id, name: admin.name, email: admin.email, role: admin.role } });
+  res.cookie('adminToken', token, cookieOptions);
+  res.status(200).json({ admin: { _id: admin._id, name: admin.name, email: admin.email, role: admin.role } });
 };
 
 exports.logoutAdmin = async (req, res) => {
-  res.clearCookie('adminToken');
+  res.clearCookie('adminToken', cookieOptions);
   const token = req.cookies.adminToken || req.headers.authorization?.split(' ')[1];
   if (token) await blacklistTokenModel.create({ token }).catch(() => {});
   res.status(200).json({ message: 'Logged out.' });

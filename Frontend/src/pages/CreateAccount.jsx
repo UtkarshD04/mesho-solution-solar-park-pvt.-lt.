@@ -52,7 +52,7 @@ export default function CreateAccount() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.errors?.[0]?.msg || data.message || "Registration failed.");
-      login(data.user, data.token);
+      login(data.user);
       navigate("/");
     } catch (err) {
       setErrors({ server: err.message });

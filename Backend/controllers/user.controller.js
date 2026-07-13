@@ -3,6 +3,13 @@ const userServices = require('../services/user.service')
 const {validationResult} = require('express-validator')
 const blacklistTokenModel  = require('../models/blacklistToken.model')
 
+const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    maxAge: 24 * 60 * 60 * 1000,
+};
+
 module.exports.registerUser = async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
@@ -22,7 +29,8 @@ module.exports.registerUser = async (req, res) => {
         } );
    const token =  await user.generateAuthToken();
   // Printing token for debugging purposes. You can remove it before production.  // DO NOT LOG SECRET KEYS IN PRODUCTION!  // You should
-   res.status(201).json({ user, token });
+   res.cookie('token', token, cookieOptions);
+   res.status(201).json({ user });
 }
 
 
@@ -49,8 +57,8 @@ const errors = validationResult(req);
  }
 
  const token = await user.generateAuthToken();
-    res.cookie('token', token);
-    res.status(200).json({ token, user });
+    res.cookie('token', token, cookieOptions);
+    res.status(200).json({ user });
 
  
 }
@@ -59,7 +67,7 @@ module.exports.getUserProfile = async (req, res) => {
    res.status(200).json(req.user);
  }
 module.exports.logoutUser = async (req, res) => {
-    res.clearCookie('token');
+    res.clearCookie('token', cookieOptions);
     const token = req.cookies.token || req.headers.authorization?.split(' ')?.[1];
     if (token) {
         await blacklistTokenModel.create({ token });

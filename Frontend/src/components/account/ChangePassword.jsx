@@ -46,7 +46,7 @@ export default function ChangePassword() {
     try {
       const res = await fetch(`${API_BASE}/users/change-password`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ currentPassword: form.currentPassword, newPassword: form.newPassword }),
       });

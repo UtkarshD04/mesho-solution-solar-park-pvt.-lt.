@@ -1,3 +1,5 @@
+import VisionMissionSection from '../components/home/VisionMissionSection';
+
 const stats = [
   { value: '2015', label: 'Founded' },
   { value: '500+', label: 'MW Installed' },
@@ -20,6 +22,14 @@ export default function About() {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         <div className="relative z-10 px-6 max-w-4xl mx-auto pt-20">
+          {/* India's First Badge */}
+          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-5 py-2 mb-6">
+            <span className="w-2 h-2 rounded-full bg-[#20b2aa] animate-pulse" />
+            <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-white">
+              India's First Battery Energy Storage System
+            </span>
+            <span className="w-2 h-2 rounded-full bg-[#20b2aa] animate-pulse" />
+          </div>
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-4">Our Story</p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-tight mb-5">
             About Us
@@ -31,6 +41,21 @@ export default function About() {
       </section>
 
 
+
+      {/* INDIA'S FIRST BESS HEADING */}
+      <div className="bg-white py-10 text-center border-b border-gray-100">
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-[#033e74] uppercase leading-tight tracking-tight">
+          India's First
+        </h2>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase leading-tight tracking-tight mt-1" style={{ color: '#20b2aa' }}>
+          Battery Energy Storage System
+        </h2>
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <div className="h-[2px] w-16 bg-[#20b2aa] rounded-full" />
+          <span className="w-2 h-2 rounded-full bg-[#033e74]" />
+          <div className="h-[2px] w-16 bg-[#033e74] rounded-full" />
+        </div>
+      </div>
 
       {/* COMPANY BRIEFING — right image, left text */}
       <section className="py-20 bg-white">
@@ -122,6 +147,8 @@ export default function About() {
         </div>
       </section>
 
+
+      <VisionMissionSection />
 
       {/* CTA */}
       <section className="py-20 bg-[#033e74] text-white text-center">

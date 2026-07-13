@@ -45,7 +45,7 @@ export default function SignIn() {
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || data.message || "Login failed.");
-      login(data.user, data.token);
+      login(data.user);
       navigate("/");
     } catch (err) {
       setErrors({ server: err.message });

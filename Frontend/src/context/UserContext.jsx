@@ -7,23 +7,21 @@ export function UserProvider({ children }) {
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState(null);
   const [user, setUser]       = useState(null);
-  const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem('token'));
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem('token');
-    if (!token) return;
-    setIsLoggedIn(true);
     fetch(`${API_BASE}/users/profile`, {
-      headers: { Authorization: `Bearer ${token}` },
       credentials: 'include',
     })
       .then(r => r.json())
-      .then(data => { if (data.user) setUser(data.user); })
+      .then(data => {
+        const currentUser = data.user || data;
+        if (currentUser?._id) { setUser(currentUser); setIsLoggedIn(true); }
+      })
       .catch(() => {});
   }, []);
 
-  const login = (userData, token) => {
-    localStorage.setItem('token', token);
+  const login = (userData) => {
     setUser(userData);
     setIsLoggedIn(true);
   };
@@ -32,10 +30,8 @@ export function UserProvider({ children }) {
     try {
       await fetch(`${API_BASE}/users/logout`, {
         credentials: 'include',
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
     } catch (_) {}
-    localStorage.removeItem('token');
     setUser(null);
     setIsLoggedIn(false);
   };
@@ -49,6 +45,7 @@ export function UserProvider({ children }) {
       const res = await fetch(fetchUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
+        credentials: 'include',
         body: JSON.stringify(data),
       });
       const json = await res.json();
@@ -68,7 +65,7 @@ export function UserProvider({ children }) {
     setError(null);
     try {
       const fetchUrl = url.startsWith('http') ? url : `${API_BASE}${url}`;
-      const res = await fetch(fetchUrl, { method: 'POST', body: formData });
+      const res = await fetch(fetchUrl, { method: 'POST', credentials: 'include', body: formData });
       const json = await res.json();
       if (!res.ok) throw new Error(json.message || 'Something went wrong.');
       return json;

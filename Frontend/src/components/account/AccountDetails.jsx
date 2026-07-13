@@ -36,7 +36,7 @@ export default function AccountDetails({ user, setUser }) {
     try {
       const res = await fetch(`${API_BASE}/users/update-profile`, {
         method: "PUT",
-        headers: { "Content-Type": "application/json", Authorization: `Bearer ${localStorage.getItem("token")}` },
+        headers: { "Content-Type": "application/json" },
         credentials: "include",
         body: JSON.stringify({ fullname: { firstname: form.firstname, lastname: form.lastname }, email: form.email, phone: form.phone, address: form.address }),
       });

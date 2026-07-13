@@ -10,7 +10,6 @@ import About from "./pages/About";
 import CustomerReview from "./pages/CustomerReview";
 import Article from "./pages/Article";
 import Contact from "./pages/Contact";
-import Articles from "./pages/Articles";
 import ProductEnquiry from "./components/contact/ProductEnquiry";
 import BecomePartner from "./components/contact/BecomePartner";
 import CustomerSupport from "./pages/CustomerSupport";
