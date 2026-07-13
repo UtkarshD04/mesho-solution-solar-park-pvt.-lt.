@@ -22,14 +22,6 @@ export default function About() {
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
         <div className="relative z-10 px-6 max-w-4xl mx-auto pt-20">
-          {/* India's First Badge */}
-          <div className="inline-flex items-center gap-2 bg-white/10 border border-white/20 backdrop-blur-sm rounded-full px-5 py-2 mb-6">
-            <span className="w-2 h-2 rounded-full bg-[#20b2aa] animate-pulse" />
-            <span className="text-xs sm:text-sm font-bold uppercase tracking-[0.15em] text-white">
-              India's First Battery Energy Storage System
-            </span>
-            <span className="w-2 h-2 rounded-full bg-[#20b2aa] animate-pulse" />
-          </div>
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-4">Our Story</p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-tight mb-5">
             About Us
