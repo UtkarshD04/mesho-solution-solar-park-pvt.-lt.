@@ -40,7 +40,7 @@ export default function About() {
           India's First
         </h2>
         <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black uppercase leading-tight tracking-tight mt-1" style={{ color: '#20b2aa' }}>
-          Battery Energy Storage System
+          Battery Energy Storage System Company
         </h2>
         <div className="flex items-center justify-center gap-3 mt-4">
           <div className="h-[2px] w-16 bg-[#20b2aa] rounded-full" />
