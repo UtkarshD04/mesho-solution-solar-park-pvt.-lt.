@@ -1,7 +1,7 @@
-const userModel =   require('../models/user.model')
+const userModel = require('../models/user.model')
 const userServices = require('../services/user.service')
 const {validationResult} = require('express-validator')
-const blacklistTokenModel  = require('../models/blacklistToken.model')
+const blacklistTokenModel = require('../models/blacklistToken.model')
 
 const cookieOptions = {
     httpOnly: true,
@@ -106,5 +106,31 @@ module.exports.changePassword = async (req, res) => {
         res.status(200).json({ message: 'Password changed successfully.' });
     } catch (error) {
         res.status(500).json({ error: 'Failed to change password.' });
+    }
+}
+
+module.exports.googleAuth = async (req, res) => {
+    try {
+        const { userInfo } = req.body;
+        if (!userInfo?.email) return res.status(400).json({ error: 'Invalid Google token.' });
+
+        const { email, given_name, family_name } = userInfo;
+        let user = await userModel.findOne({ email });
+        if (!user) {
+            const randomPassword = await userModel.hashPassword(email + process.env.JWT_SECRET);
+            user = await userServices.createUser({
+                firstname: given_name || 'User',
+                lastname: family_name || 'Google',
+                email,
+                phone: '0000000000',
+                password: randomPassword,
+            });
+        }
+
+        const token = await user.generateAuthToken();
+        res.cookie('token', token, cookieOptions);
+        res.status(200).json({ user });
+    } catch (error) {
+        res.status(401).json({ error: 'Google authentication failed.' });
     }
 }

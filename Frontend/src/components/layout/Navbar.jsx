@@ -14,6 +14,11 @@ const seriesMeta = {
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
+  { label: "Why Myzo", to: "/why-myzo", dropdown: [
+    { label: "Quality", to: "/quality" },
+    { label: "Reliability", to: "/reliability" },
+    { label: "Technology", to: "/technology" },
+  ]},
   { label: "About Us", to: "/about" },
   { label: "Contact Us", to: "/contact" },
 ];
@@ -21,7 +26,10 @@ const navLinks = [
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [productsDropdown, setProductsDropdown] = useState(false);
+  const [whyDropdown, setWhyDropdown] = useState(false);
   const [mobileProductsOpen, setMobileProductsOpen] = useState(false);
+  const [mobileWhyOpen, setMobileWhyOpen] = useState(false);
+  const whyTimeout = useRef(null);
   const [activeSeries, setActiveSeries] = useState("");
   const [signupDropdown, setSignupDropdown] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -81,6 +89,40 @@ export default function Navbar() {
             {/* Desktop Nav */}
             <div className="hidden lg:flex items-center gap-8 absolute left-1/2 -translate-x-1/2">
               {navLinks.map((link) => {
+                if (link.label === "Why Myzo") {
+                  return (
+                    <div key={link.to} className="relative"
+                      onMouseEnter={() => { clearTimeout(whyTimeout.current); setWhyDropdown(true); }}
+                      onMouseLeave={() => { whyTimeout.current = setTimeout(() => setWhyDropdown(false), 120); }}
+                    >
+                      <button type="button"
+                        className={`relative text-base font-bold tracking-wide transition-colors duration-200 inline-flex items-center gap-2 ${
+                          scrolled ? "text-slate-700 hover:text-[#033e74]" : "text-white/90 hover:text-white"
+                        }`}
+                      >
+                        Why Myzo
+                        <svg className={`w-4 h-4 ${scrolled ? "text-[#20b2aa]" : "text-white/70"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+                        </svg>
+                      </button>
+                    <div
+                        className={`absolute left-0 top-full mt-4 w-44 rounded-xl border border-slate-200 bg-white shadow-lg transition-all duration-200 ${whyDropdown ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"}`}
+                        onMouseEnter={() => { clearTimeout(whyTimeout.current); setWhyDropdown(true); }}
+                        onMouseLeave={() => { whyTimeout.current = setTimeout(() => setWhyDropdown(false), 120); }}
+                      >
+                        {link.dropdown.map((item) => (
+                          <Link key={item.to} to={item.to}
+                            onClick={() => setWhyDropdown(false)}
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-600 hover:text-[#033e74] hover:bg-slate-50 transition-colors first:rounded-t-xl last:rounded-b-xl"
+                          >
+                            {item.label}
+                          </Link>
+                        ))}
+                      </div>
+                    </div>
+                  );
+                }
+
                 if (link.label === "Products") {
                   return (
                     <div
@@ -185,17 +227,23 @@ export default function Navbar() {
 
             {/* Customer Support Link */}
             <div className="hidden lg:flex items-center gap-4">
-              <Link
+              <NavLink
                 to="/customer-support"
-                className={`flex items-center gap-2 text-base font-bold transition-colors duration-200 px-4 py-2 rounded-lg hover:bg-white/10 ${
-                  scrolled ? "text-slate-600 hover:text-[#033e74]" : "text-white/90 hover:text-white"
-                }`}
+                className={({ isActive }) =>
+                  `relative text-base font-bold tracking-wide transition-all duration-200 group ${
+                    isActive
+                      ? (scrolled ? "text-[#033e74]" : "text-white")
+                      : (scrolled ? "text-slate-600 hover:text-[#033e74]" : "text-white/80 hover:text-white")
+                  }`
+                }
               >
-                <svg className={`w-5 h-5 ${scrolled ? "text-[#20b2aa]" : "text-white/70"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-5 0a4 4 0 11-8 0 4 4 0 018 0z" />
-                </svg>
-                Customer Support
-              </Link>
+                {({ isActive }) => (
+                  <>
+                    Customer Support
+                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#033e74] to-[#20b2aa] rounded-full transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
+                  </>
+                )}
+              </NavLink>
 
               {/* Sign In / Logout */}
               {isLoggedIn ? (
@@ -336,12 +384,9 @@ export default function Navbar() {
             )}
           </div>
           {navLinks
-            .filter((link) => link.label !== "Products")
+            .filter((link) => link.label !== "Products" && link.label !== "Why Myzo")
             .map((link) => (
-              <NavLink
-                key={link.to}
-                to={link.to}
-                onClick={() => setMenuOpen(false)}
+              <NavLink key={link.to} to={link.to} onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
                   `block py-3 text-base font-semibold transition-colors duration-200 ${
                     isActive ? "text-[#033e74]" : "text-slate-600 hover:text-[#033e74]"
@@ -351,6 +396,32 @@ export default function Navbar() {
                 {link.label}
               </NavLink>
             ))}
+
+          {/* Why Myzo mobile accordion */}
+          <div>
+            <button type="button"
+              className="flex items-center justify-between w-full py-3 text-base font-bold text-slate-700"
+              onClick={() => setMobileWhyOpen(!mobileWhyOpen)}
+            >
+              Why Myzo
+              <svg className={`w-4 h-4 text-[#20b2aa] transition-transform ${mobileWhyOpen ? "rotate-180" : ""}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {mobileWhyOpen && (
+              <div className="mb-3 border border-slate-200 rounded-xl overflow-hidden">
+                {[{ label: "Quality", to: "/quality" }, { label: "Reliability", to: "/reliability" }, { label: "Technology", to: "/technology" }].map((item) => (
+                  <Link key={item.to} to={item.to}
+                    onClick={() => { setMenuOpen(false); setMobileWhyOpen(false); }}
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-[#f0f9f9] hover:text-[#033e74] border-b border-slate-100 last:border-0 transition-all"
+                  >
+                    <div className="w-1.5 h-1.5 rounded-full bg-[#20b2aa]" />
+                    {item.label}
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
           <NavLink
             to="/customer-support"
             onClick={() => setMenuOpen(false)}

@@ -29,4 +29,5 @@ router.get('/profile' ,authMiddleware.authUser, userController.getUserProfile);
 router.get('/logout', authMiddleware.authUser, userController.logoutUser)
 router.put('/update-profile', authMiddleware.authUser, userController.updateProfile)
 router.put('/change-password', authMiddleware.authUser, userController.changePassword)
- module.exports = router;
+router.post('/auth/google', userController.googleAuth)
+module.exports = router;

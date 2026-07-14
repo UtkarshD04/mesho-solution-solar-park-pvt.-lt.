@@ -10,8 +10,11 @@ export function UserProvider({ children }) {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (!token) return;
     fetch(`${API_BASE}/users/profile`, {
       credentials: 'include',
+      headers: { Authorization: `Bearer ${token}` },
     })
       .then(r => r.json())
       .then(data => {
@@ -21,7 +24,8 @@ export function UserProvider({ children }) {
       .catch(() => {});
   }, []);
 
-  const login = (userData) => {
+  const login = (userData, token) => {
+    if (token) localStorage.setItem('token', token);
     setUser(userData);
     setIsLoggedIn(true);
   };
@@ -30,8 +34,10 @@ export function UserProvider({ children }) {
     try {
       await fetch(`${API_BASE}/users/logout`, {
         credentials: 'include',
+        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
     } catch (_) {}
+    localStorage.removeItem('token');
     setUser(null);
     setIsLoggedIn(false);
   };

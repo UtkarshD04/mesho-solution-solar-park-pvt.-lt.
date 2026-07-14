@@ -17,6 +17,9 @@ import AfterSalesService from "./components/contact/AfterSalesService";
 import SignIn from "./pages/SignIn";
 import CreateAccount from "./pages/CreateAccount";
 import MyAccount from "./pages/MyAccount";
+import Quality from "./pages/Quality";
+import Reliability from "./pages/Reliability";
+import Technology from "./pages/Technology";
 
 function App() {
   return (
@@ -44,6 +47,9 @@ function App() {
               <Route path="/contact/become-partner" element={<BecomePartner />} />
               <Route path="/customer-support" element={<CustomerSupport />} />
               <Route path="/my-account" element={<MyAccount />} />
+              <Route path="/quality" element={<Quality />} />
+              <Route path="/reliability" element={<Reliability />} />
+              <Route path="/technology" element={<Technology />} />
             </Routes>
             <Footer />
           </>
