@@ -11,6 +11,8 @@ const STATUS = {
   Inactive: { color: "#6b7280", bg: "#f9fafb" },
 };
 
+const ROLES = ["Sales Associate", "Sales Manager", "Regional Sales Manager", "Business Development Executive", "Service Engineer", "Warehouse Staff", "Content Editor", "Accounts Executive", "HR Manager", "Super Admin"];
+
 const EMPTY_FORM = { empId: "", name: "", email: "", phone: "", role: "", department: "", status: "Active", password: "" };
 
 export default function Employees() {
@@ -21,6 +23,7 @@ export default function Employees() {
   const [form, setForm] = useState(EMPTY_FORM);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     getEmployees().then(setEmployees).catch(() => {}).finally(() => setLoading(false));
@@ -100,9 +103,8 @@ export default function Employees() {
                   { key: "name", label: "Full Name", placeholder: "John Doe" },
                   { key: "email", label: "Email", placeholder: "john@myzo.com", type: "email" },
                   { key: "phone", label: "Phone", placeholder: "+91 98765 43210" },
-                  { key: "role", label: "Role", placeholder: "Sales Manager" },
+
                   { key: "department", label: "Department", placeholder: "Sales" },
-                  { key: "password", label: modal.mode === "add" ? "Password" : "New Password (leave blank to keep)", placeholder: "••••••••", type: "password", required: modal.mode === "add" },
                 ].map(({ key, label, placeholder, type = "text", required = true }) => (
                   <div key={key} className="col-span-2">
                     <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">{label}</label>
@@ -110,6 +112,38 @@ export default function Employees() {
                       className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#20b2aa] transition" />
                   </div>
                 ))}
+                {/* Role Dropdown */}
+                <div className="col-span-2">
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">Role</label>
+                  <select value={form.role} onChange={e => setForm(f => ({ ...f, role: e.target.value }))} required
+                    className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 text-sm focus:outline-none focus:border-[#20b2aa] transition">
+                    <option value="">-- Select Role --</option>
+                    {ROLES.map(r => <option key={r} value={r}>{r}</option>)}
+                  </select>
+                </div>
+                {/* Password Field */}
+                <div className="col-span-2">
+                  <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">
+                    {modal.mode === "add" ? "Password" : "New Password (leave blank to keep)"}
+                  </label>
+                  <div className="relative">
+                    <input
+                      type={showPassword ? "text" : "password"}
+                      value={form.password}
+                      onChange={e => setForm(f => ({ ...f, password: e.target.value }))}
+                      placeholder="••••••••"
+                      required={modal.mode === "add"}
+                      className="w-full bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 pr-9 text-sm focus:outline-none focus:border-[#20b2aa] transition"
+                    />
+                    <button type="button" onClick={() => setShowPassword(s => !s)}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600 transition">
+                      {showPassword
+                        ? <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13.875 18.825A10.05 10.05 0 0112 19c-4.478 0-8.268-2.943-9.543-7a9.97 9.97 0 011.563-3.029m5.858.908a3 3 0 114.243 4.243M9.878 9.878l4.242 4.242M9.88 9.88l-3.29-3.29m7.532 7.532l3.29 3.29M3 3l3.59 3.59m0 0A9.953 9.953 0 0112 5c4.478 0 8.268 2.943 9.543 7a10.025 10.025 0 01-4.132 5.411m0 0L21 21" /></svg>
+                        : <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" /></svg>
+                      }
+                    </button>
+                  </div>
+                </div>
                 <div>
                   <label className="block text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-1">Status</label>
                   <select value={form.status} onChange={e => setForm(f => ({ ...f, status: e.target.value }))}
