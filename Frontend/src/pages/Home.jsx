@@ -6,13 +6,11 @@ import WhyChooseSection from "../components/home/WhyChooseSection";
 import EngineeringSection from "../components/home/EngineeringSection";
 import TechnologySection from "../components/home/TechnologySection";
 import VisionMissionSection from "../components/home/VisionMissionSection";
+import ProductHighlightSection from "../components/home/ProductHighlightSection";
+import EnergySolutionsSection from "../components/home/EnergySolutionsSection";
 import { whyChooseData, batteryProducts, engineeringDivisions } from "../data/homePageData.jsx";
 import { Link } from "react-router-dom";
 
-/* ─────────────────────────────────────────
-   Custom Hook: useInView – fires once when
-   element enters the viewport
-───────────────────────────────────────── */
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
   const [inView, setInView] = useState(false);
@@ -27,9 +25,6 @@ function useInView(threshold = 0.15) {
   return [ref, inView];
 }
 
-/* ─────────────────────────────────────────
-   Animated Counter component
-───────────────────────────────────────── */
 function AnimatedCounter({ target, suffix = "", duration = 2000 }) {
   const [count, setCount] = useState(0);
   const [ref, inView] = useInView(0.3);
@@ -49,9 +44,6 @@ function AnimatedCounter({ target, suffix = "", duration = 2000 }) {
   return <span ref={ref}>{count.toLocaleString()}{suffix}</span>;
 }
 
-/* ─────────────────────────────────────────
-   MAIN COMPONENT
-───────────────────────────────────────── */
 export default function Home() {
   const [aboutRef, aboutInView] = useInView();
   const [statsRef, statsInView] = useInView();
@@ -60,7 +52,6 @@ export default function Home() {
   const [techRef, techInView] = useInView();
   const [ctaRef, ctaInView] = useInView();
 
-  /* NEW refs */
   const [MyzoAboutRef, MyzoAboutInView] = useInView();
   const [whyRef, whyInView] = useInView();
   const [visionRef, visionInView] = useInView();
@@ -72,22 +63,21 @@ export default function Home() {
       {/* ── Hero Slider ─────────────────── */}
       <Hero />
 
-
-
+      {/* ── About Myzo Battery ──────────── */}
       <AboutMyzoSection aboutRef={MyzoAboutRef} aboutInView={MyzoAboutInView} />
 
+      {/* ── Why Choose Myzo Battery ─────── */}
       <WhyChooseSection whyRef={whyRef} whyInView={whyInView} whyChooseData={whyChooseData} />
+
+      {/* ── Stats Bar ───────────────────── */}
+      <EnergySolutionsSection />
 
       {/* ── Featured Products ────────────── */}
       <ProductShowcase />
 
-      <EngineeringSection divRef={divRef} divInView={divInView} engineeringDivisions={engineeringDivisions} />
-
-      <TechnologySection techRef={techRef} techInView={techInView} />
-
       <VisionMissionSection />
 
-      {/* ── CTA Banner (Original) ─────────── */}
+      {/* ── CTA Banner ─────────── */}
       <section
         ref={ctaRef}
         className="py-16 relative overflow-hidden"
@@ -129,8 +119,6 @@ export default function Home() {
         </div>
       </section>
 
-
-      {/* Keyframes */}
       <style>{`
         @keyframes float {
           0%, 100% { transform: translateY(0px) translateX(0px); }

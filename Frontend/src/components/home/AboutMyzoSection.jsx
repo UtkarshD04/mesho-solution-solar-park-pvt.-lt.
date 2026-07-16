@@ -48,12 +48,12 @@ export default function AboutMyzoSection({ aboutRef, aboutInView }) {
 
         <div className="relative space-y-6">
           <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[#20b2aa] leading-snug relative z-10">
-            Lucknow's Pioneer in<br />Lithium-Ion Power Backup
+            Pioneering Next-Gen BESS Technology
           </p>
 
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight relative z-10">
-            Advanced Lithium&#8209;Ion<br />
-            <span className="text-[#033e74]">Battery Company</span>
+            Battery Energy Storage<br />
+            <span className="text-[#033e74]">Systems (BESS)</span>
           </h2>
 
           <div className="w-14 h-1 bg-[#20b2aa] rounded-full" />

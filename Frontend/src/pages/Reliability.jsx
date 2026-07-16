@@ -14,105 +14,284 @@ function useInView(threshold = 0.15) {
   return [ref, inView];
 }
 
-const promises = [
-  { icon: "🔒", title: "Zero Thermal Runaway", desc: "LiFePO4 chemistry is inherently stable. Unlike NMC batteries, our cells cannot catch fire or explode — even when punctured or overcharged." },
-  { icon: "🌧️", title: "All-Weather Operation", desc: "IP65 to IP67 rated enclosures mean our batteries work in monsoon rains, dusty construction sites, and coastal salt air without degradation." },
-  { icon: "🔁", title: "Consistent Performance", desc: "Our batteries deliver rated capacity from cycle 1 to cycle 11,000. No sudden capacity drops, no surprise failures." },
-  { icon: "📞", title: "After-Sales Support", desc: "Myzo stands behind every product with dedicated after-sales service, technical support, and warranty coverage." },
-  { icon: "⚙️", title: "Maintenance-Free Design", desc: "No water top-ups, no equalisation charges, no terminal cleaning. Install it and forget it — the BMS handles everything automatically." },
-  { icon: "🏭", title: "Industrial-Grade Build", desc: "From the cell to the casing, every component is selected for longevity. Our LEGEND series is built to run 24/7 in commercial environments." },
+function Counter({ to, suffix = "", duration = 2000 }) {
+  const [val, setVal] = useState(0);
+  const [ref, inView] = useInView(0.3);
+  useEffect(() => {
+    if (!inView) return;
+    let start = 0;
+    const step = Math.ceil(to / (duration / 16));
+    const t = setInterval(() => {
+      start += step;
+      if (start >= to) { setVal(to); clearInterval(t); }
+      else setVal(start);
+    }, 16);
+    return () => clearInterval(t);
+  }, [inView, to, duration]);
+  return <span ref={ref}>{val.toLocaleString()}{suffix}</span>;
+}
+
+function PillarRow({ p }) {
+  const [ref, inView] = useInView(0.1);
+  return (
+    <div
+      ref={ref}
+      className={`grid lg:grid-cols-2 gap-16 items-center transition-all duration-1000 ${inView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"}`}
+      style={{ transitionDelay: "100ms" }}
+    >
+      <div className={`relative group ${p.flip ? "lg:order-2" : ""}`}>
+        <div className="absolute -inset-3 bg-gradient-to-br from-[#20b2aa]/15 to-[#033e74]/10 rounded-3xl blur-xl opacity-0 group-hover:opacity-100 transition-all duration-700" />
+        <div className="relative overflow-hidden rounded-3xl border border-slate-200 shadow-2xl">
+          <img src={p.img} alt={p.imgAlt} className="w-full h-[360px] object-cover transition-transform duration-700 group-hover:scale-105" />
+          <div className="absolute inset-0 bg-gradient-to-t from-slate-950/40 via-transparent to-transparent" />
+          <div className="absolute top-5 left-5 bg-[#20b2aa] text-white text-xs font-extrabold uppercase tracking-widest px-4 py-1.5 rounded-full shadow-lg">
+            {p.tag}
+          </div>
+        </div>
+        <div className="absolute -bottom-5 left-8 right-8 flex gap-3">
+          {p.metrics.map((m, mi) => (
+            <div key={mi} className="flex-1 bg-white border border-slate-200 rounded-xl px-4 py-3 text-center shadow-lg">
+              <div className="text-xl font-extrabold text-[#033e74]">{m.val}</div>
+              <div className="text-[10px] text-slate-500 uppercase tracking-wider font-semibold mt-0.5">{m.label}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div className={`space-y-5 ${p.flip ? "lg:order-1" : ""} mt-8 lg:mt-0`}>
+        <span className="text-[#20b2aa] text-xs font-extrabold uppercase tracking-[0.3em]">{p.tag}</span>
+        <h3 className="text-2xl lg:text-3xl font-extrabold text-[#033e74] leading-tight">{p.title}</h3>
+        <div className="space-y-3">
+          {p.body.map((t, ti) => <p key={ti} className="text-slate-600 text-sm leading-relaxed">{t}</p>)}
+        </div>
+        <div className="w-10 h-0.5 bg-[#20b2aa] rounded-full" />
+      </div>
+    </div>
+  );
+}
+
+const pillars = [
+  {
+    tag: "Pillar 01",
+    title: "IP65–IP67 Sealed Steel Enclosures",
+    body: [
+      "MYZO enclosures are fabricated from 1.2mm cold-rolled steel, powder-coated with a UV-stable marine-grade finish. Each seam is laser-welded — not glued — ensuring zero electrolyte vapour egress under pressure.",
+      "Our IP67-rated units withstand continuous dust ingress and short-term water immersion up to 1 metre. Battery walls sustain impacts up to 9J without cell exposure — verified by IEC 62619 mechanical abuse tests.",
+      "Thermal break gaskets at the lid interface prevent condensation migration, protecting BMS electronics from humid monsoon environments that plague conventional VRLA and open-cell lithium systems.",
+    ],
+    img: "/reliability-uptime.jpg",
+    imgAlt: "IP67 steel battery enclosure in outdoor installation",
+    metrics: [{ val: "IP67", label: "Ingress Rating" }, { val: "1.2mm", label: "Steel Wall" }],
+  },
+  {
+    tag: "Pillar 02",
+    title: "Industrial Laser-Welded Bus Bars",
+    body: [
+      "Cell-to-cell connections in MYZO packs use precision-cut nickel-plated copper bus bars joined by fibre laser welding — a method common in automotive and aerospace manufacturing, but rare in the energy storage industry.",
+      "Compared to ultrasonic spot welds used by low-cost competitors, our laser welds exhibit 95%+ weld pull strength, contact resistance below 0.05 mΩ, and no micro-crack propagation under vibration — critical for installations on rooftops or near heavy machinery.",
+      "Each weld is individually inspected by automated optical inspection (AOI) systems, and batch samples undergo destructive tensile testing monthly.",
+    ],
+    img: "/reliability-weld.jpg",
+    imgAlt: "Laser welding bus bars on battery cell stack",
+    metrics: [{ val: "95%+", label: "Weld Strength" }, { val: "<0.05mΩ", label: "Contact R" }],
+    flip: true,
+  },
+  {
+    tag: "Pillar 03",
+    title: "Active Thermal Management System",
+    body: [
+      "Uncontrolled temperature differentials between cells are the silent killer of battery lifespan. MYZO packs integrate a dual-zone thermal management layer with ceramic-filled thermal interface material (TIM) between all cell groups.",
+      "Our BMS monitors up to 16 individual cell temperatures simultaneously, activating internal airflow or optional liquid-cooling modules when any cell deviates beyond 3°C from the group mean.",
+      "In addition, every pack ships with passive heater foils for cold-climate markets where charge efficiency below 0°C drops sharply. This ensures our guaranteed cycle life holds from Rajasthan deserts to Kashmir hillsides.",
+    ],
+    img: "/reliability-thermal.jpg",
+    imgAlt: "Thermal imaging camera scan showing cell temperature uniformity",
+    metrics: [{ val: "±3°C", label: "Temp Delta" }, { val: "16", label: "Temp Probes" }],
+  },
+  {
+    tag: "Pillar 04",
+    title: "Multi-Layer Fault Protection Architecture",
+    body: [
+      "MYZO's protection architecture is layered in depth — no single point of failure can compromise the pack. Software limits in the BMS are backed by independent hardware fuses, and hardware fuses are backed by a mechanical pressure relief vent.",
+      "Protections include: cell-level overvoltage (> 3.65V), pack undervoltage (< 2.5V), overcurrent (hardware cutoff at 2.5×C), short-circuit response time < 200µs, and thermal runaway containment via intumescent cell separators.",
+      "Critical fault logs are stored in non-volatile memory with timestamps. These logs can be extracted remotely via our cloud dashboard or via USB-C service port — enabling accurate warranty assessments and root-cause analysis.",
+    ],
+    img: "/quality-lab.jpg",
+    imgAlt: "BMS fault protection architecture diagram",
+    metrics: [{ val: "<200µs", label: "Short Circuit" }, { val: "5-Layer", label: "Protection" }],
+    flip: true,
+  },
+];
+
+const reliabilityMetrics = [
+  { icon: "🔋", title: "15-Year Design Life", desc: "Engineered for a minimum 15-year field lifespan at 1 cycle per day in typical Indian climate conditions." },
+  { icon: "🌡️", title: "-10°C to +55°C", desc: "Operational in full charging mode across the widest temperature band of any commercial LiFePO4 pack in India." },
+  { icon: "🌊", title: "IP67 Waterproofing", desc: "Complete dust-tight, water-immersion-resistant enclosures rated for outdoor placement in all-weather environments." },
+  { icon: "📡", title: "Remote Fault Alerts", desc: "Proactive cloud-based health alerts notify owners of anomalies before they escalate to failure events." },
+  { icon: "⚡", title: "200µs Short-Circuit Response", desc: "Hardware-level cutoff detects and isolates shorts before any cell or external component is stressed." },
+  { icon: "🔩", title: "Vibration & Shock Rated", desc: "Meets IEC 62619 mechanical shock and vibration test spec — suitable for mobile and rooftop deployments." },
 ];
 
 export default function Reliability() {
-  const [heroRef, heroInView] = useInView(0.1);
-  const [gridRef, gridInView] = useInView(0.1);
+  const [heroRef, heroInView] = useInView(0.05);
+  const [statsRef, statsInView] = useInView(0.1);
+  const [metricsRef, metricsInView] = useInView(0.1);
+  const [ctaRef, ctaInView] = useInView(0.1);
 
   return (
-    <div className="bg-slate-50 min-h-screen text-slate-900 overflow-x-hidden">
+    <div className="bg-white min-h-screen text-slate-900 overflow-x-hidden">
 
-      {/* ── Hero Image ── */}
-      <div className="relative w-full h-[60vh] lg:h-[75vh] overflow-hidden">
-        <img src="/hero3.jpg" alt="Reliability" className="w-full h-full object-cover" />
-        <div className="absolute inset-0 bg-black/40" />
+      {/* ── HERO ── */}
+      <div className="relative w-full min-h-screen overflow-hidden flex items-center">
+        <img
+          src="/hero-reliability.jpg"
+          alt="MYZO Industrial Reliability Testing"
+          className="absolute inset-0 w-full h-full object-cover"
+          style={{ animation: "heroZoom 20s ease-in-out infinite alternate" }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/94 via-[#011d37]/90 to-[#033e74]/30" />
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#20b2aa 1px, transparent 1px), linear-gradient(90deg, #20b2aa 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+
+        {/* Floating badge top-right */}
+        <div className="absolute top-10 right-10 hidden lg:flex items-center gap-3 bg-white/8 border border-white/15 backdrop-blur-md rounded-2xl px-5 py-4">
+          <div className="w-10 h-10 rounded-full bg-[#20b2aa]/20 flex items-center justify-center text-lg">🛡️</div>
+          <div>
+            <div className="text-white text-xs font-bold">IEC 62619 Certified</div>
+            <div className="text-white/50 text-[10px]">Industrial Safety Standard</div>
+          </div>
+        </div>
+
         <div
           ref={heroRef}
-          className={`absolute inset-0 flex flex-col items-center justify-center text-center px-6 transition-all duration-1000 ${heroInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          className={`relative z-10 max-w-7xl mx-auto px-6 lg:px-16 py-40 transition-all duration-1200 ${heroInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"}`}
         >
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#20b2aa]/20 border border-[#20b2aa]/60 text-[#20b2aa] text-xs font-bold uppercase tracking-widest mb-5">
-            Why Myzo → Reliability
-          </span>
-          <h1 className="text-4xl lg:text-6xl font-extrabold text-white mb-5 leading-tight">
-            Power You Can<br /><span className="text-[#20b2aa]">Count On — Always</span>
-          </h1>
-          <p className="text-white/80 text-lg max-w-2xl leading-relaxed">
-            Reliability isn't a promise — it's engineered into every cell, every weld, and every line of BMS firmware we ship.
-          </p>
+          <div className="max-w-3xl">
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-px bg-[#20b2aa]" />
+              <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.3em]">MYZO RELIABILITY ENGINEERING</span>
+            </div>
+            <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
+              Built to Endure<br />India's Harshest<br />
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#20b2aa] to-teal-300">
+                Conditions
+              </span>
+            </h1>
+            <p className="text-white/70 text-lg lg:text-xl max-w-xl leading-relaxed mb-10">
+              From laser-welded bus bars to IP67 enclosures, every structural and electronic decision in a MYZO pack is made for one reason — to never fail in the field.
+            </p>
+            <div className="flex flex-wrap gap-4">
+              <a href="/products" className="inline-flex items-center gap-2 bg-[#20b2aa] hover:bg-[#1a938c] text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-teal-500/30 text-sm">
+                View All Products
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+              </a>
+              <a href="/contact" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 text-sm backdrop-blur-sm">
+                Talk to an Engineer
+              </a>
+            </div>
+          </div>
+        </div>
+
+        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
+          <span className="text-white/40 text-[10px] uppercase tracking-widest">Scroll</span>
+          <div className="w-px h-8 bg-gradient-to-b from-[#20b2aa] to-transparent" />
         </div>
       </div>
 
-      {/* ── Promises Grid ── */}
-      <section
-        className="relative overflow-hidden py-20"
-        style={{ background: "linear-gradient(135deg, #dff0f0 0%, #e8f4f8 40%, #d4eaf0 100%)" }}
-      >
-        <div
-          className="absolute inset-0 pointer-events-none opacity-[0.06]"
-          style={{ backgroundImage: "radial-gradient(#20b2aa 1px, transparent 1px)", backgroundSize: "28px 28px" }}
-        />
-        <div
-          ref={gridRef}
-          className={`max-w-7xl mx-auto px-6 lg:px-16 relative transition-all duration-1000 ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-        >
-          <div className="text-center mb-14">
-            <div className="w-10 h-1 bg-[#20b2aa] rounded-full mx-auto mb-5" />
-            <h2 className="text-3xl md:text-4xl font-light text-slate-800 leading-snug">
-              Why Myzo is{" "}
-              <span className="font-extrabold text-slate-900">Built to Last</span>
-            </h2>
+      {/* ── STATS BAR ── */}
+      <section ref={statsRef} className="py-16 bg-[#011d37] border-y border-[#20b2aa]/20 relative overflow-hidden">
+        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(#20b2aa 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
+        <div className="max-w-7xl mx-auto px-6 lg:px-16 grid grid-cols-2 lg:grid-cols-4 gap-8 relative">
+          {[
+            { val: 15, suffix: " Yr", label: "Design Lifespan" },
+            { val: 11000, suffix: "+", label: "Cycle Validated" },
+            { val: 200, suffix: "µs", label: "Short-Circuit Response" },
+            { val: 5, suffix: " Layer", label: "Fault Protection" },
+          ].map((s, i) => (
+            <div
+              key={i}
+              className={`text-center transition-all duration-700 ${statsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              style={{ transitionDelay: `${i * 120}ms` }}
+            >
+              <div className="text-4xl lg:text-5xl font-black text-white mb-1">
+                <Counter to={s.val} suffix={s.suffix} />
+              </div>
+              <div className="text-[#20b2aa] text-xs font-bold uppercase tracking-widest">{s.label}</div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* ── RELIABILITY PILLARS ── */}
+      <section className="py-28 bg-white relative">
+        <div className="max-w-7xl mx-auto px-6 lg:px-16 space-y-28">
+          <div className="text-center">
+            <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.3em]">Structural Integrity</span>
+            <h2 className="mt-3 text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">Four Pillars of MYZO Reliability</h2>
+            <div className="w-14 h-1 bg-gradient-to-r from-[#20b2aa] to-[#033e74] rounded-full mx-auto mt-5" />
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {promises.map((p, i) => (
+          {pillars.map((p, idx) => <PillarRow key={idx} p={p} />)}
+        </div>
+      </section>
+
+      {/* ── RELIABILITY METRICS GRID ── */}
+      <section ref={metricsRef} className="py-24 bg-slate-50 border-t border-slate-100 relative overflow-hidden">
+        <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-[#20b2aa]/5 rounded-full blur-[150px] pointer-events-none" />
+        <div className="max-w-7xl mx-auto px-6 lg:px-16 relative">
+          <div className={`text-center mb-16 transition-all duration-1000 ${metricsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
+            <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.3em]">By the Numbers</span>
+            <h2 className="mt-3 text-4xl lg:text-5xl font-black text-slate-900 tracking-tight">What Reliability Looks Like</h2>
+            <div className="w-14 h-1 bg-gradient-to-r from-[#20b2aa] to-[#033e74] rounded-full mx-auto mt-5" />
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {reliabilityMetrics.map((m, i) => (
               <div
                 key={i}
-                className={`bg-white/70 backdrop-blur-sm border border-white rounded-2xl p-7 group hover:-translate-y-1 hover:shadow-xl hover:shadow-[#20b2aa]/10 transition-all duration-500 ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-                style={{ transitionDelay: `${i * 100 + 200}ms` }}
+                className={`group bg-white border border-slate-200 hover:border-[#20b2aa] rounded-2xl p-7 shadow-sm hover:shadow-xl transition-all duration-500 hover:-translate-y-1 ${metricsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+                style={{ transitionDelay: `${i * 80 + 200}ms` }}
               >
-                <div className="w-14 h-14 rounded-full border-2 border-[#20b2aa]/40 bg-white flex items-center justify-center text-2xl mb-5 group-hover:border-[#20b2aa] group-hover:shadow-md transition-all duration-300">
-                  {p.icon}
-                </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2 group-hover:text-[#033e74] transition-colors duration-300">{p.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{p.desc}</p>
+                <div className="text-3xl mb-4">{m.icon}</div>
+                <h3 className="text-lg font-extrabold text-[#033e74] mb-2 group-hover:text-[#20b2aa] transition-colors duration-300">{m.title}</h3>
+                <p className="text-slate-500 text-xs leading-relaxed">{m.desc}</p>
+                <div className="mt-4 w-6 h-0.5 bg-[#20b2aa] rounded-full opacity-0 group-hover:opacity-100 transition-all duration-300" />
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CTA Banner ── */}
-      <section className="py-16 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-[#011d37] via-[#033e74] to-[#033e74]" />
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-[#20b2aa]/15 rounded-full blur-3xl" />
-          <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[#033e74]/40 rounded-full blur-3xl" />
-        </div>
-        <div className="max-w-4xl mx-auto px-6 text-center relative">
-          <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-widest">Zero Compromise</span>
-          <h2 className="text-2xl lg:text-3xl font-extrabold text-white mt-3 mb-4">
-            When the Grid Fails, Myzo Doesn't
+      {/* ── CTA ── */}
+      <section ref={ctaRef} className="py-28 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-[#011d37] via-[#033e74] to-[#011d37]" />
+        <div className="absolute inset-0 opacity-[0.05]" style={{ backgroundImage: "linear-gradient(#20b2aa 1px, transparent 1px), linear-gradient(90deg, #20b2aa 1px, transparent 1px)", backgroundSize: "40px 40px" }} />
+        <div className="absolute top-0 left-1/4 w-96 h-96 bg-[#20b2aa]/15 rounded-full blur-3xl" />
+        <div className="absolute bottom-0 right-1/4 w-80 h-80 bg-[#033e74]/30 rounded-full blur-3xl" />
+        <div className={`max-w-4xl mx-auto px-6 text-center relative transition-all duration-1000 ${ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-12"}`}>
+          <div className="inline-flex items-center gap-2 mb-6 px-4 py-2 rounded-full bg-[#20b2aa]/10 border border-[#20b2aa]/30">
+            <div className="w-2 h-2 rounded-full bg-[#20b2aa] animate-pulse" />
+            <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-widest">Industry-Grade Reliability</span>
+          </div>
+          <h2 className="text-4xl lg:text-5xl font-black text-white leading-tight mb-5">
+            Engineered to Outlast<br />
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#20b2aa] to-teal-300">Every Expectation</span>
           </h2>
-          <p className="text-white/70 text-sm max-w-xl mx-auto leading-relaxed mb-8">
-            Homes, businesses, and industries across India trust Myzo to keep the lights on — no matter what.
+          <p className="text-white/60 text-base max-w-xl mx-auto leading-relaxed mb-10">
+            Our structural and electronic engineering choices aren't driven by cost — they're driven by the commitment to give you 15 trouble-free years of clean energy.
           </p>
-          <a href="/contact" className="inline-flex items-center gap-2 bg-[#20b2aa] hover:bg-[#1a948e] text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-teal-500/30 hover:-translate-y-0.5 text-sm">
-            Contact Us
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </a>
+          <div className="flex flex-wrap justify-center gap-4">
+            <a href="/products" className="inline-flex items-center gap-2 bg-[#20b2aa] hover:bg-[#1a938c] text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-teal-500/30 text-sm">
+              Shop MYZO Products
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+            </a>
+            <a href="/contact" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 text-sm">
+              Request Field Visit
+            </a>
+          </div>
         </div>
       </section>
 
+      <style>{`
+        @keyframes heroZoom { from { transform: scale(1.05); } to { transform: scale(1.12); } }
+      `}</style>
     </div>
   );
 }

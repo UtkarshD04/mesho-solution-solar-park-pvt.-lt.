@@ -187,6 +187,13 @@ exports.createEmployee = async (req, res) => {
     await employee.save();
     res.status(201).json(employee);
   } catch (err) {
+    if (err.code === 11000) {
+      const field = Object.keys(err.keyPattern)[0];
+      return res.status(400).json({ message: `${field === 'empId' ? 'Employee ID' : 'Email'} already exists.` });
+    }
+    if (err.name === 'ValidationError') {
+      return res.status(400).json({ message: Object.values(err.errors).map(e => e.message).join(', ') });
+    }
     res.status(500).json({ message: err.message || 'Failed to create employee.' });
   }
 };
@@ -199,6 +206,10 @@ exports.updateEmployee = async (req, res) => {
     await employee.save();
     res.status(200).json(employee);
   } catch (err) {
+    if (err.code === 11000) {
+      const field = Object.keys(err.keyPattern)[0];
+      return res.status(400).json({ message: `${field === 'empId' ? 'Employee ID' : 'Email'} already exists.` });
+    }
     res.status(500).json({ message: 'Failed to update employee.' });
   }
 };

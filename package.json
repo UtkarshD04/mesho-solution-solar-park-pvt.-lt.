@@ -1,0 +1,9 @@
+{
+  "name": "mesho-solution-solar-park",
+  "private": true,
+  "scripts": {
+    "dev": "node scripts/dev.js",
+    "dev:frontend": "npm --prefix Frontend run dev",
+    "dev:backend": "npm --prefix Backend run dev"
+  }
+}
