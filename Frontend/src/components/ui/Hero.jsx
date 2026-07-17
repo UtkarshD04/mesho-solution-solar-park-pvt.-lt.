@@ -2,21 +2,21 @@ import { useState, useEffect } from "react";
 
 const slides = [
   {
-    image: "/hero1.jpg",
+    image: "/hero1.png",
     tag: "Clean Energy",
     headline1: "Power the Future",
     headline2: "With Solar Intelligence",
     sub: "Next-gen lithium storage meets solar — built for India's energy revolution.",
   },
   {
-    image: "/hero2.jpg",
+    image: "/hero2.png",
     tag: "Energy Storage",
     headline1: "Never Run Out",
     headline2: "Of Power. Ever.",
     sub: "Industrial-grade LFP batteries engineered for zero downtime, zero maintenance.",
   },
   {
-    image: "/hero3.jpg",
+    image: "/hero3.png",
     tag: "Made in India",
     headline1: "Built Tough.",
     headline2: "Charged Smarter.",

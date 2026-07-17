@@ -87,7 +87,7 @@ const stages = [
       "Each incoming cell undergoes individual internal resistance measurement (< 0.5 mΩ tolerance), open-circuit voltage check (± 2 mV band), and weight verification before being batched into matched groups.",
       "Our precision matching algorithm groups cells within ±0.3% capacity tolerance — eliminating the weakest-link effect that limits most competitor packs.",
     ],
-    img: "/quality-cell.jpg",
+    img: "/quality-cell-v5.png",
     imgAlt: "LiFePO4 cell grading and matching process",
     metrics: [{ label: "Tolerance Band", val: "±0.3%" }, { label: "Reject Rate", val: "< 0.8%" }],
   },
@@ -99,7 +99,7 @@ const stages = [
       "The BMS firmware is flashed, calibrated and validated: overvoltage cutoff, undervoltage protection, short-circuit response time, temperature probe accuracy, and SoC estimation error are all verified against our spec sheets.",
       "Pass/fail results and telemetry calibration coefficients are cryptographically signed and stored per serial number for lifetime warranty tracking.",
     ],
-    img: "/quality-bms.jpg",
+    img: "/quality-bms-v5.png",
     imgAlt: "End-of-line BMS calibration station",
     metrics: [{ label: "Coverage", val: "100%" }, { label: "Parameters Checked", val: "24+" }],
     flip: true,
@@ -112,7 +112,7 @@ const stages = [
       "Pack thermal imaging detects hotspot formation caused by uneven current distribution. Packs with a hotspot delta above 3°C are flagged for teardown analysis.",
       "Our independent lab-validated 11,000-cycle claim is backed by accelerated aging data — not marketing projections — ensuring real-world performance.",
     ],
-    img: "/quality-thermal.jpg",
+    img: "/quality-thermal-v5.png",
     imgAlt: "Environmental chamber thermal stress testing",
     metrics: [{ label: "Validated Cycles", val: "11,000+" }, { label: "Temperature Range", val: "-10 to 55°C" }],
   },
@@ -124,8 +124,8 @@ const stages = [
       "Electrolyte composition, cathode material, and separator grade are independently verified via third-party mass spectrometry on quarterly production audits.",
       "Every shipment includes a full traceability report linking each pack's serial number to its cell batch, production shift, and quality gate timestamps.",
     ],
-    img: "/quality-lab.jpg",
-    imgAlt: "Chemical material safety lab audit",
+    img: "/reliability-enclosure-v5.png",
+    imgAlt: "Battery cabinet enclosure and fault protection system",
     metrics: [{ label: "Standards Met", val: "6 Global" }, { label: "Audit Frequency", val: "Quarterly" }],
     flip: true,
   },
@@ -143,13 +143,12 @@ export default function Quality() {
       {/* ── HERO ── */}
       <div className="relative w-full min-h-screen overflow-hidden flex items-center">
         <img
-          src="/hero-quality.jpg"
+          src="/hero-quality-v5.png"
           alt="MYZO Quality Control Laboratory"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ animation: "heroZoom 20s ease-in-out infinite alternate" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/92 via-[#011d37]/88 to-[#20b2aa]/20" />
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#20b2aa 1px, transparent 1px), linear-gradient(90deg, #20b2aa 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
 
         <div
           ref={heroRef}

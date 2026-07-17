@@ -87,7 +87,7 @@ const techPillars = [
       "MYZO's custom BMS employs an active balancing topology using bi-directional DC-DC converters between cell groups. This actively transfers stored charge from higher-voltage cells to lower-voltage cells during every cycle — increasing total usable energy by 10–12% over the pack lifetime.",
       "Our BMS firmware runs a real-time Kalman filter for State-of-Charge (SoC) estimation with < 2% error — far exceeding the 5–8% error typical of standard coulomb-counting BMS implementations.",
     ],
-    img: "/tech-balancer.jpg",
+    img: "/tech-balancer-v5.png",
     imgAlt: "Active balancing BMS printed circuit board",
     specs: [
       { label: "SoC Accuracy", val: "< 2%" },
@@ -105,7 +105,7 @@ const techPillars = [
       "Supported protocols include: CAN 2.0B (automotive-grade, 1Mbit/s), RS485 Modbus RTU for legacy solar controllers, RS232 for industrial PLCs, and 10/100 Ethernet for direct IP-based integration with modern EMS platforms.",
       "Pre-configured device profiles are available for Growatt, Deye, Sungrow, Victron, Voltronic, and SolarEdge inverters — reducing installation from hours to minutes. Custom profiles can be uploaded via USB-C in the field.",
     ],
-    img: "/tech-comm.jpg",
+    img: "/tech-comm-v5.png",
     imgAlt: "Multi-protocol gateway communication ports and circuit board",
     specs: [
       { label: "Protocols", val: "CAN / RS485 / RS232" },
@@ -124,7 +124,7 @@ const techPillars = [
       "The cloud dashboard records individual cell voltages, temperatures, and current with 1-second sampling resolution. Predictive algorithms flag cells drifting beyond ±3% of the pack mean and alert owners before a protection event is triggered.",
       "All data is encrypted in transit (TLS 1.3) and at rest (AES-256). Customers access their system health via a branded web and mobile portal. Engineers can push firmware updates, configure protection thresholds, and pull diagnostic dumps over the air.",
     ],
-    img: "/tech-telemetry.jpg",
+    img: "/tech-telemetry-v5.png",
     imgAlt: "Cloud analytics dashboard showing cell-level telemetry",
     specs: [
       { label: "Connectivity", val: "Wi-Fi + 4G GSM" },
@@ -142,7 +142,7 @@ const techPillars = [
       "Our perturb-and-observe MPPT algorithm samples array IV characteristics every 50ms — tracking panel output changes caused by passing clouds or morning ramp-up 30× faster than typical 1.5-second interval controllers.",
       "Anti-islanding, PV arc-fault detection, and ground fault monitoring are integrated into the MPPT controller — meeting all requirements of IEEE 1547 and IEC 61727 for grid-connected PV systems.",
     ],
-    img: "/tech-chip.jpg",
+    img: "/tech-chip-v5.png",
     imgAlt: "MPPT solar controller chip and power electronics close-up",
     specs: [
       { label: "MPPT Efficiency", val: "98.6%" },
@@ -175,28 +175,14 @@ export default function Technology() {
       {/* ── HERO ── */}
       <div className="relative w-full min-h-screen overflow-hidden flex items-center">
         <img
-          src="/hero-technology.jpg"
+          src="/hero-technology-v5.png"
           alt="MYZO Advanced Battery Technology"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ animation: "heroZoom 20s ease-in-out infinite alternate" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-[#011d37]/92 to-[#20b2aa]/15" />
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#20b2aa 1px, transparent 1px), linear-gradient(90deg, #20b2aa 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
 
-        {/* Animated circuit nodes */}
-        <div className="absolute inset-0 pointer-events-none overflow-hidden">
-          {[...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-2 h-2 rounded-full bg-[#20b2aa]"
-              style={{
-                top: `${20 + i * 15}%`, left: `${75 + i * 3}%`,
-                animation: `pulse 2s ease-in-out ${i * 0.4}s infinite`,
-                opacity: 0.4
-              }}
-            />
-          ))}
-        </div>
+
 
         <div
           ref={heroRef}

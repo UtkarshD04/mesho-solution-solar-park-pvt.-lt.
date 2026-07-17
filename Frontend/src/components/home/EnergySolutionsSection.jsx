@@ -90,15 +90,28 @@ export default function EnergySolutionsSection() {
       </div>
 
 
+      {/* ── Myzo Master Product Header ── */}
+      <div className="max-w-7xl mx-auto px-6 lg:px-10 mt-24 mb-8 text-center">
+        <div className="inline-flex items-center gap-3 mb-4">
+          <div className="w-10 h-px bg-[#20b2aa]" />
+          <span className="text-[#20b2aa] text-xs sm:text-sm font-bold uppercase tracking-[0.25em]">Featured Product</span>
+          <div className="w-10 h-px bg-[#20b2aa]" />
+        </div>
+        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-none mb-4">
+          MYZO Master Product
+        </h2>
+        <div className="h-1 w-16 rounded-full bg-gradient-to-r from-[#20b2aa] to-blue-600 mx-auto" />
+      </div>
+
       {/* ── Hybrid Inverter Section — Parallax BG ── */}
-      <div className="relative mt-20 overflow-hidden min-h-[560px]">
+      <div className="relative mt-8 overflow-hidden min-h-[560px]">
         {/* Background image with parallax */}
         <div
           className="absolute inset-0 bg-fixed bg-center bg-cover"
           style={{ backgroundImage: "url('https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=1800&q=85&auto=format&fit=crop')" }}
         />
-        {/* Dark brand-blue/teal hour overlay */}
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/95 via-slate-900/90 to-[#033e74]/80" />
+        {/* Neutral dark overlay — no blue/teal tint */}
+        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/75" />
 
         {/* Content */}
         <div className="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 grid lg:grid-cols-2 gap-12 items-center">

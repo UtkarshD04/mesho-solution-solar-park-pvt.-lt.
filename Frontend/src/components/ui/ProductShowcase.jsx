@@ -76,7 +76,7 @@ export default function ProductShowcase() {
               <span className="text-[#20b2aa] text-[11px] font-bold uppercase tracking-[0.3em]">Our Product Line</span>
             </div>
             <h2 className="text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-tight">
-              Our <span className="text-[#0B3C5D]">Products</span>
+              Our <span className="text-[#0B3C5D]">Product</span>
             </h2>
             <p className="text-slate-500 text-sm max-w-lg leading-relaxed">
               From portable power stations to industrial-grade energy storage — engineered for every scale.

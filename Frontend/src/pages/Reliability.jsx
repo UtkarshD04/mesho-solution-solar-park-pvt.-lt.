@@ -78,7 +78,7 @@ const pillars = [
       "Our IP67-rated units withstand continuous dust ingress and short-term water immersion up to 1 metre. Battery walls sustain impacts up to 9J without cell exposure — verified by IEC 62619 mechanical abuse tests.",
       "Thermal break gaskets at the lid interface prevent condensation migration, protecting BMS electronics from humid monsoon environments that plague conventional VRLA and open-cell lithium systems.",
     ],
-    img: "/reliability-uptime.jpg",
+    img: "/reliability-uptime-v5.png",
     imgAlt: "IP67 steel battery enclosure in outdoor installation",
     metrics: [{ val: "IP67", label: "Ingress Rating" }, { val: "1.2mm", label: "Steel Wall" }],
   },
@@ -90,7 +90,7 @@ const pillars = [
       "Compared to ultrasonic spot welds used by low-cost competitors, our laser welds exhibit 95%+ weld pull strength, contact resistance below 0.05 mΩ, and no micro-crack propagation under vibration — critical for installations on rooftops or near heavy machinery.",
       "Each weld is individually inspected by automated optical inspection (AOI) systems, and batch samples undergo destructive tensile testing monthly.",
     ],
-    img: "/reliability-weld.jpg",
+    img: "/reliability-weld-v5.png",
     imgAlt: "Laser welding bus bars on battery cell stack",
     metrics: [{ val: "95%+", label: "Weld Strength" }, { val: "<0.05mΩ", label: "Contact R" }],
     flip: true,
@@ -103,7 +103,7 @@ const pillars = [
       "Our BMS monitors up to 16 individual cell temperatures simultaneously, activating internal airflow or optional liquid-cooling modules when any cell deviates beyond 3°C from the group mean.",
       "In addition, every pack ships with passive heater foils for cold-climate markets where charge efficiency below 0°C drops sharply. This ensures our guaranteed cycle life holds from Rajasthan deserts to Kashmir hillsides.",
     ],
-    img: "/reliability-thermal.jpg",
+    img: "/reliability-thermal-v5.png",
     imgAlt: "Thermal imaging camera scan showing cell temperature uniformity",
     metrics: [{ val: "±3°C", label: "Temp Delta" }, { val: "16", label: "Temp Probes" }],
   },
@@ -115,7 +115,7 @@ const pillars = [
       "Protections include: cell-level overvoltage (> 3.65V), pack undervoltage (< 2.5V), overcurrent (hardware cutoff at 2.5×C), short-circuit response time < 200µs, and thermal runaway containment via intumescent cell separators.",
       "Critical fault logs are stored in non-volatile memory with timestamps. These logs can be extracted remotely via our cloud dashboard or via USB-C service port — enabling accurate warranty assessments and root-cause analysis.",
     ],
-    img: "/quality-lab.jpg",
+    img: "/quality-lab-v5.png",
     imgAlt: "BMS fault protection architecture diagram",
     metrics: [{ val: "<200µs", label: "Short Circuit" }, { val: "5-Layer", label: "Protection" }],
     flip: true,
@@ -143,13 +143,12 @@ export default function Reliability() {
       {/* ── HERO ── */}
       <div className="relative w-full min-h-screen overflow-hidden flex items-center">
         <img
-          src="/hero-reliability.jpg"
+          src="/hero-reliability-v5.png"
           alt="MYZO Industrial Reliability Testing"
           className="absolute inset-0 w-full h-full object-cover"
           style={{ animation: "heroZoom 20s ease-in-out infinite alternate" }}
         />
-        <div className="absolute inset-0 bg-gradient-to-br from-slate-950/94 via-[#011d37]/90 to-[#033e74]/30" />
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "linear-gradient(#20b2aa 1px, transparent 1px), linear-gradient(90deg, #20b2aa 1px, transparent 1px)", backgroundSize: "60px 60px" }} />
+        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
 
         {/* Floating badge top-right */}
         <div className="absolute top-10 right-10 hidden lg:flex items-center gap-3 bg-white/8 border border-white/15 backdrop-blur-md rounded-2xl px-5 py-4">

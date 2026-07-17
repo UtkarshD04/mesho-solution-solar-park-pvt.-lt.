@@ -8,6 +8,7 @@ import TechnologySection from "../components/home/TechnologySection";
 import VisionMissionSection from "../components/home/VisionMissionSection";
 import ProductHighlightSection from "../components/home/ProductHighlightSection";
 import EnergySolutionsSection from "../components/home/EnergySolutionsSection";
+import AuroraMeshSpotlight from "../components/ui/AuroraMeshSpotlight";
 import { whyChooseData, batteryProducts, engineeringDivisions } from "../data/homePageData.jsx";
 import { Link } from "react-router-dom";
 
@@ -58,7 +59,10 @@ export default function Home() {
   const [missionRef, missionInView] = useInView();
 
   return (
-    <div className="bg-slate-50 min-h-screen text-slate-900 overflow-x-hidden">
+    <div className="bg-slate-50 min-h-screen text-slate-900 overflow-hidden relative">
+
+      {/* ── Aurora + Mesh Gradient + Spotlight ── */}
+      <AuroraMeshSpotlight />
 
       {/* ── Hero Slider ─────────────────── */}
       <Hero />
