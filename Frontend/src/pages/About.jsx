@@ -74,16 +74,16 @@ export default function About() {
           {/* Right — Image */}
           <div className="relative">
             <img
-              src="https://images.unsplash.com/photo-1680169291906-ce51dad35dc7?w=900&q=80"
+              src="OfficeImage.jpeg"
               alt="BESS Battery"
-              className="rounded-2xl w-full h-[420px] object-cover shadow-xl"
+              className="rounded-2xl w-100 h-[520px] object-cover shadow-xl"
             />
-            <div className="absolute -bottom-5 -left-5 w-28 h-28 bg-[#033e74] rounded-2xl flex items-center justify-center shadow-lg">
+            {/* <div className="absolute -bottom-5 -left-5 w-28 h-28 bg-[#033e74] rounded-2xl flex items-center justify-center shadow-lg">
               <div className="text-white text-center">
                 <p className="text-2xl font-black">10+</p>
                 <p className="text-[10px] uppercase tracking-wider font-semibold leading-tight">Years of<br/>Excellence</p>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
@@ -96,15 +96,15 @@ export default function About() {
           <div className="relative flex justify-center">
             <div className="relative">
               <img
-                src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=600&q=80"
+                src="SirImage.jpeg"
                 alt="Mr. Aseem Mishra"
-                className="rounded-2xl w-80 h-[420px] object-cover shadow-xl"
+                className="rounded-2xl w-100 h-[520px] object-cover shadow-xl"
               />
               {/* Name card */}
-              <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#033e74] text-white px-6 py-3 rounded-xl shadow-lg text-center whitespace-nowrap">
+              {/* <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#033e74] text-white px-6 py-3 rounded-xl shadow-lg text-center whitespace-nowrap">
                 <p className="font-black text-sm uppercase">Mr. Aseem Mishra</p>
                 <p className="text-[10px] text-white/70 mt-0.5 uppercase tracking-wider">Business Head, Myzo</p>
-              </div>
+              </div> */}
             </div>
           </div>
 
@@ -120,7 +120,7 @@ export default function About() {
             <div className="text-[#20b2aa] text-6xl font-black leading-none mb-2 opacity-30 select-none">"</div>
 
             <p className="text-gray-600 leading-relaxed text-sm mb-4">
-              Mr. Aseem Mishra, Business Head of Myzo, brings over <strong className="text-gray-900">14 years of extensive experience</strong> in the renewable energy industry. With a strong background in product development, manufacturing, and strategic business growth, he has established himself as a respected leader in the field.
+              Mr. Aseem Mishra, Circle Business Head of Myzo, brings over <strong className="text-gray-900">14 years of extensive experience</strong> in the Battery and Solar service sector. With a strong background in product development, manufacturing, and strategic business growth, he has established himself as a respected leader in the field.
             </p>
             <p className="text-gray-600 leading-relaxed text-sm mb-4">
               Under his leadership, Myzo Battery is committed to delivering innovative, high-performance lithium-ion battery solutions for BESS (Energy Battery Storage Systems) energy storage systems, and industrial applications. His deep industry expertise, customer-centric approach, and focus on operational excellence drive the company's mission to create reliable, efficient, and sustainable energy solutions.
@@ -132,7 +132,7 @@ export default function About() {
             <div className="mt-8 flex items-center gap-4 border-l-2 border-[#20b2aa] pl-4">
               <div>
                 <p className="font-black text-gray-900 text-sm uppercase">Mr. Aseem Mishra</p>
-                <p className="text-[#033e74] text-xs font-semibold">Business Head — Myzo </p>
+                <p className="text-[#033e74] text-xs font-semibold"> Circle Business Head — Myzo </p>
               </div>
             </div>
           </div>
