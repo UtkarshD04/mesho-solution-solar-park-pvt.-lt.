@@ -32,7 +32,7 @@ export default function EnergySolutionsSection() {
   const [hovered, setHovered] = useState(null);
 
   return (
-    <section className="bg-white py-16 lg:py-20 overflow-hidden">
+    <section className="bg-white pt-10 pb-4 lg:pt-12 lg:pb-4 overflow-hidden">
 
       {/* ── Section Header ── */}
       <div className="text-center mb-10 px-6 lg:px-10">

@@ -5,20 +5,22 @@ import { useUser } from "../../context/UserContext";
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
 const seriesMeta = {
-  "LIGHT Series":    { label: "LIGHT Series" },
+  "LIGHT Series": { label: "LIGHT Series" },
   "MaxPower Series": { label: "MaxPower Series" },
   "NeoPower Series": { label: "NeoPower Series" },
-  "LEGEND Series":   { label: "LEGEND Series" },
+  "LEGEND Series": { label: "LEGEND Series" },
 };
 
 const navLinks = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
-  { label: "Why Myzo", to: "/why-myzo", dropdown: [
-    { label: "Quality", to: "/quality" },
-    { label: "Reliability", to: "/reliability" },
-    { label: "Technology", to: "/technology" },
-  ]},
+  {
+    label: "Why Myzo", to: "/why-myzo", dropdown: [
+      { label: "Quality", to: "/quality" },
+      { label: "Reliability", to: "/reliability" },
+      { label: "Technology", to: "/technology" },
+    ]
+  },
   { label: "About Us", to: "/about" },
   { label: "Contact Us", to: "/contact" },
 ];
@@ -56,7 +58,7 @@ export default function Navbar() {
           if (first) setActiveSeries(first);
         }
       })
-      .catch(() => {});
+      .catch(() => { });
   }, []);
 
   const categories = [...new Set(products.map(p => p.series))];
@@ -96,16 +98,15 @@ export default function Navbar() {
                       onMouseLeave={() => { whyTimeout.current = setTimeout(() => setWhyDropdown(false), 120); }}
                     >
                       <button type="button"
-                        className={`relative text-base font-bold tracking-wide transition-colors duration-200 inline-flex items-center gap-2 ${
-                          scrolled ? "text-slate-700 hover:text-[#033e74]" : "text-white/90 hover:text-white"
-                        }`}
+                        className={`relative text-base font-bold tracking-wide transition-colors duration-200 inline-flex items-center gap-2 ${scrolled ? "text-slate-700 hover:text-[#033e74]" : "text-white/90 hover:text-white"
+                          }`}
                       >
                         Why Myzo
                         <svg className={`w-4 h-4 ${scrolled ? "text-[#20b2aa]" : "text-white/70"}`} fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M19 9l-7 7-7-7" />
                         </svg>
                       </button>
-                    <div
+                      <div
                         className={`absolute left-0 top-full mt-4 w-44 rounded-xl border border-slate-200 bg-white shadow-lg transition-all duration-200 ${whyDropdown ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"}`}
                         onMouseEnter={() => { clearTimeout(whyTimeout.current); setWhyDropdown(true); }}
                         onMouseLeave={() => { whyTimeout.current = setTimeout(() => setWhyDropdown(false), 120); }}
@@ -138,9 +139,8 @@ export default function Navbar() {
                       }}
                     >
                       <button
-                        className={`relative text-base font-bold tracking-wide transition-colors duration-200 inline-flex items-center gap-2 ${
-                          scrolled ? "text-slate-700 hover:text-[#033e74]" : "text-white/90 hover:text-white"
-                        }`}
+                        className={`relative text-base font-bold tracking-wide transition-colors duration-200 inline-flex items-center gap-2 ${scrolled ? "text-slate-700 hover:text-[#033e74]" : "text-white/90 hover:text-white"
+                          }`}
                         type="button"
                       >
                         Products
@@ -167,9 +167,8 @@ export default function Navbar() {
                                 key={series}
                                 type="button"
                                 onMouseEnter={() => setActiveSeries(series)}
-                                className={`block w-full text-left text-xs font-bold uppercase tracking-wider rounded-xl px-3 py-2.5 transition-all duration-200 ${
-                                  activeSeries === series ? "bg-[#033e74] text-white shadow-md" : "text-slate-600 hover:bg-slate-100"
-                                }`}
+                                className={`block w-full text-left text-xs font-bold uppercase tracking-wider rounded-xl px-3 py-2.5 transition-all duration-200 ${activeSeries === series ? "bg-[#033e74] text-white shadow-md" : "text-slate-600 hover:bg-slate-100"
+                                  }`}
                               >
                                 {seriesMeta[series]?.label || series}
                               </button>
@@ -207,10 +206,9 @@ export default function Navbar() {
                     key={link.to}
                     to={link.to}
                     className={({ isActive }) =>
-                      `relative text-base font-bold tracking-wide transition-all duration-200 group ${
-                        isActive 
-                          ? (scrolled ? "text-[#033e74]" : "text-white") 
-                          : (scrolled ? "text-slate-600 hover:text-[#033e74]" : "text-white/80 hover:text-white")
+                      `relative text-base font-bold tracking-wide transition-all duration-200 group ${isActive
+                        ? (scrolled ? "text-[#033e74]" : "text-white")
+                        : (scrolled ? "text-slate-600 hover:text-[#033e74]" : "text-white/80 hover:text-white")
                       }`
                     }
                   >
@@ -230,10 +228,9 @@ export default function Navbar() {
               <NavLink
                 to="/customer-support"
                 className={({ isActive }) =>
-                  `relative text-base font-bold tracking-wide transition-all duration-200 group ${
-                    isActive
-                      ? (scrolled ? "text-[#033e74]" : "text-white")
-                      : (scrolled ? "text-slate-600 hover:text-[#033e74]" : "text-white/80 hover:text-white")
+                  `relative text-base font-bold tracking-wide transition-all duration-200 group ${isActive
+                    ? (scrolled ? "text-[#033e74]" : "text-white")
+                    : (scrolled ? "text-slate-600 hover:text-[#033e74]" : "text-white/80 hover:text-white")
                   }`
                 }
               >
@@ -249,11 +246,10 @@ export default function Navbar() {
               {isLoggedIn ? (
                 <Link
                   to="/my-account"
-                  className={`flex items-center gap-2 text-base font-bold px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg ${
-                    scrolled
+                  className={`flex items-center gap-2 text-base font-bold px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg ${scrolled
                       ? "text-white bg-gradient-to-r from-[#033e74] to-[#20b2aa] hover:from-[#022d55] hover:to-[#1a948e]"
                       : "text-white bg-white/20 hover:bg-white/30"
-                  }`}
+                    }`}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -318,9 +314,8 @@ export default function Navbar() {
             </div>
             <div className="flex lg:hidden items-center gap-1">
               <button
-                className={`p-2 rounded-lg transition-colors ${
-                  (scrolled && !menuOpen) ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
-                }`}
+                className={`p-2 rounded-lg transition-colors ${(scrolled && !menuOpen) ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
+                  }`}
                 onClick={() => setMenuOpen(!menuOpen)}
               >
                 {menuOpen
@@ -358,9 +353,8 @@ export default function Navbar() {
                       key={series}
                       type="button"
                       onClick={() => setActiveSeries(series)}
-                      className={`text-xs font-bold uppercase tracking-wider rounded-lg px-3 py-2 transition-all ${
-                        activeSeries === series ? "bg-[#033e74] text-white" : "text-slate-600 bg-white border border-slate-200"
-                      }`}
+                      className={`text-xs font-bold uppercase tracking-wider rounded-lg px-3 py-2 transition-all ${activeSeries === series ? "bg-[#033e74] text-white" : "text-slate-600 bg-white border border-slate-200"
+                        }`}
                     >
                       {seriesMeta[series]?.label || series}
                     </button>
@@ -388,8 +382,7 @@ export default function Navbar() {
             .map((link) => (
               <NavLink key={link.to} to={link.to} onClick={() => setMenuOpen(false)}
                 className={({ isActive }) =>
-                  `block py-3 text-base font-semibold transition-colors duration-200 ${
-                    isActive ? "text-[#033e74]" : "text-slate-600 hover:text-[#033e74]"
+                  `block py-3 text-base font-semibold transition-colors duration-200 ${isActive ? "text-[#033e74]" : "text-slate-600 hover:text-[#033e74]"
                   }`
                 }
               >
@@ -426,8 +419,7 @@ export default function Navbar() {
             to="/customer-support"
             onClick={() => setMenuOpen(false)}
             className={({ isActive }) =>
-              `block py-3 text-base font-semibold transition-colors duration-200 ${
-                isActive ? "text-[#033e74]" : "text-slate-600 hover:text-[#033e74]"
+              `block py-3 text-base font-semibold transition-colors duration-200 ${isActive ? "text-[#033e74]" : "text-slate-600 hover:text-[#033e74]"
               }`
             }
           >

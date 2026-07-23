@@ -39,10 +39,10 @@ const officeAddresses = [
 
 export default function Footer() {
   return (
-    <footer className="text-white" style={{ background: "linear-gradient(135deg, #011d37 0%, #033e74 50%, #011d37 100%)" }}>
+    <footer className="text-white bg-[#011d37] relative">
 
       {/* Thin top accent line */}
-      <div className="h-0.5 w-full bg-gradient-to-r from-[#033e74] via-[#20b2aa] to-[#033e74]" />
+      <div className="h-0.5 w-full bg-gradient-to-r from-[#20b2aa]/20 via-[#20b2aa] to-[#20b2aa]/20" />
 
       {/* Main Footer Grid */}
       <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">

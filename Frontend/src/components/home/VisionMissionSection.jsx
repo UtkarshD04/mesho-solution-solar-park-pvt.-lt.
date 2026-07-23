@@ -65,7 +65,7 @@ export default function VisionMissionSection() {
       {/* ═══ MAIN SECTION ═══ */}
       <div
         ref={secRef}
-        className="relative max-w-7xl mx-auto px-6 lg:px-16 py-24 lg:py-32"
+        className="relative max-w-7xl mx-auto px-6 lg:px-16 pt-10 pb-24 lg:pt-14 lg:pb-32"
       >
 
         {/* ── BIG DECORATIVE WATERMARK ── */}
@@ -79,7 +79,7 @@ export default function VisionMissionSection() {
         </div>
 
         {/* ── SECTION LABEL ── */}
-        <div className={`flex items-center gap-4 mb-16 transition-all duration-700 ${secInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
+        <div className={`flex items-center gap-4 mb-10 transition-all duration-700 ${secInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}>
           <div className="h-px flex-1 bg-gradient-to-r from-transparent to-slate-200" />
           <span className="px-5 py-2 rounded-full border border-slate-200 bg-white shadow-sm text-[#033e74] text-xs font-bold uppercase tracking-[0.3em]">
             Our Core Purpose
