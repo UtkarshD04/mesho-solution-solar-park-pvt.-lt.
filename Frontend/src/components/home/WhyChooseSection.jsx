@@ -4,7 +4,7 @@ export default function WhyChooseSection({ whyRef, whyInView, whyChooseData }) {
   return (
     <section
       ref={whyRef}
-      className="relative overflow-hidden py-20"
+      className="relative overflow-hidden py-12"
       style={{ background: "linear-gradient(135deg, #dff0f0 0%, #e8f4f8 40%, #d4eaf0 100%)" }}
     >
       <div
@@ -12,16 +12,16 @@ export default function WhyChooseSection({ whyRef, whyInView, whyChooseData }) {
         style={{ backgroundImage: "radial-gradient(#20b2aa 1px, transparent 1px)", backgroundSize: "28px 28px" }}
       />
       <div className={`max-w-7xl mx-auto px-6 lg:px-16 relative transition-all duration-1000 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-        <h2 className="text-3xl md:text-4xl lg:text-[2.6rem] font-light text-slate-800 leading-snug mb-14 max-w-3xl">
+        <h2 className="text-3xl md:text-4xl lg:text-[2.6rem] font-light text-slate-800 leading-snug mb-8 max-w-3xl">
           Why Choose{" "}
           <span className="font-extrabold text-slate-900">Myzo Battery</span>{" "}
           for Your Energy Needs?
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-12 gap-y-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8">
           {whyChooseData.map((item, i) => (
             <div
               key={item.title}
-              className={`flex flex-col gap-4 group transition-all duration-700 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+              className={`flex flex-col gap-3 group transition-all duration-700 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
               style={{ transitionDelay: `${i * 120 + 150}ms` }}
             >
               <div className={`w-[72px] h-[72px] rounded-full border-2 border-[#20b2aa]/40 bg-white/60 backdrop-blur-sm flex items-center justify-center shadow-sm group-hover:border-[#20b2aa] group-hover:shadow-md transition-all duration-300 shrink-0 ${item.iconBg}`}>

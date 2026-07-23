@@ -47,8 +47,9 @@ export default function AboutMyzoSection({ aboutRef, aboutInView }) {
         </div>
 
         <div className="relative space-y-6">
-          <p className="text-2xl md:text-3xl lg:text-4xl font-light text-[#20b2aa] leading-snug relative z-10">
-            Pioneering Next-Gen BESS Technology
+          <p className="text-lg font-bold uppercase tracking-[0.2em] text-[#20b2aa] flex items-center gap-3 relative z-10">
+            <span className="inline-block w-8 h-[2px] bg-[#20b2aa] rounded-full" />
+            About Us
           </p>
 
           <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight relative z-10">

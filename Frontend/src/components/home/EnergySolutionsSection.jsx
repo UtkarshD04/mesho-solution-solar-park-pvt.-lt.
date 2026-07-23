@@ -28,16 +28,6 @@ const solutionTiles = [
   },
 ];
 
-const inverterFeatures = [
-  "100% Unbalanced Output — Supports full three-phase phase imbalance to maximize system flexibility.",
-  "Seamless AC Coupling — Easily retrofit existing on-grid solar power systems with robust battery storage.",
-  "High Scalability — Parallel up to 10 units for robust on-grid and off-grid utility-scale operations.",
-  "Rapid 200A Energy Flow — Industry-leading charge and discharge current for fast power transfer.",
-  "High-Voltage Battery Integration — Engineered for high-voltage batteries to ensure peak conversion efficiency.",
-  "Smart Load Scheduling — Configure up to 6 custom charging and discharging time periods daily.",
-  "Diesel Generator Support — Directly stores excess generator output and manages automatic grid switches.",
-];
-
 export default function EnergySolutionsSection() {
   const [hovered, setHovered] = useState(null);
 
@@ -89,88 +79,6 @@ export default function EnergySolutionsSection() {
         ))}
       </div>
 
-
-      {/* ── Myzo Master Product Header ── */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 mt-24 mb-8 text-center">
-        <div className="inline-flex items-center gap-3 mb-4">
-          <div className="w-10 h-px bg-[#20b2aa]" />
-          <span className="text-[#20b2aa] text-xs sm:text-sm font-bold uppercase tracking-[0.25em]">Featured Product</span>
-          <div className="w-10 h-px bg-[#20b2aa]" />
-        </div>
-        <h2 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 tracking-tight leading-none mb-4">
-          MYZO Master Product
-        </h2>
-        <div className="h-1 w-16 rounded-full bg-gradient-to-r from-[#20b2aa] to-blue-600 mx-auto" />
-      </div>
-
-      {/* ── Hybrid Inverter Section — Parallax BG ── */}
-      <div className="relative mt-8 overflow-hidden min-h-[560px]">
-        {/* Background image with parallax */}
-        <div
-          className="absolute inset-0 bg-fixed bg-center bg-cover"
-          style={{ backgroundImage: "url('https://images.unsplash.com/photo-1613665813446-82a78c468a1d?w=1800&q=85&auto=format&fit=crop')" }}
-        />
-        {/* Neutral dark overlay — no blue/teal tint */}
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/55 to-black/75" />
-
-        {/* Content */}
-        <div className="relative max-w-7xl mx-auto px-6 lg:px-10 py-20 grid lg:grid-cols-2 gap-12 items-center">
-
-          {/* Left — Product Image Card */}
-          <div className="flex justify-center">
-            <div className="relative group/img overflow-hidden rounded-3xl bg-white/95 border border-[#20b2aa]/20 p-8 shadow-2xl shadow-black/60 transition-all duration-500 hover:scale-[1.02] hover:border-[#20b2aa]/40">
-              <img
-                src="/myzo-hybrid-inverter.png"
-                alt="MYZO Hybrid Solar Inverter"
-                className="w-full max-w-md h-[400px] object-contain drop-shadow-xl"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#20b2aa]/5 to-transparent pointer-events-none" />
-            </div>
-          </div>
-
-          {/* Right — Details */}
-          <div className="space-y-6">
-            <div>
-              <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em] px-3 py-1.5 bg-[#20b2aa]/10 border border-[#20b2aa]/30 rounded-full">
-                Featured Innovation
-              </span>
-              <h2 className="mt-4 text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
-                Advanced Three-Phase <br />Hybrid Inverter
-              </h2>
-              <h3 className="mt-2 text-lg font-extrabold text-[#20b2aa] tracking-wide">
-                SUN-100/125K-SG02HP3-EU-GM10
-              </h3>
-              <p className="mt-3 text-white/70 text-sm leading-relaxed max-w-xl">
-                Engineered for maximum reliability and scaling. This commercial-grade hybrid system seamlessly coordinates solar arrays, utility grid supply, battery storage, and generators to deliver uninterrupted, high-efficiency clean power.
-              </p>
-            </div>
-
-            <ul className="space-y-3">
-              {inverterFeatures.map((feature, i) => {
-                const [title, desc] = feature.split(" — ");
-                return (
-                  <li key={i} className="flex items-start gap-3 group/item">
-                    <span className="mt-2 h-2 w-2 shrink-0 rounded-full bg-[#20b2aa] shadow-md shadow-[#20b2aa]/50" />
-                    <span className="text-white/70 text-sm leading-relaxed group-hover/item:text-white transition-colors duration-200">
-                      <strong className="text-white font-semibold">{title}</strong> {desc ? `— ${desc}` : ""}
-                    </span>
-                  </li>
-                );
-              })}
-            </ul>
-
-            <Link
-              to="/products"
-              className="inline-flex items-center gap-2 bg-[#20b2aa] hover:bg-[#1a938c] text-white text-sm font-bold px-6 py-3 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-teal-500/20"
-            >
-              View Specifications
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-              </svg>
-            </Link>
-          </div>
-        </div>
-      </div>
 
     </section>
   );
