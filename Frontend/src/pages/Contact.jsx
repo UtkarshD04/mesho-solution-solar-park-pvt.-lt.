@@ -1,4 +1,6 @@
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useInView from "../hooks/useInView";
 
 const contactTypes = [
   {
@@ -82,6 +84,13 @@ const officeContactCards = [
 
 export default function Contact() {
   const navigate = useNavigate();
+  const [heroLoaded, setHeroLoaded] = useState(false);
+  const [officeRef, officeInView] = useInView();
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 60);
+    return () => clearTimeout(t);
+  }, []);
 
   return (
     <div className="min-h-screen bg-white">
@@ -95,7 +104,10 @@ export default function Contact() {
             className="absolute inset-0 w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-gradient-to-b from-black/30 via-black/20 to-black/50" />
-          <div className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20 pb-48">
+          <div
+            className="relative z-10 text-center px-6 max-w-4xl mx-auto pt-20 pb-48 transition-all duration-1000"
+            style={{ opacity: heroLoaded ? 1 : 0, transform: heroLoaded ? "translateY(0)" : "translateY(24px)" }}
+          >
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-4">Get In Touch</p>
             <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black text-white leading-tight mb-5">
               Contact Us
@@ -113,7 +125,11 @@ export default function Contact() {
               <div
                 key={type.key}
                 className="group relative rounded-3xl overflow-hidden cursor-pointer transition-all duration-700 hover:-translate-y-2 hover:shadow-2xl bg-white border border-gray-100"
-                style={{ transitionDelay: `${i * 150}ms` }}
+                style={{
+                  opacity: heroLoaded ? 1 : 0,
+                  transform: heroLoaded ? "translateY(0)" : "translateY(32px)",
+                  transitionDelay: `${i * 150 + 200}ms`,
+                }}
                 onClick={() => type.external ? window.open(type.route, "_blank") : navigate(type.route)}
               >
                 <div className="p-10">
@@ -144,16 +160,21 @@ export default function Contact() {
       </div>
 
       {/* ── Office Locations ── */}
-      <section className="py-16 bg-white">
+      <section ref={officeRef} className="py-16 bg-white">
         <div className="max-w-6xl mx-auto px-6 lg:px-10">
           <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            {officeContactCards.map((card) => (
+            {officeContactCards.map((card, i) => (
               <a
                 key={card.key}
                 href={card.href}
                 target={card.href.startsWith("http") ? "_blank" : undefined}
                 rel={card.href.startsWith("http") ? "noreferrer" : undefined}
                 className="group relative overflow-hidden rounded-3xl bg-white border border-gray-100 shadow-xl shadow-gray-200/70 p-8 text-center transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl"
+                style={{
+                  opacity: officeInView ? 1 : 0,
+                  transform: officeInView ? "translateY(0)" : "translateY(24px)",
+                  transitionDelay: `${i * 120}ms`,
+                }}
               >
                 <div className="absolute -top-10 -right-10 w-32 h-32 rounded-full bg-[#e8eef7]" />
                 <div className="relative flex flex-col items-center">

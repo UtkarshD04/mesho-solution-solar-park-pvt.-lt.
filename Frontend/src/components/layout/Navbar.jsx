@@ -330,8 +330,11 @@ export default function Navbar() {
       </div>
 
       {/* Mobile Menu */}
-      {menuOpen && (
-        <div className="lg:hidden bg-white border-t border-slate-200 px-6 py-4 space-y-1 shadow-xl">
+      <div
+        className="lg:hidden overflow-hidden transition-all duration-300 ease-in-out"
+        style={{ maxHeight: menuOpen ? "2000px" : "0px", opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}
+      >
+        <div className="bg-white border-t border-slate-200 px-6 py-4 space-y-1 shadow-xl">
           {/* Products accordion */}
           <div>
             <button
@@ -452,7 +455,7 @@ export default function Navbar() {
             </Link>
           )}
         </div>
-      )}
+      </div>
     </nav>
   );
 }

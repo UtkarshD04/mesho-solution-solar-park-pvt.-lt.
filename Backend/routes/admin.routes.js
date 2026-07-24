@@ -2,9 +2,10 @@ const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/admin.controller');
 const { authAdmin } = require('../middleware/admin.middleware');
+const rateLimit = require('../middleware/rateLimit.middleware');
 
 // Auth
-router.post('/login', adminController.loginAdmin);
+router.post('/login', rateLimit({ max: 8 }), adminController.loginAdmin);
 router.post('/logout', authAdmin, adminController.logoutAdmin);
 router.get('/profile', authAdmin, adminController.getAdminProfile);
 router.put('/change-password', authAdmin, adminController.changePassword);

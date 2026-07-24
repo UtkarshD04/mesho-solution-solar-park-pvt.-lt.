@@ -1,4 +1,36 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
+
+function useInView(threshold = 0.4) {
+  const ref = useRef(null);
+  const [inView, setInView] = useState(false);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect(); } },
+      { threshold }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, [threshold]);
+  return [ref, inView];
+}
+
+function CountUp({ value, start, duration = 1600 }) {
+  const [display, setDisplay] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let raf;
+    const begin = performance.now();
+    const tick = (now) => {
+      const progress = Math.min((now - begin) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(value * eased));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => raf && cancelAnimationFrame(raf);
+  }, [start, value, duration]);
+  return <>{display.toLocaleString()}</>;
+}
 
 const slides = [
   {
@@ -24,8 +56,28 @@ const slides = [
   },
 ];
 
+const heroStats = [
+  {
+    icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>),
+    value: 350, suffix: "+", unit: "MWh", label: "Annual Plant Capacity",
+  },
+  {
+    icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>),
+    value: 30000, suffix: "+", unit: "Cycles", label: "LFP Cycle Lifespan",
+  },
+  {
+    icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>),
+    value: 6, suffix: "+", unit: "Cities", label: "Cities Served",
+  },
+  {
+    icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>),
+    value: 10, suffix: "+", unit: "Years", label: "Years of Expertise",
+  },
+];
+
 export default function Hero() {
   const [current, setCurrent] = useState(0);
+  const [statsRef, statsInView] = useInView(0.3);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -117,32 +169,23 @@ export default function Hero() {
       {/* Stats Strip – inside hero image at bottom */}
       <div className="absolute bottom-0 left-0 right-0 z-10">
         <div className="border-t border-white/10">
-          <div className="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
-            {[
-              {
-                icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>),
-                value: "350+", unit: "MWh", label: "Annual Plant Capacity",
-              },
-              {
-                icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>),
-                value: "30,000+", unit: "Cycles", label: "LFP Cycle Lifespan",
-              },
-              {
-                icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>),
-                value: "6+", unit: "Cities", label: "Cities Served",
-              },
-              {
-                icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>),
-                value: "10+", unit: "Years", label: "Years of Expertise",
-              },
-            ].map((s) => (
-              <div key={s.label} className="flex items-center gap-4 px-8 py-5">
+          <div ref={statsRef} className="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
+            {heroStats.map((s, i) => (
+              <div
+                key={s.label}
+                className="flex items-center gap-4 px-8 py-5 transition-all duration-700 ease-out"
+                style={{
+                  opacity: statsInView ? 1 : 0,
+                  transform: statsInView ? "translateY(0)" : "translateY(16px)",
+                  transitionDelay: `${i * 120}ms`,
+                }}
+              >
                 <div className="w-10 h-10 rounded-xl bg-[#20b2aa]/20 border border-[#20b2aa]/40 flex items-center justify-center text-[#20b2aa] shrink-0">
                   {s.icon}
                 </div>
                 <div>
                   <p className="text-white font-black text-2xl leading-none">
-                    {s.value} <span className="text-[#20b2aa] text-sm font-bold">{s.unit}</span>
+                    <CountUp value={s.value} start={statsInView} duration={1400 + i * 200} />{s.suffix} <span className="text-[#20b2aa] text-sm font-bold">{s.unit}</span>
                   </p>
                   <p className="text-white/50 text-xs uppercase tracking-widest mt-1">{s.label}</p>
                 </div>

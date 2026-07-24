@@ -1,13 +1,43 @@
+import { useState, useEffect } from 'react';
 import VisionMissionSection from '../components/home/VisionMissionSection';
+import useInView from '../hooks/useInView';
 
 const stats = [
-  { value: '2015', label: 'Founded' },
-  { value: '500+', label: 'MW Installed' },
-  { value: '200+', label: 'Projects Done' },
-  { value: '14+', label: 'Years Leadership' },
+  { value: 2015, label: 'Founded', plain: true },
+  { value: 500, suffix: '+', label: 'MW Installed' },
+  { value: 200, suffix: '+', label: 'Projects Done' },
+  { value: 14, suffix: '+', label: 'Years Leadership' },
 ]
 
+function CountUp({ value, suffix = "", start, duration = 1500, plain = false }) {
+  const [display, setDisplay] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let raf;
+    const begin = performance.now();
+    const tick = (now) => {
+      const progress = Math.min((now - begin) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setDisplay(Math.round(value * eased));
+      if (progress < 1) raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+    return () => raf && cancelAnimationFrame(raf);
+  }, [start, value, duration]);
+  return <>{plain ? display : display.toLocaleString()}{suffix}</>;
+}
+
 export default function About() {
+  const [heroLoaded, setHeroLoaded] = useState(false);
+  const [statsRef, statsInView] = useInView(0.3);
+  const [briefRef, briefInView] = useInView();
+  const [ownerRef, ownerInView] = useInView();
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 60);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <div className="min-h-screen bg-white">
 
@@ -21,7 +51,10 @@ export default function About() {
         }}
       >
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        <div className="relative z-10 px-6 max-w-4xl mx-auto pt-20">
+        <div
+          className="relative z-10 px-6 max-w-4xl mx-auto pt-20 transition-all duration-1000"
+          style={{ opacity: heroLoaded ? 1 : 0, transform: heroLoaded ? "translateY(0)" : "translateY(24px)" }}
+        >
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-4">Our Story</p>
           <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-tight mb-5">
             About Us
@@ -32,7 +65,23 @@ export default function About() {
         </div>
       </section>
 
-
+      {/* STATS STRIP */}
+      <div ref={statsRef} className="bg-[#011d37] py-10">
+        <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-6">
+          {stats.map((s, i) => (
+            <div
+              key={s.label}
+              className="text-center transition-all duration-700"
+              style={{ opacity: statsInView ? 1 : 0, transform: statsInView ? "translateY(0)" : "translateY(18px)", transitionDelay: `${i * 130}ms` }}
+            >
+              <p className="text-3xl sm:text-4xl font-black text-white">
+                <CountUp value={s.value} suffix={s.suffix} plain={s.plain} start={statsInView} duration={1400 + i * 150} />
+              </p>
+              <p className="text-[11px] uppercase tracking-[0.2em] text-white/50 mt-1 font-bold">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </div>
 
       {/* INDIA'S FIRST BESS HEADING */}
       <div className="bg-white py-10 text-center border-b border-gray-100">
@@ -51,9 +100,12 @@ export default function About() {
 
       {/* COMPANY BRIEFING — right image, left text */}
       <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+        <div ref={briefRef} className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
           {/* Left — Text */}
-          <div className="relative pl-6 sm:pl-8">
+          <div
+            className="relative pl-6 sm:pl-8 transition-all duration-1000"
+            style={{ opacity: briefInView ? 1 : 0, transform: briefInView ? "translateX(0)" : "translateX(-32px)" }}
+          >
             <div className="absolute left-0 top-2 h-[88%] w-1 rounded-full bg-[#20b2aa]" />
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#033e74] mb-3">Who We Are</p>
             <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight mb-6">
@@ -72,44 +124,42 @@ export default function About() {
           </div>
 
           {/* Right — Image */}
-          <div className="relative">
+          <div
+            className="relative group overflow-hidden rounded-2xl transition-all duration-1000"
+            style={{ opacity: briefInView ? 1 : 0, transform: briefInView ? "translateX(0)" : "translateX(32px)", transitionDelay: "150ms" }}
+          >
             <img
               src="OfficeImage.jpeg"
               alt="BESS Battery"
-              className="rounded-2xl w-100 h-[520px] object-cover shadow-xl"
+              className="rounded-2xl w-100 h-[520px] object-cover shadow-xl transition-transform duration-700 group-hover:scale-105"
             />
-            {/* <div className="absolute -bottom-5 -left-5 w-28 h-28 bg-[#033e74] rounded-2xl flex items-center justify-center shadow-lg">
-              <div className="text-white text-center">
-                <p className="text-2xl font-black">10+</p>
-                <p className="text-[10px] uppercase tracking-wider font-semibold leading-tight">Years of<br/>Excellence</p>
-              </div>
-            </div> */}
           </div>
         </div>
       </section>
 
       {/* OWNER SECTION — left image, right speech */}
       <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
+        <div ref={ownerRef} className="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-14 items-center">
 
           {/* Left — Owner Image */}
-          <div className="relative flex justify-center">
-            <div className="relative">
+          <div
+            className="relative flex justify-center transition-all duration-1000"
+            style={{ opacity: ownerInView ? 1 : 0, transform: ownerInView ? "translateX(0)" : "translateX(-32px)" }}
+          >
+            <div className="relative group overflow-hidden rounded-2xl">
               <img
                 src="SirImage.jpeg"
                 alt="Mr. Aseem Mishra"
-                className="rounded-2xl w-100 h-[520px] object-cover shadow-xl"
+                className="rounded-2xl w-100 h-[520px] object-cover shadow-xl transition-transform duration-700 group-hover:scale-105"
               />
-              {/* Name card */}
-              {/* <div className="absolute -bottom-5 left-1/2 -translate-x-1/2 bg-[#033e74] text-white px-6 py-3 rounded-xl shadow-lg text-center whitespace-nowrap">
-                <p className="font-black text-sm uppercase">Mr. Aseem Mishra</p>
-                <p className="text-[10px] text-white/70 mt-0.5 uppercase tracking-wider">Business Head, Myzo</p>
-              </div> */}
             </div>
           </div>
 
           {/* Right — Speech */}
-          <div className="relative pt-8 md:pt-0 pl-6 sm:pl-8">
+          <div
+            className="relative pt-8 md:pt-0 pl-6 sm:pl-8 transition-all duration-1000"
+            style={{ opacity: ownerInView ? 1 : 0, transform: ownerInView ? "translateX(0)" : "translateX(32px)", transitionDelay: "150ms" }}
+          >
             <div className="absolute left-0 top-2 h-[88%] w-1 rounded-full bg-[#20b2aa]" />
             <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#033e74] mb-3">Leadership</p>
             <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight mb-6">
@@ -123,7 +173,7 @@ export default function About() {
               Mr. Aseem Mishra, Circle Business Head of Myzo, brings over <strong className="text-gray-900">14 years of extensive experience</strong> in the Battery and Solar service sector. With a strong background in product development, manufacturing, and strategic business growth, he has established himself as a respected leader in the field.
             </p>
             <p className="text-gray-600 leading-relaxed text-sm mb-4">
-              Under his leadership, Myzo Battery is committed to delivering innovative, high-performance lithium-ion battery solutions for BESS (Energy Battery Storage Systems) energy storage systems, and industrial applications. His deep industry expertise, customer-centric approach, and focus on operational excellence drive the company's mission to create reliable, efficient, and sustainable energy solutions.
+              Under his leadership, Myzo Battery is committed to delivering innovative, high-performance lithium-ion battery solutions for BESS (Battery Energy Storage Systems) and industrial applications. His deep industry expertise, customer-centric approach, and focus on operational excellence drive the company's mission to create reliable, efficient, and sustainable energy solutions.
             </p>
             <p className="text-gray-600 leading-relaxed text-sm">
               Through his strategic vision and commitment to innovation, Mr. Mishra continues to position Myzo at the forefront of the clean energy revolution, fostering long-term growth, technological advancement, and exceptional value for customers and stakeholders alike.

@@ -87,7 +87,7 @@ export function PageRouteTransition({ children }) {
   }, [pathname]);
 
   return (
-    <div>
+    <div key={pathname} style={{ animation: "fadeUp 0.35s ease" }}>
       {children}
     </div>
   );

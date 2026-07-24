@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom";
+import useInView from "../../hooks/useInView";
 
 const socialLinks = [
   {
@@ -38,6 +39,8 @@ const officeAddresses = [
 ];
 
 export default function Footer() {
+  const [ref, inView] = useInView(0.05);
+
   return (
     <footer className="text-white bg-[#011d37] relative">
 
@@ -45,8 +48,11 @@ export default function Footer() {
       <div className="h-0.5 w-full bg-gradient-to-r from-[#20b2aa]/20 via-[#20b2aa] to-[#20b2aa]/20" />
 
       {/* Main Footer Grid */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+      <div ref={ref} className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
+        <div
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 transition-all duration-1000"
+          style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(20px)" }}
+        >
 
           {/* Column 1 - Brand */}
           <div className="space-y-5 lg:col-span-1">
@@ -69,7 +75,7 @@ export default function Footer() {
                     key={s.name}
                     href={s.href}
                     title={s.name}
-                    className="w-9 h-9 bg-white/8 hover:bg-[#20b2aa] rounded-lg flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-[#20b2aa]"
+                    className="w-9 h-9 bg-white/8 hover:bg-[#20b2aa] rounded-lg flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-[#20b2aa] hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/30"
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">{s.icon}</svg>
                   </a>
@@ -88,9 +94,9 @@ export default function Footer() {
                 <li key={link.to}>
                   <Link
                     to={link.to}
-                    className="text-white/60 hover:text-[#20b2aa] text-sm transition-colors duration-200 flex items-center gap-2 group"
+                    className="text-white/60 hover:text-[#20b2aa] text-sm transition-all duration-200 flex items-center gap-2 group hover:translate-x-1"
                   >
-                    <span className="w-1 h-1 rounded-full bg-[#20b2aa]/40 group-hover:bg-[#20b2aa] transition-colors shrink-0" />
+                    <span className="w-1 h-1 rounded-full bg-[#20b2aa]/40 group-hover:bg-[#20b2aa] group-hover:w-2 transition-all shrink-0" />
                     {link.label}
                   </Link>
                 </li>

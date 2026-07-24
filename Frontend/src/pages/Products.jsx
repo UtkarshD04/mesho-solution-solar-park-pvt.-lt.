@@ -1,15 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import useInView from "../hooks/useInView";
 
 const THEME = "#033e74";
 const TEAL = "#20b2aa";
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
 const seriesMeta = {
-  "LIGHT Series":    { label: "LIGHT Series" },
+  "LIGHT Series": { label: "LIGHT Series" },
   "MaxPower Series": { label: "MaxPower Series" },
   "NeoPower Series": { label: "NeoPower Series" },
-  "LEGEND Series":   { label: "LEGEND Series" },
+  "LEGEND Series": { label: "LEGEND Series" },
 };
 
 export default function ProductsPage() {
@@ -18,6 +19,14 @@ export default function ProductsPage() {
   const [filter, setFilter] = useState("All");
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
+  const [heroLoaded, setHeroLoaded] = useState(false);
+  const [gridRef, gridInView] = useInView(0.05);
+  const [infoRef, infoInView] = useInView();
+
+  useEffect(() => {
+    const t = setTimeout(() => setHeroLoaded(true), 60);
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     fetch(`${API_BASE}/api/products`)
@@ -43,15 +52,22 @@ export default function ProductsPage() {
       <section className="relative min-h-[55vh] flex items-center justify-center text-white text-center">
         <img src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=1920&q=80" alt="Products Hero" className="absolute inset-0 w-full h-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-black/60 via-black/40 to-black/70" />
-        <div className="relative z-10 px-6 max-w-4xl mx-auto pt-24 pb-12">
+        <div
+          className="relative z-10 px-6 max-w-4xl mx-auto pt-24 pb-12 transition-all duration-1000"
+          style={{ opacity: heroLoaded ? 1 : 0, transform: heroLoaded ? "translateY(0)" : "translateY(24px)" }}
+        >
           <h1 className="text-5xl sm:text-6xl font-black uppercase leading-tight mb-4">Our Products</h1>
           <div className="w-16 h-[3px] mx-auto mb-5" style={{ background: TEAL }} />
           <p className="text-white/70 text-base max-w-2xl mx-auto leading-relaxed">
             Advanced LiFePO4 battery storage systems engineered for homes, businesses and industries across India.
           </p>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mt-10 max-w-2xl mx-auto">
-            {[["9", "Models"], ["30k+", "Cycles"], ["4", "Series"], ["IP67", "Protection"]].map(([val, lbl]) => (
-              <div key={lbl} className="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm p-4">
+            {[["9", "Models"], ["30k+", "Cycles"], ["4", "Series"], ["IP67", "Protection"]].map(([val, lbl], i) => (
+              <div
+                key={lbl}
+                className="rounded-2xl border border-white/20 bg-white/10 backdrop-blur-sm p-4 transition-all duration-700 hover:bg-white/15 hover:-translate-y-1"
+                style={{ opacity: heroLoaded ? 1 : 0, transform: heroLoaded ? "translateY(0)" : "translateY(16px)", transitionDelay: `${i * 100 + 200}ms` }}
+              >
                 <p className="text-2xl font-black text-white">{val}</p>
                 <p className="text-[10px] uppercase tracking-[0.25em] text-white/60 mt-1">{lbl}</p>
               </div>
@@ -87,8 +103,11 @@ export default function ProductsPage() {
       </div>
 
       {/* ── Product Grid ── */}
-      <section className="max-w-7xl mx-auto px-6 py-14">
-        <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-10">
+      <section ref={gridRef} className="max-w-7xl mx-auto px-6 py-14">
+        <div
+          className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between mb-10 transition-all duration-700"
+          style={{ opacity: gridInView ? 1 : 0, transform: gridInView ? "translateY(0)" : "translateY(16px)" }}
+        >
           <div className="relative pl-6">
             <div className="absolute left-0 top-1 h-full w-1 rounded-full" style={{ background: TEAL }} />
             <p className="text-[10px] font-bold uppercase tracking-[0.3em] mb-1" style={{ color: THEME }}>Product Catalog</p>
@@ -104,7 +123,7 @@ export default function ProductsPage() {
             {Array(6).fill(0).map((_, i) => <div key={i} className="h-80 rounded-2xl bg-gray-100 animate-pulse" />)}
           </div>
         ) : visible.length === 0 ? (
-          <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-16 text-center">
+          <div className="rounded-2xl border-2 border-dashed border-gray-200 bg-gray-50 p-16 text-center animate-[fadeUp_0.5s_ease]">
             <p className="text-lg font-black uppercase text-gray-900 mb-2">No Products Found</p>
             <p className="text-sm text-gray-400 mb-6">Try clearing filters or searching for another model.</p>
             <button className="rounded-xl px-6 py-3 text-sm font-black uppercase tracking-wider text-white transition hover:opacity-90"
@@ -115,22 +134,36 @@ export default function ProductsPage() {
           </div>
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 xl:grid-cols-3">
-            {visible.map((product) => (
-              <ProductCard key={product._id} product={product} onClick={() => navigate(`/products/${product._id}`)} />
+            {visible.map((product, i) => (
+              <div
+                key={product._id}
+                className="transition-all duration-700 ease-out"
+                style={{
+                  opacity: gridInView ? 1 : 0,
+                  transform: gridInView ? "translateY(0)" : "translateY(24px)",
+                  transitionDelay: `${Math.min(i, 8) * 80}ms`,
+                }}
+              >
+                <ProductCard product={product} onClick={() => navigate(`/products/${product._id}`)} />
+              </div>
             ))}
           </div>
         )}
       </section>
 
       {/* ── Bottom Info Cards ── */}
-      <section className="py-16 bg-gray-50 border-t border-gray-100">
+      <section ref={infoRef} className="py-16 bg-gray-50 border-t border-gray-100">
         <div className="max-w-7xl mx-auto px-6 grid gap-6 lg:grid-cols-3">
           {[
             { tag: "Performance", title: "Maximum efficiency for every installation", desc: "Our modular storage systems are tuned to provide reliable backup power, fast charging, and long service life in harsh environments." },
             { tag: "Safety", title: "Smart thermal and battery management", desc: "The Myzo portfolio prioritizes safety and durability so you can deploy with confidence in any environment." },
             { tag: "Support", title: "End-to-end service and installation guidance", desc: "Our team helps you choose the right model, complete commissioning, and keep systems operating smoothly." },
-          ].map(({ tag, title, desc }) => (
-            <div key={tag} className="bg-white rounded-2xl border border-gray-100 shadow-lg p-8 relative overflow-hidden">
+          ].map(({ tag, title, desc }, i) => (
+            <div
+              key={tag}
+              className="bg-white rounded-2xl border border-gray-100 shadow-lg p-8 relative overflow-hidden transition-all duration-700 hover:-translate-y-1.5 hover:shadow-xl"
+              style={{ opacity: infoInView ? 1 : 0, transform: infoInView ? "translateY(0)" : "translateY(24px)", transitionDelay: `${i * 130}ms` }}
+            >
               <div className="absolute top-0 left-0 right-0 h-1" style={{ background: `linear-gradient(90deg, ${THEME}, ${TEAL})` }} />
               <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-3" style={{ color: TEAL }}>{tag}</p>
               <p className="text-base font-black uppercase text-gray-900 mb-3 leading-tight">{title}</p>
@@ -148,40 +181,47 @@ function ProductCard({ product, onClick }) {
   const imgSrc = product.image ? `${API_BASE}${product.image}` : null;
 
   return (
-    <div onClick={onClick} className="group bg-white rounded-2xl border border-gray-100 shadow-lg overflow-hidden cursor-pointer hover:shadow-xl hover:-translate-y-1 transition-all duration-300 relative">
-      <div className="absolute top-4 right-[-28px] z-10 rotate-45 w-28 text-center py-1 text-[10px] font-black uppercase tracking-wider text-white shadow-md" style={{ background: TEAL }}>
-        Coming Soon
-      </div>
-      <div className="relative h-52 overflow-hidden bg-gray-100 flex items-center justify-center">
+    <div
+      onClick={onClick}
+      className="w-full flex flex-col group cursor-pointer"
+    >
+      {/* Image Container with Coming Soon overlay */}
+      <div className="relative w-full h-[260px] bg-[#f8f9fa] rounded-sm overflow-hidden flex items-center justify-center p-4 border border-slate-100">
         {imgSrc ? (
-          <img src={imgSrc} alt={product.model} className="w-full h-full object-cover blur-sm scale-105" />
+          <img
+            src={imgSrc}
+            alt={product.model}
+            onError={(e) => {
+              e.target.onerror = null;
+              e.target.src = `https://placehold.co/600x400/f8f9fa/339db9?text=${encodeURIComponent(product.model)}`;
+            }}
+            className="max-h-[200px] w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+          />
         ) : (
-          <div className="w-full h-full flex items-center justify-center" style={{ background: "linear-gradient(135deg, #e8eef7, #d0e2f6)" }}>
-            <svg className="w-20 h-20 opacity-20" fill="none" stroke="#033e74" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1} d="M13 10V3L4 14h7v7l9-11h-7z" />
+          <div className="flex flex-col items-center justify-center text-slate-300">
+            <svg className="w-12 h-12 mb-2 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
+            <span className="text-[10px] uppercase tracking-wider text-slate-400 font-semibold">Image Pending</span>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent" />
-        <div className="absolute bottom-3 left-3 px-3 py-1 rounded-full text-[10px] font-black uppercase tracking-wider text-white" style={{ background: `${THEME}cc` }}>
-          {product.badge}
-        </div>
-      </div>
-      <div className="p-6">
-        <div className="h-1 w-8 rounded-full mb-4" style={{ background: TEAL }} />
-        <p className="text-[10px] font-bold uppercase tracking-[0.25em] mb-1" style={{ color: TEAL }}>{product.series}</p>
-        <h3 className="text-lg font-black uppercase text-gray-900 tracking-wide mb-1">{product.model}</h3>
-        <p className="text-xs text-gray-400 font-semibold uppercase tracking-wider mb-3">{product.type}</p>
-        <p className="text-sm text-gray-500 leading-relaxed line-clamp-2">{product.tagline}</p>
-        <div className="mt-5 pt-4 border-t border-gray-100 flex items-center justify-between">
-          <span className="text-xs text-gray-400 font-medium">{product.specs?.[0]?.value}</span>
-          <span className="inline-flex items-center gap-1 text-xs font-black uppercase tracking-wider" style={{ color: THEME }}>
-            View Details
-            <svg className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-            </svg>
+
+        {/* Coming Soon Glass Overlay over Image */}
+        <div className="absolute inset-0 bg-slate-900/10 backdrop-blur-[0.5px] flex items-center justify-center z-10">
+          <span className="px-3 py-1.5 rounded-sm bg-orange-600/90 text-white text-[9px] font-black uppercase tracking-[0.2em] shadow-md">
+            Coming Soon
           </span>
         </div>
+      </div>
+
+      {/* Metadata centered underneath */}
+      <div className="mt-4 text-center px-1 space-y-1.5 flex-1 flex flex-col justify-start">
+        <h3 className="text-xs font-bold text-slate-800 leading-relaxed hover:text-[#339db9] transition-colors duration-200 line-clamp-2">
+          {product.model}
+        </h3>
+        <p className="text-[11px] text-slate-400 font-medium">
+          {product.series}
+        </p>
       </div>
     </div>
   );

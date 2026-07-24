@@ -31,13 +31,28 @@ exports.getAllProducts = async (req, res) => {
   }
 };
 
+// Parses the specs/useCases JSON fields multer/form-data sends as strings.
+// Returns null if the field is malformed so callers can respond 400.
+const parseJsonFields = (data) => {
+  for (const key of ['specs', 'useCases']) {
+    if (typeof data[key] === 'string') {
+      try {
+        data[key] = JSON.parse(data[key]);
+      } catch {
+        return `Invalid ${key} format.`;
+      }
+    }
+  }
+  return null;
+};
+
 // Admin — create product
 exports.createProduct = async (req, res) => {
   try {
     const data = { ...req.body };
 
-    if (typeof data.specs === 'string') data.specs = JSON.parse(data.specs);
-    if (typeof data.useCases === 'string') data.useCases = JSON.parse(data.useCases);
+    const parseError = parseJsonFields(data);
+    if (parseError) return res.status(400).json({ message: parseError });
     if (typeof data.isPublished === 'string') data.isPublished = data.isPublished === 'true';
     if (req.file) data.image = `/uploads/${req.file.filename}`;
 
@@ -53,8 +68,8 @@ exports.updateProduct = async (req, res) => {
   try {
     const data = { ...req.body };
 
-    if (typeof data.specs === 'string') data.specs = JSON.parse(data.specs);
-    if (typeof data.useCases === 'string') data.useCases = JSON.parse(data.useCases);
+    const parseError = parseJsonFields(data);
+    if (parseError) return res.status(400).json({ message: parseError });
     if (typeof data.isPublished === 'string') data.isPublished = data.isPublished === 'true';
     if (req.file) data.image = `/uploads/${req.file.filename}`;
 

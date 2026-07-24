@@ -30,7 +30,7 @@ app.use((req, res, next) => {
     if (isProduction) res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains");
     next();
 });
-app.use(express.json());
+app.use(express.json({ limit: "20kb" }));
 app.use(cookieParser());
 
 // Serve uploaded invoice images statically

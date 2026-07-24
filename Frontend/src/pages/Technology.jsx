@@ -14,23 +14,6 @@ function useInView(threshold = 0.15) {
   return [ref, inView];
 }
 
-function Counter({ to, suffix = "", duration = 2000 }) {
-  const [val, setVal] = useState(0);
-  const [ref, inView] = useInView(0.3);
-  useEffect(() => {
-    if (!inView) return;
-    let start = 0;
-    const step = Math.ceil(to / (duration / 16));
-    const t = setInterval(() => {
-      start += step;
-      if (start >= to) { setVal(to); clearInterval(t); }
-      else setVal(start);
-    }, 16);
-    return () => clearInterval(t);
-  }, [inView, to, duration]);
-  return <span ref={ref}>{val.toLocaleString()}{suffix}</span>;
-}
-
 function TechPillarRow({ p }) {
   const [ref, inView] = useInView(0.08);
   return (
@@ -165,7 +148,6 @@ const innovations = [
 
 export default function Technology() {
   const [heroRef, heroInView] = useInView(0.05);
-  const [statsRef, statsInView] = useInView(0.1);
   const [innovRef, innovInView] = useInView(0.1);
   const [ctaRef, ctaInView] = useInView(0.1);
 
@@ -219,30 +201,6 @@ export default function Technology() {
           <div className="w-px h-8 bg-gradient-to-b from-[#20b2aa] to-transparent" />
         </div>
       </div>
-
-      {/* ── STATS BAR ── */}
-      <section ref={statsRef} className="py-16 bg-[#011d37] border-y border-[#20b2aa]/20 relative overflow-hidden">
-        <div className="absolute inset-0 opacity-[0.04]" style={{ backgroundImage: "radial-gradient(#20b2aa 1px, transparent 1px)", backgroundSize: "30px 30px" }} />
-        <div className="max-w-7xl mx-auto px-6 lg:px-16 grid grid-cols-2 lg:grid-cols-4 gap-8 relative">
-          {[
-            { val: 98, suffix: ".6%", label: "MPPT Efficiency" },
-            { val: 50, suffix: "ms", label: "MPPT Track Speed" },
-            { val: 50, suffix: "+", label: "Compatible Inverters" },
-            { val: 4, suffix: " Cores", label: "Proprietary Technologies" },
-          ].map((s, i) => (
-            <div
-              key={i}
-              className={`text-center transition-all duration-700 ${statsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${i * 120}ms` }}
-            >
-              <div className="text-4xl lg:text-5xl font-black text-white mb-1">
-                <Counter to={s.val} suffix={s.suffix} />
-              </div>
-              <div className="text-[#20b2aa] text-xs font-bold uppercase tracking-widest">{s.label}</div>
-            </div>
-          ))}
-        </div>
-      </section>
 
       {/* ── TECH PILLARS ── */}
       <section className="py-28 bg-white relative">

@@ -26,14 +26,11 @@ export default function CreateAccount() {
     onSuccess: async (tokenResponse) => {
       setLoading(true);
       try {
-        const userInfo = await fetch('https://www.googleapis.com/oauth2/v3/userinfo', {
-          headers: { Authorization: `Bearer ${tokenResponse.access_token}` },
-        }).then(r => r.json());
         const res = await fetch(`${API_BASE}/users/auth/google`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           credentials: 'include',
-          body: JSON.stringify({ userInfo }),
+          body: JSON.stringify({ access_token: tokenResponse.access_token }),
         });
         const data = await res.json();
         if (!res.ok) throw new Error(data.error || 'Google login failed.');

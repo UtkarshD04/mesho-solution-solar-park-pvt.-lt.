@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const homeProducts = [
@@ -29,12 +29,39 @@ const homeProducts = [
 ];
 
 export default function ProductShowcase() {
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect(); // Animate only once
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <section className="pt-14 pb-4 bg-white relative">
       <div className="max-w-[1400px] mx-auto px-6 lg:px-12 relative">
         
         {/* Title Area */}
-        <div className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-6">
+        <div
+          className="flex flex-col sm:flex-row justify-between items-start sm:items-end gap-4 mb-6 transition-all duration-700 ease-out"
+          style={{
+            opacity: isVisible ? 1 : 0,
+            transform: isVisible ? "translateY(0)" : "translateY(20px)",
+          }}
+        >
           <div>
             <h2 className="text-3xl font-extrabold text-slate-900 tracking-tight">
               Our Products
@@ -61,13 +88,18 @@ export default function ProductShowcase() {
           </span>
         </div>
 
-        {/* Static Grid (No Slider) */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-          {homeProducts.map((p) => {
+        {/* Static Grid (No Slider) with Staggered Animation */}
+        <div ref={sectionRef} className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          {homeProducts.map((p, index) => {
             return (
               <div
                 key={p.id}
-                className="w-full flex flex-col group"
+                className="w-full flex flex-col group transition-all duration-700 ease-out"
+                style={{
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? "translateY(0)" : "translateY(40px)",
+                  transitionDelay: `${index * 150}ms`,
+                }}
               >
                 {/* Image Container with Coming Soon overlay */}
                 <div className="relative w-full h-[260px] bg-[#f8f9fa] rounded-sm overflow-hidden flex items-center justify-center p-4 border border-slate-100">

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
 
 const solutionTiles = [
@@ -30,25 +30,56 @@ const solutionTiles = [
 
 export default function EnergySolutionsSection() {
   const [hovered, setHovered] = useState(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const sectionRef = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          observer.disconnect();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
 
   return (
     <section className="bg-white pt-10 pb-4 lg:pt-12 lg:pb-4 overflow-hidden">
 
       {/* ── Section Header ── */}
-      <div className="text-center mb-10 px-6 lg:px-10">
+      <div
+        className="text-center mb-10 px-6 lg:px-10 transition-all duration-700 ease-out"
+        style={{
+          opacity: isVisible ? 1 : 0,
+          transform: isVisible ? "translateY(0)" : "translateY(20px)",
+        }}
+      >
         <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em]">Our Solutions</span>
         <h2 className="mt-2 text-3xl lg:text-4xl font-extrabold text-slate-900 tracking-tight">Energy Solutions for Every Scale</h2>
       </div>
 
       {/* ── Tiles Grid - Full Width ── */}
-      <div className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
+      <div ref={sectionRef} className="grid w-full grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-0">
         {solutionTiles.map((tile, i) => (
           <Link
             key={tile.title}
             to={tile.href}
             onMouseEnter={() => setHovered(i)}
             onMouseLeave={() => setHovered(null)}
-            className="group relative h-[310px] overflow-hidden bg-slate-900 sm:h-[360px] lg:h-[clamp(360px,31vw,500px)]"
+            className="group relative h-[310px] overflow-hidden bg-slate-900 sm:h-[360px] lg:h-[clamp(360px,31vw,500px)] transition-all duration-700 ease-out"
+            style={{
+              opacity: isVisible ? 1 : 0,
+              transform: isVisible ? "translateY(0)" : "translateY(40px)",
+              transitionDelay: `${i * 150}ms`,
+            }}
           >
             <img
               src={tile.image}
