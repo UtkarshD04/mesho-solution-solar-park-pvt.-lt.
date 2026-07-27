@@ -47,15 +47,14 @@ export default function AboutMyzoSection({ aboutRef, aboutInView }) {
         </div>
 
         <div className="relative space-y-6">
-          <p className="text-lg font-bold uppercase tracking-[0.2em] text-[#20b2aa] flex items-center gap-3 relative z-10">
-            <span className="inline-block w-8 h-[2px] bg-[#20b2aa] rounded-full" />
-            About Us
-          </p>
-
-          <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight relative z-10">
-            Battery Energy Storage<br />
-            <span className="text-[#033e74]">Systems (BESS)</span>
-          </h2>
+          <div className="relative z-10">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-slate-900 leading-tight">
+              About <span className="text-[#033e74]">Myzo</span>
+            </h2>
+            <p className="mt-2.5 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-[0.2em] text-[#20b2aa] bg-[#20b2aa]/10 rounded-full px-3.5 py-1.5">
+              Battery Energy Storage Systems (BESS)
+            </p>
+          </div>
 
           <div className="w-14 h-1 bg-[#20b2aa] rounded-full" />
 
