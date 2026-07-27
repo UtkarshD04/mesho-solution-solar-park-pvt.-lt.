@@ -19,12 +19,18 @@ const socialLinks = [
   },
 ];
 
-const navLinks = [
+const companyLinks = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
   { label: "About Us", to: "/about" },
-  { label: "Customer Reviews", to: "/customer-review" },
+  { label: "Customer Support", to: "/customer-support" },
   { label: "Contact", to: "/contact" },
+];
+
+const whyMyzoLinks = [
+  { label: "Quality", to: "/quality" },
+  { label: "Reliability", to: "/reliability" },
+  { label: "Technology", to: "/technology" },
 ];
 
 const officeAddresses = [
@@ -41,6 +47,8 @@ const officeAddresses = [
 export default function Footer() {
   const [ref, inView] = useInView(0.05);
 
+  const scrollToTop = () => window.scrollTo({ top: 0, behavior: "smooth" });
+
   return (
     <footer className="text-white bg-[#011d37] relative">
 
@@ -50,19 +58,19 @@ export default function Footer() {
       {/* Main Footer Grid */}
       <div ref={ref} className="max-w-7xl mx-auto px-6 lg:px-10 py-16">
         <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10 transition-all duration-1000"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 transition-all duration-1000"
           style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(20px)" }}
         >
 
           {/* Column 1 - Brand */}
-          <div className="space-y-5 lg:col-span-1">
+          <div className="space-y-5 lg:col-span-2">
             <img
               src="/logofooter.png"
               alt="Myzo Logo"
               className="h-16 w-auto object-contain"
               onError={(e) => { e.target.style.display = "none"; }}
             />
-            <p className="text-white/60 text-sm leading-relaxed">
+            <p className="text-white/60 text-sm leading-relaxed max-w-sm">
               Revolutionizing Energy Storage with Advanced BESS Solutions. Delivering Reliable, Efficient and Sustainable Power Systems.
             </p>
 
@@ -74,8 +82,11 @@ export default function Footer() {
                   <a
                     key={s.name}
                     href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     title={s.name}
-                    className="w-9 h-9 bg-white/8 hover:bg-[#20b2aa] rounded-lg flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-[#20b2aa] hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/30"
+                    aria-label={s.name}
+                    className="w-9 h-9 bg-white/8 hover:bg-[#20b2aa] rounded-lg flex items-center justify-center transition-all duration-300 border border-white/10 hover:border-[#20b2aa] hover:-translate-y-1 hover:shadow-lg hover:shadow-teal-500/30 focus-visible:ring-2 focus-visible:ring-[#20b2aa] focus-visible:ring-offset-2 focus-visible:ring-offset-[#011d37]"
                   >
                     <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">{s.icon}</svg>
                   </a>
@@ -84,13 +95,13 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Column 2 - Quick Links */}
+          {/* Column 2 - Company */}
           <div className="space-y-5">
             <h4 className="text-white font-bold text-sm uppercase tracking-widest after:block after:w-6 after:h-0.5 after:bg-[#20b2aa] after:mt-2">
-              Quick Links
+              Company
             </h4>
             <ul className="space-y-2.5">
-              {navLinks.map((link) => (
+              {companyLinks.map((link) => (
                 <li key={link.to}>
                   <Link
                     to={link.to}
@@ -104,7 +115,27 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 3 - Contact Info */}
+          {/* Column 3 - Why Myzo */}
+          <div className="space-y-5">
+            <h4 className="text-white font-bold text-sm uppercase tracking-widest after:block after:w-6 after:h-0.5 after:bg-[#20b2aa] after:mt-2">
+              Why Myzo
+            </h4>
+            <ul className="space-y-2.5">
+              {whyMyzoLinks.map((link) => (
+                <li key={link.to}>
+                  <Link
+                    to={link.to}
+                    className="text-white/60 hover:text-[#20b2aa] text-sm transition-all duration-200 flex items-center gap-2 group hover:translate-x-1"
+                  >
+                    <span className="w-1 h-1 rounded-full bg-[#20b2aa]/40 group-hover:bg-[#20b2aa] group-hover:w-2 transition-all shrink-0" />
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          {/* Column 4 - Contact Info */}
           <div className="space-y-5">
             <h4 className="text-white font-bold text-sm uppercase tracking-widest after:block after:w-6 after:h-0.5 after:bg-[#20b2aa] after:mt-2">
               Contact Info
@@ -119,7 +150,7 @@ export default function Footer() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
                   </svg>
                 </div>
-                <span className="leading-relaxed">Yogiraj Tower, Vibhuti Khand, Gomatinagar, Lucknow UP 226002</span>
+                <span className="leading-relaxed">Yograj Tower, Vibhuti Khand, Gomati Nagar, Lucknow, UP 226002</span>
               </li>
 
               {/* Phone */}
@@ -139,7 +170,7 @@ export default function Footer() {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                   </svg>
                 </div>
-                <a href="mailto:aseemmishra@mmyzo.com" className="hover:text-[#20b2aa] transition-colors">aseemmishra@mmyzo.com</a>
+                <a href="mailto:aseemmishra@mmyzo.com" className="hover:text-[#20b2aa] transition-colors break-all min-w-0">aseemmishra@mmyzo.com</a>
               </li>
 
               {/* Working Hours */}
@@ -155,7 +186,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          {/* Column 4 - Office Addresses */}
+          {/* Column 5 - Office Addresses */}
           <div className="space-y-5">
             <h4 className="text-white font-bold text-sm uppercase tracking-widest after:block after:w-6 after:h-0.5 after:bg-[#20b2aa] after:mt-2">
               Office Addresses
@@ -169,11 +200,10 @@ export default function Footer() {
               ))}
             </div>
 
-            {/* CTA */}
             <div className="pt-2">
               <Link
                 to="/contact"
-                className="inline-flex items-center gap-2 text-xs font-bold bg-[#20b2aa] hover:bg-[#1a948e] text-white px-4 py-2.5 rounded-lg transition-all duration-300"
+                className="inline-flex items-center gap-2 text-xs font-bold bg-[#20b2aa] hover:bg-[#1a948e] text-white px-4 py-2.5 rounded-lg transition-all duration-300 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-teal-500/20"
               >
                 <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
@@ -190,9 +220,20 @@ export default function Footer() {
       <div className="border-t border-white/10 py-5 px-6 lg:px-10">
         <div className="max-w-7xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3 text-xs text-white/40">
           <span>© {new Date().getFullYear()} Myzo Solution Solar Park Pvt. Ltd. All rights reserved.</span>
-          <div className="flex gap-6">
+          <div className="flex items-center gap-6">
             <Link to="#" className="hover:text-white/70 transition-colors">Privacy Policy</Link>
             <Link to="#" className="hover:text-white/70 transition-colors">Terms of Service</Link>
+            <button
+              type="button"
+              onClick={scrollToTop}
+              aria-label="Back to top"
+              className="flex items-center gap-1.5 text-white/40 hover:text-[#20b2aa] transition-colors"
+            >
+              Back to top
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 15l7-7 7 7" />
+              </svg>
+            </button>
           </div>
         </div>
       </div>

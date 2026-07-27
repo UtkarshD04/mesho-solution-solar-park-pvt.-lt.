@@ -32,7 +32,7 @@ function Counter({ to, suffix = "", duration = 2000 }) {
 }
 
 const visionPoints = [
-  "Decentralised clean energy accessible to every home",
+  "Decentralized clean energy accessible to every home",
   "Zero-emission backup replacing every diesel generator",
   "Smart grid-ready storage from rooftop to utility scale",
 ];

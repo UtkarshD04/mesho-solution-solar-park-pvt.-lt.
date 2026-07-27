@@ -67,7 +67,7 @@ export default function ProductShowcase() {
               Our Products
             </h2>
             <p className="text-slate-500 text-xs mt-1.5 font-medium">
-              Let green energy benefit all mankind and help the strugglers achieve their dreams
+              Clean, reliable energy for everyone — powering homes, businesses, and ambitions across India
             </p>
           </div>
           <Link

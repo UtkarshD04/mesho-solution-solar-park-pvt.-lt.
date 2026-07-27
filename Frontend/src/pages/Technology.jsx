@@ -121,7 +121,7 @@ const techPillars = [
     title: "Smart MPPT Solar Integration",
     subtitle: "Dual-Channel Maximum Power Point Tracking",
     body: [
-      "MYZO hybrid inverter systems feature dual-string MPPT controllers with an input range of 100–500V and up to 98.6% peak conversion efficiency. The dual-channel design allows independent optimisation of two differently-oriented PV arrays on the same inverter.",
+      "MYZO hybrid inverter systems feature dual-string MPPT controllers with an input range of 100–500V and up to 98.6% peak conversion efficiency. The dual-channel design allows independent optimization of two differently oriented PV arrays on the same inverter.",
       "Our perturb-and-observe MPPT algorithm samples array IV characteristics every 50ms — tracking panel output changes caused by passing clouds or morning ramp-up 30× faster than typical 1.5-second interval controllers.",
       "Anti-islanding, PV arc-fault detection, and ground fault monitoring are integrated into the MPPT controller — meeting all requirements of IEEE 1547 and IEC 61727 for grid-connected PV systems.",
     ],

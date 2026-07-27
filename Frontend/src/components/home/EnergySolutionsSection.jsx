@@ -18,7 +18,7 @@ const solutionTiles = [
     title: "Residential Energy Storage Systems",
     image: "/residential-bess.png",
     href: "/products",
-    description: "Compact wall-mounted home energy storage solutions providing seamless black-out protection and solar self-sufficiency.",
+    description: "Compact wall-mounted home energy storage solutions providing seamless blackout protection and solar self-sufficiency.",
   },
   {
     title: "Residential PV Systems",

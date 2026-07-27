@@ -66,6 +66,10 @@ export default function AboutMyzoSection({ aboutRef, aboutInView }) {
             With smart safety features, eco-friendly technology, and compact modern designs, Myzo Battery is committed to building a cleaner and more sustainable energy future — for homes, businesses, and solar energy applications across India.
           </p>
 
+          <p className="text-slate-600 text-base leading-relaxed relative z-10">
+            Backed by an in-house engineered Battery Management System and rigorously tested for India's toughest conditions, every Myzo product is built to be intelligent, durable, and dependable — see what sets us apart below.
+          </p>
+
           <div className="flex flex-wrap gap-4 pt-2 relative z-10">
             <Link
               to="/about"

@@ -74,8 +74,8 @@ const pillars = [
     tag: "Pillar 01",
     title: "IP65–IP67 Sealed Steel Enclosures",
     body: [
-      "MYZO enclosures are fabricated from 1.2mm cold-rolled steel, powder-coated with a UV-stable marine-grade finish. Each seam is laser-welded — not glued — ensuring zero electrolyte vapour egress under pressure.",
-      "Our IP67-rated units withstand continuous dust ingress and short-term water immersion up to 1 metre. Battery walls sustain impacts up to 9J without cell exposure — verified by IEC 62619 mechanical abuse tests.",
+      "MYZO enclosures are fabricated from 1.2mm cold-rolled steel, powder-coated with a UV-stable marine-grade finish. Each seam is laser-welded — not glued — ensuring zero electrolyte vapor egress under pressure.",
+      "Our IP67-rated units withstand continuous dust ingress and short-term water immersion up to 1 meter. Battery walls sustain impacts up to 9J without cell exposure — verified by IEC 62619 mechanical abuse tests.",
       "Thermal break gaskets at the lid interface prevent condensation migration, protecting BMS electronics from humid monsoon environments that plague conventional VRLA and open-cell lithium systems.",
     ],
     img: "/reliability-uptime-v5.png",
@@ -86,7 +86,7 @@ const pillars = [
     tag: "Pillar 02",
     title: "Industrial Laser-Welded Bus Bars",
     body: [
-      "Cell-to-cell connections in MYZO packs use precision-cut nickel-plated copper bus bars joined by fibre laser welding — a method common in automotive and aerospace manufacturing, but rare in the energy storage industry.",
+      "Cell-to-cell connections in MYZO packs use precision-cut nickel-plated copper bus bars joined by fiber laser welding — a method common in automotive and aerospace manufacturing, but rare in the energy storage industry.",
       "Compared to ultrasonic spot welds used by low-cost competitors, our laser welds exhibit 95%+ weld pull strength, contact resistance below 0.05 mΩ, and no micro-crack propagation under vibration — critical for installations on rooftops or near heavy machinery.",
       "Each weld is individually inspected by automated optical inspection (AOI) systems, and batch samples undergo destructive tensile testing monthly.",
     ],

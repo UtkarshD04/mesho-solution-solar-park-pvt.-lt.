@@ -72,7 +72,7 @@ function StageRow({ s }) {
 const certifications = [
   { name: "CE", desc: "European Conformity — meets EU safety, health & environmental protection standards across all product categories.", icon: "🇪🇺" },
   { name: "IEC 62619", desc: "International standard for safety requirements of secondary lithium cells and batteries for use in industrial applications.", icon: "⚡" },
-  { name: "UN 38.3", desc: "United Nations transport testing for lithium batteries across all modes: air, sea and road freight logistics.", icon: "🌍" },
+  { name: "UN 38.3", desc: "United Nations transport testing for lithium batteries — certified safe for air, sea, and road freight.", icon: "🌍" },
   { name: "CB Scheme", desc: "International electrotechnical safety certification accepted in 50+ countries by national certification bodies.", icon: "🏅" },
   { name: "IP65 / IP67", desc: "Dust-tight and water-resistant enclosures for outdoor solar farms, monsoon-season rooftops and coastal environments.", icon: "🛡️" },
   { name: "MSDS", desc: "Material Safety Data Sheet — complete chemical safety documentation for every LiFePO4 cell grade we produce.", icon: "📋" },
