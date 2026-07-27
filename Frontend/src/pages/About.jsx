@@ -2,34 +2,8 @@ import { useState, useEffect } from 'react';
 import VisionMissionSection from '../components/home/VisionMissionSection';
 import useInView from '../hooks/useInView';
 
-const stats = [
-  { value: 2015, label: 'Founded', plain: true },
-  { value: 500, suffix: '+', label: 'MW Installed' },
-  { value: 200, suffix: '+', label: 'Projects Done' },
-  { value: 14, suffix: '+', label: 'Years Leadership' },
-]
-
-function CountUp({ value, suffix = "", start, duration = 1500, plain = false }) {
-  const [display, setDisplay] = useState(0);
-  useEffect(() => {
-    if (!start) return;
-    let raf;
-    const begin = performance.now();
-    const tick = (now) => {
-      const progress = Math.min((now - begin) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(value * eased));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => raf && cancelAnimationFrame(raf);
-  }, [start, value, duration]);
-  return <>{plain ? display : display.toLocaleString()}{suffix}</>;
-}
-
 export default function About() {
   const [heroLoaded, setHeroLoaded] = useState(false);
-  const [statsRef, statsInView] = useInView(0.3);
   const [briefRef, briefInView] = useInView();
   const [ownerRef, ownerInView] = useInView();
 
@@ -64,24 +38,6 @@ export default function About() {
           </p>
         </div>
       </section>
-
-      {/* STATS STRIP */}
-      <div ref={statsRef} className="bg-[#011d37] py-10">
-        <div className="max-w-5xl mx-auto px-6 grid grid-cols-2 sm:grid-cols-4 gap-6">
-          {stats.map((s, i) => (
-            <div
-              key={s.label}
-              className="text-center transition-all duration-700"
-              style={{ opacity: statsInView ? 1 : 0, transform: statsInView ? "translateY(0)" : "translateY(18px)", transitionDelay: `${i * 130}ms` }}
-            >
-              <p className="text-3xl sm:text-4xl font-black text-white">
-                <CountUp value={s.value} suffix={s.suffix} plain={s.plain} start={statsInView} duration={1400 + i * 150} />
-              </p>
-              <p className="text-[11px] uppercase tracking-[0.2em] text-white/50 mt-1 font-bold">{s.label}</p>
-            </div>
-          ))}
-        </div>
-      </div>
 
       {/* INDIA'S FIRST BESS HEADING */}
       <div className="bg-white py-10 text-center border-b border-gray-100">
