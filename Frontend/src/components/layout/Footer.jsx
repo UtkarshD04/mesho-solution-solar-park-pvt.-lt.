@@ -33,6 +33,8 @@ const whyMyzoLinks = [
   { label: "Technology", to: "/technology" },
 ];
 
+const certifications = ["CE", "IEC 62619", "UN 38.3", "CB Scheme", "IP65 / IP67", "MSDS"];
+
 const officeAddresses = [
   {
     title: "Corporate Office",
@@ -71,7 +73,10 @@ export default function Footer() {
               onError={(e) => { e.target.style.display = "none"; }}
             />
             <p className="text-white/60 text-sm leading-relaxed max-w-sm">
-              Revolutionizing Energy Storage with Advanced BESS Solutions. Delivering Reliable, Efficient and Sustainable Power Systems.
+              Revolutionizing energy storage with advanced BESS solutions — delivering reliable, efficient, and sustainable power systems for homes, businesses, and industrial applications across India.
+            </p>
+            <p className="text-white/50 text-sm leading-relaxed max-w-sm">
+              From Lucknow, we engineer, test, and certify every battery pack in-house — backed by a dedicated engineering team and a decade of experience in lithium-ion energy storage.
             </p>
 
             {/* Social Icons */}
@@ -213,6 +218,18 @@ export default function Footer() {
             </div>
           </div>
 
+        </div>
+      </div>
+
+      {/* Certifications Strip */}
+      <div className="border-t border-white/10 py-6 px-6 lg:px-10">
+        <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center gap-4 sm:gap-6">
+          <span className="text-white/40 text-[10px] font-bold uppercase tracking-widest shrink-0">Certified To</span>
+          <div className="flex flex-wrap items-center justify-center sm:justify-start gap-x-6 gap-y-2">
+            {certifications.map((cert) => (
+              <span key={cert} className="text-white/60 text-xs font-semibold">{cert}</span>
+            ))}
+          </div>
         </div>
       </div>
 
