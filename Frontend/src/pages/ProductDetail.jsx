@@ -1,6 +1,7 @@
 import { useEffect, useState, useRef, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { seriesMeta, icons } from "../data/productDetails";
+import { resolveImageUrl } from "../utils/resolveImage";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
@@ -139,7 +140,7 @@ export default function ProductDetail() {
   })).filter(g => g.items.length > 0);
 
   /* Gallery (fallback to placeholder) */
-  const mainImg = product.image ? `${API_BASE}${product.image}` : null;
+  const mainImg = resolveImageUrl(product.image);
 
   /* Hero background images per series */
   const heroBgMap = {
@@ -276,7 +277,7 @@ export default function ProductDetail() {
 
               {/* ── LEFT: Image panel ── */}
               <div
-                className="relative flex items-center justify-center min-h-[420px] lg:min-h-[560px] overflow-hidden"
+                className="group relative flex items-center justify-center min-h-[420px] lg:min-h-[560px] overflow-hidden"
                 style={{ background: `linear-gradient(135deg, ${color.light} 0%, rgba(248,250,252,0.6) 100%)` }}
               >
                 {/* Decorative rings */}
@@ -295,8 +296,8 @@ export default function ProductDetail() {
                     src={mainImg}
                     alt={product.model}
                     onLoad={() => setImgLoaded(true)}
-                    className="relative z-10 w-full max-w-[440px] max-h-[440px] object-contain p-8 transition-all duration-700"
-                    style={{ opacity: imgLoaded ? 1 : 0, transform: imgLoaded ? "scale(1)" : "scale(0.96)" }}
+                    className="relative z-10 w-full h-full max-w-[520px] max-h-[520px] lg:max-w-[600px] lg:max-h-[600px] object-contain p-6 transition-all duration-700 group-hover:scale-105"
+                    style={{ opacity: imgLoaded ? 1 : 0, transform: imgLoaded ? undefined : "scale(0.96)" }}
                   />
                 ) : (
                   <div className="relative z-10 flex items-center justify-center w-[260px] h-[260px]"
@@ -339,17 +340,10 @@ export default function ProductDetail() {
                     {product.tagline}
                   </p>
 
-                  {/* Star rating (visual) */}
-                  <div className="flex items-center gap-2 mb-5">
-                    <div className="flex gap-0.5">
-                      {[1,2,3,4,5].map(i => (
-                        <svg key={i} className="w-4 h-4" fill={i <= 4 ? "#f59e0b" : "none"} stroke="#f59e0b" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11.049 2.927c.3-.921 1.603-.921 1.902 0l1.519 4.674a1 1 0 00.95.69h4.915c.969 0 1.371 1.24.588 1.81l-3.976 3.12a1 1 0 00-.364 1.118l1.518 4.674c.3.921-.755 1.688-1.538 1.118l-3.976-3.12a1 1 0 00-1.176 0l-3.976 3.12c-.783.57-1.838-.197-1.538-1.118l1.518-4.674a1 1 0 00-.364-1.118L2.977 10.1c-.783-.57-.38-1.81.588-1.81h4.914a1 1 0 00.951-.69l1.519-4.674z" />
-                        </svg>
-                      ))}
-                    </div>
-                    <span className="text-sm font-bold text-slate-700">4.9</span>
-                    <span className="text-xs text-slate-400">· 128 verified buyers</span>
+                  {/* Availability status */}
+                  <div className="inline-flex items-center gap-2 mb-5 px-3 py-1.5 rounded-full border border-orange-200 bg-orange-50">
+                    <span className="w-1.5 h-1.5 rounded-full bg-orange-500 animate-pulse" />
+                    <span className="text-xs font-black uppercase tracking-wider text-orange-600">Coming Soon</span>
                   </div>
 
                   <p className="text-slate-600 text-sm leading-relaxed mb-7 max-w-md">{product.description}</p>
@@ -400,12 +394,12 @@ export default function ProductDetail() {
                     Talk to a Sales Engineer
                   </Link>
 
-                  {/* Free shipping note */}
+                  {/* Pre-launch note */}
                   <div className="flex items-center gap-2 text-xs text-slate-500">
-                    <svg className="w-3.5 h-3.5 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7"/>
+                    <svg className="w-3.5 h-3.5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                     </svg>
-                    Free priority shipping · ISI certified · 3-year warranty
+                    Launching soon — enquire now for early pricing & availability
                   </div>
                 </div>
               </div>
@@ -439,20 +433,47 @@ export default function ProductDetail() {
       {activeTab === "overview" && (
         <section key="overview" className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-10 py-14" style={{ animation: "fadeUp 0.4s ease" }}>
 
-          {/* Section title */}
+          {/* About this model */}
           <div
             ref={featRef}
             className="mb-10 transition-all duration-700"
             style={{ opacity: featInView ? 1 : 0, transform: featInView ? "none" : "translateY(30px)" }}
           >
-            <span className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: color.primary }}>Key Highlights</span>
+            <span className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: color.primary }}>Product Overview</span>
             <h2 className="mt-2 text-3xl font-black text-slate-900">
+              About the <span style={{ color: color.primary }}>{product.model}</span>
+            </h2>
+            <p className="mt-3 text-slate-600 text-base leading-relaxed max-w-2xl">
+              {product.description}
+            </p>
+          </div>
+
+          {/* ── Why this series ── */}
+          {meta.desc && (
+            <div
+              className="mb-12 rounded-2xl p-6 transition-all duration-700"
+              style={{
+                background: color.light,
+                borderLeft: `4px solid ${color.primary}`,
+                opacity: featInView ? 1 : 0,
+                transform: featInView ? "none" : "translateY(24px)",
+                transitionDelay: "80ms",
+              }}
+            >
+              <p className="text-xs font-black uppercase tracking-[0.25em] mb-1" style={{ color: color.primary }}>
+                Why {product.series}?
+              </p>
+              <p className="text-sm text-slate-700 leading-relaxed">{meta.desc}</p>
+            </div>
+          )}
+
+          {/* Key Highlights heading */}
+          <div className="mb-6">
+            <span className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: color.primary }}>Key Highlights</span>
+            <h3 className="mt-2 text-2xl font-black text-slate-900">
               Pure Lithium Power.{" "}
               <span style={{ color: color.primary }}>Engineered to Last.</span>
-            </h2>
-            <p className="mt-2 text-slate-500 text-sm max-w-xl">
-              {product.model} is built on advanced LiFePO4 chemistry, delivering unmatched safety, cycle life, and thermal stability for Indian homes, businesses, and industries.
-            </p>
+            </h3>
           </div>
 
           {/* ── Key feature cards (6 grid) ── */}
@@ -487,6 +508,35 @@ export default function ProductDetail() {
               </div>
             ))}
           </div>
+
+          {/* ── Best Suited For (teaser → Use Cases tab) ── */}
+          {product.useCases?.length > 0 && (
+            <div>
+              <div className="flex items-center justify-between mb-5">
+                <div>
+                  <span className="text-xs font-bold uppercase tracking-[0.3em]" style={{ color: color.primary }}>Best Suited For</span>
+                  <h3 className="mt-2 text-2xl font-black text-slate-900">Popular Use Cases</h3>
+                </div>
+                <button
+                  onClick={() => setActiveTab("use-cases")}
+                  className="text-xs font-bold uppercase tracking-wider whitespace-nowrap hover:underline"
+                  style={{ color: color.primary }}
+                >
+                  See runtime estimates →
+                </button>
+              </div>
+              <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3">
+                {product.useCases.slice(0, 4).map((uc, i) => {
+                  const [device] = uc.split("–");
+                  return (
+                    <div key={i} className="rounded-xl border border-slate-100 bg-white/80 px-4 py-3.5 text-sm font-semibold text-slate-700">
+                      {device.trim()}
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </section>
       )}
 
