@@ -18,23 +18,23 @@ export default function AboutMyzoSection({ aboutRef, aboutInView }) {
             <div className="flex flex-col gap-4">
               <div className="rounded-2xl overflow-hidden shadow-md h-56">
                 <img
-                  src="https://images.unsplash.com/photo-1473341304170-971dccb5ac1e?w=800&q=80"
-                  alt="Solar Energy Storage Facility"
+                  src="/hero1.png"
+                  alt="Myzo Solar Energy Storage Facility"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
               <div className="rounded-2xl overflow-hidden shadow-md h-56">
                 <img
-                  src="https://images.unsplash.com/photo-1509391366360-2e959784a276?w=800&q=80"
-                  alt="Lithium Battery Array"
+                  src="/hero2.png"
+                  alt="Myzo Lithium Battery Storage Room"
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
               </div>
             </div>
             <div className="rounded-2xl overflow-hidden shadow-xl h-[480px] mt-8">
               <img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?w=600&q=80"
-                alt="Myzo Battery Laboratory"
+                src="/OfficeImage.jpeg"
+                alt="Myzo Battery Office Team, Lucknow"
                 className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
               />
             </div>

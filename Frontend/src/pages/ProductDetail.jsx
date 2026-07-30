@@ -83,6 +83,16 @@ export default function ProductDetail() {
   const [entered, setEntered] = useState(false);
   const [qty, setQty] = useState(1);
   const [toast, setToast] = useState(false);
+  const [activeImg, setActiveImg] = useState(0);
+  const [isZooming, setIsZooming] = useState(false);
+  const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
+
+  const handleZoomMove = (e) => {
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    setZoomOrigin({ x: Math.max(0, Math.min(100, x)), y: Math.max(0, Math.min(100, y)) });
+  };
 
   const [heroRef, heroInView] = useInView(0.05);
   const [featRef, featInView] = useInView();
@@ -91,7 +101,7 @@ export default function ProductDetail() {
 
   useEffect(() => {
     window.scrollTo({ top: 0, behavior: "auto" });
-    setLoading(true); setEntered(false); setImgLoaded(false);
+    setLoading(true); setEntered(false); setImgLoaded(false); setActiveImg(0); setIsZooming(false);
     fetch(`${API_BASE}/api/products/${id}`)
       .then(r => r.json())
       .then(d => { setProduct(d); setTimeout(() => setEntered(true), 60); })
@@ -140,7 +150,10 @@ export default function ProductDetail() {
   })).filter(g => g.items.length > 0);
 
   /* Gallery (fallback to placeholder) */
-  const mainImg = resolveImageUrl(product.image);
+  const galleryImages = (product.images?.length ? product.images : (product.image ? [product.image] : []))
+    .map(resolveImageUrl)
+    .filter(Boolean);
+  const mainImg = galleryImages[activeImg] ?? galleryImages[0];
 
   /* Hero background images per series */
   const heroBgMap = {
@@ -277,48 +290,69 @@ export default function ProductDetail() {
 
               {/* ── LEFT: Image panel ── */}
               <div
-                className="group relative flex items-center justify-center min-h-[420px] lg:min-h-[560px] overflow-hidden"
-                style={{ background: `linear-gradient(135deg, ${color.light} 0%, rgba(248,250,252,0.6) 100%)` }}
+                className="flex flex-col min-h-[420px] lg:min-h-[560px] overflow-hidden bg-white"
               >
-                {/* Decorative rings */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-                  <div className="rounded-full opacity-20" style={{ width: 380, height: 380, border: `1px solid ${color.primary}` }} />
-                  <div className="absolute rounded-full opacity-10" style={{ width: 520, height: 520, border: `1px solid ${color.primary}` }} />
+                {/* Stage */}
+                <div className="group relative flex-1 flex items-center justify-center overflow-hidden">
+                  {mainImg ? (
+                    <div
+                      className="absolute inset-0 z-10 p-8 lg:p-12 overflow-hidden cursor-zoom-in"
+                      onMouseEnter={() => setIsZooming(true)}
+                      onMouseLeave={() => setIsZooming(false)}
+                      onMouseMove={handleZoomMove}
+                    >
+                      <img
+                        key={mainImg}
+                        src={mainImg}
+                        alt={product.model}
+                        onLoad={() => setImgLoaded(true)}
+                        className="w-full h-full object-contain"
+                        style={{
+                          opacity: imgLoaded ? 1 : 0,
+                          transform: isZooming ? "scale(2.2)" : imgLoaded ? "scale(1)" : "scale(0.96)",
+                          transformOrigin: `${zoomOrigin.x}% ${zoomOrigin.y}%`,
+                          transition: isZooming ? "transform 0.05s linear" : "opacity 0.7s ease, transform 0.4s ease",
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    <div className="relative z-10 flex items-center justify-center w-[260px] h-[260px]"
+                      style={{ color: color.primary }}
+                      dangerouslySetInnerHTML={{ __html: iconSvg }}
+                    />
+                  )}
+
+                  {/* Badge */}
+                  {product.badge && (
+                    <div className="absolute top-5 left-5 z-20 px-3 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest text-white shadow-lg"
+                      style={{ background: `linear-gradient(135deg, ${color.primary}, ${color.dark})` }}>
+                      {product.badge}
+                    </div>
+                  )}
+
+                  {/* Series tag */}
+                  <div className="absolute bottom-5 left-5 z-20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.22em] border"
+                    style={{ color: color.primary, borderColor: color.primary, background: "rgba(255,255,255,0.85)" }}>
+                    {product.series}
+                  </div>
                 </div>
 
-                {/* Glow */}
-                <div className="absolute inset-0 pointer-events-none" style={{
-                  background: `radial-gradient(ellipse 60% 55% at 50% 50%, ${color.light} 0%, transparent 70%)`
-                }} />
-
-                {mainImg ? (
-                  <img
-                    src={mainImg}
-                    alt={product.model}
-                    onLoad={() => setImgLoaded(true)}
-                    className="relative z-10 w-full h-full max-w-[520px] max-h-[520px] lg:max-w-[600px] lg:max-h-[600px] object-contain p-6 transition-all duration-700 group-hover:scale-105"
-                    style={{ opacity: imgLoaded ? 1 : 0, transform: imgLoaded ? undefined : "scale(0.96)" }}
-                  />
-                ) : (
-                  <div className="relative z-10 flex items-center justify-center w-[260px] h-[260px]"
-                    style={{ color: color.primary }}
-                    dangerouslySetInnerHTML={{ __html: iconSvg }}
-                  />
-                )}
-
-                {/* Badge */}
-                {product.badge && (
-                  <div className="absolute top-5 left-5 z-20 px-3 py-1.5 rounded-full text-[11px] font-black uppercase tracking-widest text-white shadow-lg"
-                    style={{ background: `linear-gradient(135deg, ${color.primary}, ${color.dark})` }}>
-                    {product.badge}
+                {/* Thumbnail strip */}
+                {galleryImages.length > 1 && (
+                  <div className="shrink-0 flex items-center gap-2.5 px-6 lg:px-8 py-4 overflow-x-auto scrollbar-none border-t border-slate-100">
+                    {galleryImages.map((img, i) => (
+                      <button
+                        key={img + i}
+                        type="button"
+                        onClick={() => { setActiveImg(i); setImgLoaded(false); }}
+                        className="shrink-0 w-14 h-14 lg:w-16 lg:h-16 rounded-xl overflow-hidden border-2 bg-slate-50 transition-all"
+                        style={{ borderColor: activeImg === i ? color.primary : "#e2e8f0", opacity: activeImg === i ? 1 : 0.8 }}
+                      >
+                        <img src={img} alt={`${product.model} view ${i + 1}`} className="w-full h-full object-contain p-1" />
+                      </button>
+                    ))}
                   </div>
                 )}
-
-                {/* Series tag */}
-                <div className="absolute bottom-5 left-5 z-20 px-3 py-1 rounded-full text-[10px] font-bold uppercase tracking-[0.22em] border"
-                  style={{ color: color.primary, borderColor: color.primary, background: "rgba(255,255,255,0.85)" }}>
-                  {product.series}
-                </div>
               </div>
 
               {/* ── RIGHT: Info panel ── */}

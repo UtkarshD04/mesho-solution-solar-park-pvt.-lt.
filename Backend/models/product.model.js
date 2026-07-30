@@ -10,6 +10,7 @@ const productSchema = new mongoose.Schema({
   badge:       { type: String, default: '' },
   description: { type: String, default: '' },
   image:       { type: String, default: null },
+  images:      { type: [String], default: [] },
   color:       { type: String, default: '#033e74' },
   specs:       { type: [specSchema], default: [] },
   useCases:    { type: [String], default: [] },
