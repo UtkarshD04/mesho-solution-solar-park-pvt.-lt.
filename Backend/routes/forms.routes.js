@@ -5,7 +5,7 @@ const crypto  = require('crypto');
 const { body, validationResult } = require('express-validator');
 const rateLimit = require('../middleware/rateLimit.middleware');
 const router  = express.Router();
-const { submitProductEnquiry, submitBecomePartner, submitAfterSales } = require('../controllers/forms.controller');
+const { submitProductEnquiry, submitBecomePartner, submitAfterSales, submitCareerApplication } = require('../controllers/forms.controller');
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => cb(null, 'uploads/'),
@@ -44,5 +44,14 @@ const commonFields = [
 router.post('/product-enquiry', rateLimit({ max: 10 }), validate([...commonFields, body('product').trim().isLength({ min: 1, max: 120 }), body('hearAbout').trim().isLength({ min: 1, max: 100 })]), submitProductEnquiry);
 router.post('/become-partner', rateLimit({ max: 10 }), validate([...commonFields, body('businessName').trim().isLength({ min: 2, max: 120 }), body('businessType').trim().isLength({ min: 1, max: 100 }), body('interestedCity').trim().isLength({ min: 1, max: 100 }), body('hearAbout').trim().isLength({ min: 1, max: 100 })]), submitBecomePartner);
 router.post('/after-sales', rateLimit({ max: 10 }), upload.single('invoice'), validate([body('firstName').trim().isLength({ min: 2, max: 80 }), body('lastName').trim().isLength({ min: 2, max: 80 }), body('email').trim().isEmail().normalizeEmail(), body('phone').trim().matches(/^[+0-9() -]{8,20}$/), body('model').trim().isLength({ min: 1, max: 120 }), body('issue').trim().isLength({ min: 5, max: 2000 })]), submitAfterSales);
+router.post('/career-application', rateLimit({ max: 10 }), validate([
+  body('firstName').trim().isLength({ min: 2, max: 80 }),
+  body('lastName').trim().isLength({ min: 2, max: 80 }),
+  body('email').trim().isEmail().normalizeEmail(),
+  body('phone').trim().matches(/^[+0-9() -]{8,20}$/),
+  body('department').trim().isLength({ min: 1, max: 100 }),
+  body('experience').optional({ checkFalsy: true }).trim().isLength({ max: 100 }),
+  body('message').optional({ checkFalsy: true }).trim().isLength({ max: 2000 }),
+]), submitCareerApplication);
 
 module.exports = router;

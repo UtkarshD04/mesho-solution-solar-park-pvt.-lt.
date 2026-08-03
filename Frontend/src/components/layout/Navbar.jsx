@@ -22,6 +22,7 @@ const navLinks = [
     ]
   },
   { label: "About Us", to: "/about" },
+  { label: "Careers", to: "/careers" },
   { label: "Contact Us", to: "/contact" },
 ];
 

@@ -21,6 +21,7 @@ import MyAccount from "./pages/MyAccount";
 import Quality from "./pages/Quality";
 import Reliability from "./pages/Reliability";
 import Technology from "./pages/Technology";
+import Careers from "./pages/Careers";
 import { PageLoader, PageRouteTransition } from "./components/layout/PageEffects";
 
 function App() {
@@ -56,6 +57,7 @@ function App() {
                   <Route path="/quality" element={<Quality />} />
                   <Route path="/reliability" element={<Reliability />} />
                   <Route path="/technology" element={<Technology />} />
+                  <Route path="/careers" element={<Careers />} />
                 </Routes>
               </PageRouteTransition>
               <Footer />

@@ -97,8 +97,11 @@ export function UserProvider({ children }) {
     return postFormData('/api/forms/after-sales', fd);
   };
 
+  const submitCareerApplication = (data) =>
+    postJSON('/api/forms/career-application', data);
+
   return (
-    <UserContext.Provider value={{ loading, error, user, isLoggedIn, login, logout, submitProductEnquiry, submitBecomePartner, submitAfterSales }}>
+    <UserContext.Provider value={{ loading, error, user, isLoggedIn, login, logout, submitProductEnquiry, submitBecomePartner, submitAfterSales, submitCareerApplication }}>
       {children}
     </UserContext.Provider>
   );

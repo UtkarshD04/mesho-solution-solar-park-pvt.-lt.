@@ -1,6 +1,7 @@
-const ProductEnquiry    = require('../models/productEnquiry.model');
-const BecomePartner     = require('../models/becomePartner.model');
-const AfterSalesService = require('../models/afterSalesService.model');
+const ProductEnquiry     = require('../models/productEnquiry.model');
+const BecomePartner      = require('../models/becomePartner.model');
+const AfterSalesService  = require('../models/afterSalesService.model');
+const CareerApplication  = require('../models/careerApplication.model');
 
 // ── Product Enquiry ──────────────────────────────────────────────────────────
 exports.submitProductEnquiry = async (req, res) => {
@@ -51,6 +52,23 @@ exports.submitAfterSales = async (req, res) => {
     res.status(201).json({ success: true, message: 'Service request submitted successfully.', data: ticket });
   } catch (err) {
     console.error('AfterSales error:', err.message);
+    res.status(500).json({ success: false, message: 'Server error. Please try again.' });
+  }
+};
+
+// ── Career Application ────────────────────────────────────────────────────────
+exports.submitCareerApplication = async (req, res) => {
+  try {
+    const { firstName, lastName, phone, email, department, experience, message } = req.body;
+
+    if (!firstName || !lastName || !phone || !email || !department) {
+      return res.status(400).json({ success: false, message: 'Please fill all required fields.' });
+    }
+
+    const application = await CareerApplication.create({ firstName, lastName, phone, email, department, experience, message });
+    res.status(201).json({ success: true, message: 'Application submitted successfully.', data: application });
+  } catch (err) {
+    console.error('CareerApplication error:', err.message);
     res.status(500).json({ success: false, message: 'Server error. Please try again.' });
   }
 };

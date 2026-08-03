@@ -23,6 +23,7 @@ const companyLinks = [
   { label: "Home", to: "/" },
   { label: "Products", to: "/products" },
   { label: "About Us", to: "/about" },
+  { label: "Careers", to: "/careers" },
   { label: "Customer Support", to: "/customer-support" },
   { label: "Contact", to: "/contact" },
 ];
