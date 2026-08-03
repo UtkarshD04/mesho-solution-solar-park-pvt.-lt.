@@ -1,7 +1,10 @@
 export default function TopBar() {
   return (
     <div className="hidden lg:block fixed top-0 w-full z-50 bg-[#011d37] border-b border-[#20b2aa]/25 h-12 px-6 lg:px-10">
-      <div className="max-w-7xl mx-auto h-full flex items-center justify-center gap-6 text-xs font-medium">
+      <div
+        className="max-w-7xl mx-auto h-full flex items-center justify-center gap-6 text-xs font-medium tracking-wide uppercase"
+        style={{ fontFamily: "'Roboto Condensed', sans-serif" }}
+      >
         <div className="flex items-center gap-2 text-white/90 hover:text-white transition-colors">
           <svg className="w-4 h-4 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
