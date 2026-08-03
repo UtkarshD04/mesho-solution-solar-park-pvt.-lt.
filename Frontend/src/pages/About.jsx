@@ -6,6 +6,7 @@ export default function About() {
   const [heroLoaded, setHeroLoaded] = useState(false);
   const [briefRef, briefInView] = useInView();
   const [ownerRef, ownerInView] = useInView();
+  const [galleryRef, galleryInView] = useInView();
 
   useEffect(() => {
     const t = setTimeout(() => setHeroLoaded(true), 60);
@@ -19,7 +20,7 @@ export default function About() {
       <section
         className="relative min-h-[70vh] flex items-center justify-center text-white text-center"
         style={{
-          backgroundImage: "url('https://images.unsplash.com/photo-1593941707882-a5bba14938c7?w=1920&q=80')",
+          backgroundImage: "url('/site-racking-array.jpg')",
           backgroundSize: 'cover',
           backgroundPosition: 'center',
         }}
@@ -145,6 +146,60 @@ export default function About() {
         </div>
       </section>
 
+
+      {/* PROJECT SITE GALLERY */}
+      <section className="py-20 bg-white">
+        <div ref={galleryRef} className="max-w-7xl mx-auto px-6">
+          <div
+            className="text-center max-w-2xl mx-auto mb-14 transition-all duration-1000"
+            style={{ opacity: galleryInView ? 1 : 0, transform: galleryInView ? "translateY(0)" : "translateY(24px)" }}
+          >
+            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#20b2aa] mb-3">On the Ground</p>
+            <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight">
+              Projects In Action
+            </h2>
+            <div className="w-24 h-[2px] bg-[#033e74] mx-auto mt-6" />
+            <p className="text-gray-600 text-sm leading-relaxed mt-6">
+              Real execution from our solar park sites — from module racking and transformer commissioning
+              to switchgear installation and field engineering visits.
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {[
+              { src: "/site-transformer-inspection.jpg", alt: "Power transformer inspection on-site", caption: "Power Transformer Inspection", tall: true },
+              { src: "/site-panel-walkthrough.jpg", alt: "Field team walking through installed module rows", caption: "Module Row Walkthrough" },
+              { src: "/site-team-visit.jpg", alt: "Engineering team on-site visit near substation works", caption: "Site Engineering Visit" },
+              { src: "/site-switchgear-equipment.jpg", alt: "33kV switchgear and RMU installation", caption: "Switchgear & RMU Installation" },
+              { src: "/site-engineer-panels.jpg", alt: "Field engineer at a commissioned module row", caption: "Field Engineering Team", tall: true },
+              { src: "/site-panel-delivery.jpg", alt: "Solar module delivery and quality check on-site", caption: "Module Delivery & QC" },
+              { src: "/site-panel-closeup.jpg", alt: "Close view of installed solar modules", caption: "Module Installation" },
+              { src: "/site-racking-overview.jpg", alt: "Module mounting structure racking overview", caption: "Mounting Structure Racking" },
+            ].map((img, i) => (
+              <div
+                key={img.src}
+                className={`group relative overflow-hidden rounded-2xl shadow-md hover:shadow-xl transition-all duration-500 ${img.tall ? "row-span-2" : ""}`}
+                style={{
+                  opacity: galleryInView ? 1 : 0,
+                  transform: galleryInView ? "translateY(0)" : "translateY(24px)",
+                  transitionDelay: `${i * 90 + 100}ms`,
+                }}
+              >
+                <img
+                  src={img.src}
+                  alt={img.alt}
+                  loading="lazy"
+                  className={`w-full object-cover transition-transform duration-700 group-hover:scale-110 ${img.tall ? "h-full min-h-[420px]" : "h-52 sm:h-56"}`}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/0 to-black/0 opacity-80 group-hover:opacity-100 transition-opacity duration-300" />
+                <p className="absolute bottom-4 left-4 right-4 text-white text-xs font-bold uppercase tracking-wider leading-snug">
+                  {img.caption}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
 
       <VisionMissionSection />
 
