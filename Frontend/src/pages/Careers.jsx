@@ -148,10 +148,12 @@ export default function Careers() {
       style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(16px)", transition: "opacity 0.4s ease, transform 0.4s ease" }}
     >
       {/* HERO */}
-      <section
-        className="relative min-h-[60vh] flex items-center justify-center text-white text-center"
-        style={{ backgroundImage: "url('/site-team-visit.jpg')", backgroundSize: "cover", backgroundPosition: "center" }}
-      >
+      <section className="relative min-h-[60vh] flex items-center justify-center text-white text-center">
+        <img
+          src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80"
+          alt="Careers at Myzo"
+          className="absolute inset-0 w-full h-full object-cover object-center"
+        />
         <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/75" />
         <div className="relative z-10 px-6 max-w-3xl mx-auto pt-16">
           <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-4">Join Us</p>

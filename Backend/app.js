@@ -18,7 +18,7 @@ app.use(cors({
         "http://localhost:5173",
         "http://localhost:5174",
         "http://localhost:8000"
-        
+
     ],
     credentials: true
 }));
@@ -51,3 +51,5 @@ app.use((err, req, res, next) => {
 });
 
 module.exports = app;
+
+
