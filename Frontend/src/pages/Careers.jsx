@@ -51,6 +51,8 @@ const values = [
 ];
 
 function UnderlineInput({ label, required, error, children }) {
+
+    
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium text-gray-700">
@@ -171,7 +173,7 @@ export default function Careers() {
             className="text-center max-w-2xl mx-auto mb-14 transition-all duration-1000"
             style={{ opacity: valuesInView ? 1 : 0, transform: valuesInView ? "translateY(0)" : "translateY(24px)" }}
           >
-            <p className="text-xs font-bold uppercase tracking-[0.3em] text-[#20b2aa] mb-3">Why Myzo</p>
+           
             <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight">Why Work With Us</h2>
             <div className="w-24 h-[2px] bg-[#033e74] mx-auto mt-6" />
           </div>
@@ -255,7 +257,7 @@ export default function Careers() {
                     inputStyle={{ border: "none", background: "transparent", fontSize: "14px", color: "#111827", outline: "none", width: "100%" }}
                     countrySelectorStyleProps={{ buttonStyle: { border: "none", background: "transparent" } }}
                   />
-                </div>
+                </div>  
               </UnderlineInput>
 
               <UnderlineInput label="Email Address" required error={errors.email}>
