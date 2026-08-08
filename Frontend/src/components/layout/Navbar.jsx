@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { NavLink, Link, useNavigate } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
+import { useCart } from "../../context/CartContext";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
@@ -41,6 +42,7 @@ export default function Navbar() {
   const dropdownTimeout = useRef(null);
   const navigate = useNavigate();
   const { isLoggedIn, logout } = useUser();
+  const { totalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -224,24 +226,41 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Customer Support Link */}
+            {/* Customer Support + Cart + Sign In */}
             <div className="hidden lg:flex items-center gap-4">
+              {/* Customer Support */}
               <NavLink
                 to="/customer-support"
+                aria-label="Customer Support"
+                title="Customer Support"
                 className={({ isActive }) =>
-                  `relative text-base font-bold tracking-wide transition-all duration-200 group ${isActive
-                    ? (scrolled ? "text-[#033e74]" : "text-white")
-                    : (scrolled ? "text-slate-600 hover:text-[#033e74]" : "text-white/80 hover:text-white")
+                  `relative p-2 rounded-lg transition-all duration-200 ${isActive
+                    ? (scrolled ? "text-[#033e74] bg-slate-100" : "text-white bg-white/10")
+                    : (scrolled ? "text-slate-700 hover:bg-slate-100" : "text-white hover:bg-white/10")
                   }`
                 }
               >
-                {({ isActive }) => (
-                  <>
-                    Customer Support
-                    <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#033e74] to-[#20b2aa] rounded-full transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
-                  </>
-                )}
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 18v-6a9 9 0 0118 0v6M3 18a2 2 0 002 2h1a2 2 0 002-2v-2a2 2 0 00-2-2H3v4zm18 0a2 2 0 01-2 2h-1a2 2 0 01-2-2v-2a2 2 0 012-2h3v4z" />
+                </svg>
               </NavLink>
+
+              {/* Cart */}
+              <Link
+                to="/cart"
+                aria-label="View cart"
+                className={`relative p-2 rounded-lg transition-all duration-200 ${scrolled ? "text-slate-700 hover:bg-slate-100" : "text-white hover:bg-white/10"
+                  }`}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.994-4.694 2.591-7.159a1.125 1.125 0 00-1.087-1.391H5.106M7.5 14.25L5.106 5.106M7.5 14.25L5.85 17.25m0 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121zm9 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-black text-white bg-gradient-to-r from-[#20b2aa] to-[#0d7a74] shadow-md">
+                    {totalItems > 99 ? "99+" : totalItems}
+                  </span>
+                )}
+              </Link>
 
               {/* Sign In / Logout */}
               {isLoggedIn ? (
@@ -314,6 +333,21 @@ export default function Navbar() {
               )}
             </div>
             <div className="flex lg:hidden items-center gap-1">
+              <Link
+                to="/cart"
+                aria-label="View cart"
+                className={`relative p-2 rounded-lg transition-colors ${(scrolled && !menuOpen) ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
+                  }`}
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.994-4.694 2.591-7.159a1.125 1.125 0 00-1.087-1.391H5.106M7.5 14.25L5.106 5.106M7.5 14.25L5.85 17.25m0 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121zm9 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121z" />
+                </svg>
+                {totalItems > 0 && (
+                  <span className="absolute top-0 right-0 flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9px] font-black text-white bg-gradient-to-r from-[#20b2aa] to-[#0d7a74] shadow-md">
+                    {totalItems > 99 ? "99+" : totalItems}
+                  </span>
+                )}
+              </Link>
               <button
                 className={`p-2 rounded-lg transition-colors ${(scrolled && !menuOpen) ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
                   }`}

@@ -2,6 +2,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
 import { seriesMeta, icons } from "../data/productDetails";
 import { resolveImageUrl } from "../utils/resolveImage";
+import { useCart } from "../context/CartContext";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
 
@@ -83,6 +84,8 @@ export default function ProductDetail() {
   const [entered, setEntered] = useState(false);
   const [qty, setQty] = useState(1);
   const [toast, setToast] = useState(false);
+  const [toastMsg, setToastMsg] = useState("");
+  const { addToCart, isInCart } = useCart();
   const [activeImg, setActiveImg] = useState(0);
   const [isZooming, setIsZooming] = useState(false);
   const [zoomOrigin, setZoomOrigin] = useState({ x: 50, y: 50 });
@@ -109,7 +112,8 @@ export default function ProductDetail() {
       .finally(() => setLoading(false));
   }, [id]);
 
-  const showToast = useCallback(() => {
+  const showToast = useCallback((msg) => {
+    setToastMsg(msg);
     setToast(true);
     setTimeout(() => setToast(false), 3000);
   }, []);
@@ -395,7 +399,7 @@ export default function ProductDetail() {
 
                 {/* ── Actions ── */}
                 <div className="space-y-3">
-                  {/* Qty + Add to Enquiry */}
+                  {/* Qty + Add to Cart */}
                   <div className="flex items-center gap-3">
                     {/* Qty control */}
                     <div className="flex items-center rounded-xl border border-slate-200 bg-white overflow-hidden">
@@ -406,27 +410,36 @@ export default function ProductDetail() {
                         className="w-10 h-10 flex items-center justify-center text-slate-600 hover:bg-slate-50 transition-colors text-lg font-bold">+</button>
                     </div>
 
-                    {/* Add to enquiry */}
+                    {/* Add to cart */}
                     <button
-                      onClick={showToast}
+                      onClick={() => { addToCart(product, qty); showToast(`${product.model} added to cart!`); }}
                       className="flex-1 flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-sm font-black text-white shadow-lg transition-all duration-200 hover:-translate-y-0.5 hover:shadow-xl active:scale-95"
                       style={{ background: `linear-gradient(135deg, ${color.primary}, ${color.dark})`, boxShadow: `0 8px 24px -4px ${color.primary}55` }}
                     >
                       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.994-4.694 2.591-7.159a1.125 1.125 0 00-1.087-1.391H5.106M7.5 14.25L5.106 5.106"/>
                       </svg>
-                      Add to Enquiry · {qty}
+                      {isInCart(product._id) ? "Update Cart" : "Add to Cart"} · {qty}
                     </button>
                   </div>
 
-                  {/* Contact CTA */}
-                  <Link to="/contact"
-                    className="flex items-center justify-center gap-2 rounded-xl py-3 px-6 text-sm font-bold text-slate-700 border border-slate-200 bg-white/60 hover:bg-white hover:border-slate-300 transition-all">
-                    <svg className="w-4 h-4 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
-                    </svg>
-                    Talk to a Sales Engineer
-                  </Link>
+                  {/* View cart / Contact CTA */}
+                  <div className="grid grid-cols-2 gap-3">
+                    <Link to="/cart"
+                      className="flex items-center justify-center gap-2 rounded-xl py-3 px-4 text-sm font-bold text-slate-700 border border-slate-200 bg-white/60 hover:bg-white hover:border-slate-300 transition-all">
+                      <svg className="w-4 h-4 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.994-4.694 2.591-7.159a1.125 1.125 0 00-1.087-1.391H5.106M7.5 14.25L5.106 5.106M7.5 14.25L5.85 17.25m0 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121zm9 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121z"/>
+                      </svg>
+                      View Cart
+                    </Link>
+                    <Link to="/contact"
+                      className="flex items-center justify-center gap-2 rounded-xl py-3 px-4 text-sm font-bold text-slate-700 border border-slate-200 bg-white/60 hover:bg-white hover:border-slate-300 transition-all">
+                      <svg className="w-4 h-4 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/>
+                      </svg>
+                      Talk to Sales
+                    </Link>
+                  </div>
 
                   {/* Pre-launch note */}
                   <div className="flex items-center gap-2 text-xs text-slate-500">
@@ -721,7 +734,7 @@ export default function ProductDetail() {
           <svg className="w-5 h-5 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
-          <p className="text-white text-sm font-semibold">{product.model} added to enquiry!</p>
+          <p className="text-white text-sm font-semibold">{toastMsg}</p>
         </div>
       </div>
 

@@ -88,6 +88,8 @@ export default function Hero() {
 
   return (
     <div className="relative w-full overflow-hidden" style={{ minHeight: "100vh" }}>
+
+      {/* ── Image Slides ── */}
       {slides.map((slide, i) => (
         <div
           key={i}
@@ -98,10 +100,19 @@ export default function Hero() {
             src={slide.image}
             alt={slide.headline1}
             className="w-full h-full object-cover object-center"
-            style={{ imageRendering: "auto", willChange: "auto" }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
           <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+        </div>
+      ))}
+
+      {/* ── Slide Text Content ── */}
+      {slides.map((slide, i) => (
+        <div
+          key={`text-${i}`}
+          className="absolute inset-0 transition-opacity duration-1000 pointer-events-none"
+          style={{ opacity: i === current ? 1 : 0 }}
+        >
 
           {/* Text Content */}
           <div className="absolute inset-0 flex items-center">

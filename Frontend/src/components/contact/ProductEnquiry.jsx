@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { useUser } from "../../context/UserContext";
+import { useCart } from "../../context/CartContext";
 
 const THEME = "#033e74";
 const THEME_DARK = "#022d56";
@@ -66,17 +67,21 @@ function Field({ children }) {
 
 export default function ProductEnquiry() {
   const navigate = useNavigate();
+  const location = useLocation();
   const { submitProductEnquiry, loading, user } = useUser();
+  const { clearCart } = useCart();
   const [visible, setVisible] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState("");
   const [errors, setErrors] = useState({});
+  const fromCart = Boolean(location.state?.cartMessage);
 
   const [form, setForm] = useState({
     firstName: "", lastName: "",
     phone: "", email: "",
-    pinCode: "", address: "",
-    product: "", message: "",
+    pinCode: location.state?.cartPincode || "", address: "",
+    product: location.state?.cartProduct || "",
+    message: location.state?.cartMessage || "",
     hearAbout: "",
   });
 
@@ -110,6 +115,7 @@ export default function ProductEnquiry() {
     setServerError("");
     try {
       await submitProductEnquiry(form);
+      if (fromCart) clearCart();
       setSubmitted(true);
     } catch (err) {
       setServerError(err.message || "Submission failed. Please try again.");
@@ -165,6 +171,14 @@ export default function ProductEnquiry() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-12">
+          {fromCart && (
+            <div className="flex items-center gap-3 bg-teal-50 border border-teal-100 rounded-xl px-4 py-3">
+              <svg className="w-5 h-5 shrink-0 text-[#20b2aa]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+              </svg>
+              <p className="text-sm text-teal-700 font-medium">Your cart items have been added to the message below — just fill in your contact details to request a quote.</p>
+            </div>
+          )}
           {user && (
             <div className="flex items-center justify-between bg-blue-50 border border-blue-100 rounded-xl px-4 py-3">
               <p className="text-sm text-blue-700 font-medium">Logged in as <span className="font-black">{user.fullname?.firstname}</span></p>

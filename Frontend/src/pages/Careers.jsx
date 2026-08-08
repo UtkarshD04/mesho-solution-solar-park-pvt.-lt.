@@ -195,7 +195,7 @@ export default function Careers() {
                 <h3 className="text-lg font-bold text-slate-900 mb-2">{v.title}</h3>
                 <p className="text-sm text-slate-600 leading-relaxed">{v.desc}</p>
               </div>
-            ))}
+            ))} ``
           </div>
         </div>
       </section>

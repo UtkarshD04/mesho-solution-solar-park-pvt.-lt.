@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import useInView from "../hooks/useInView";
 import { resolveImageUrl } from "../utils/resolveImage";
+import { useCart } from "../context/CartContext";
 
 const THEME = "#033e74";
 const TEAL = "#20b2aa";
@@ -136,6 +137,15 @@ export default function ProductsPage() {
 
 function ProductCard({ product, onClick }) {
   const imgSrc = resolveImageUrl(product.image);
+  const { addToCart, isInCart } = useCart();
+  const [added, setAdded] = useState(false);
+
+  const handleAdd = (e) => {
+    e.stopPropagation();
+    addToCart(product, 1);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 1600);
+  };
 
   return (
     <div
@@ -164,7 +174,28 @@ function ProductCard({ product, onClick }) {
       <div className="p-4 border-t border-gray-100">
         <p className="text-xs uppercase tracking-wide text-gray-400 mb-1">{product.series}</p>
         <h3 className="text-sm font-semibold text-gray-900 leading-snug line-clamp-2">{product.model}</h3>
-        <p className="text-[11px] text-orange-600 font-semibold uppercase tracking-wide mt-2">Coming Soon</p>
+        <p className="text-[11px] text-orange-600 font-semibold uppercase tracking-wide mt-2 mb-3">Coming Soon</p>
+        <button
+          onClick={handleAdd}
+          className="w-full flex items-center justify-center gap-1.5 rounded-md py-2 text-xs font-bold uppercase tracking-wide text-white transition-all duration-200 active:scale-95"
+          style={{ background: added ? "#16a34a" : TEAL }}
+        >
+          {added ? (
+            <>
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+              </svg>
+              Added
+            </>
+          ) : (
+            <>
+              <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.994-4.694 2.591-7.159a1.125 1.125 0 00-1.087-1.391H5.106M7.5 14.25L5.106 5.106" />
+              </svg>
+              {isInCart(product._id) ? "Add More" : "Add to Cart"}
+            </>
+          )}
+        </button>
       </div>
     </div>
   );
