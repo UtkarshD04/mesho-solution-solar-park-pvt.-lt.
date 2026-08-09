@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://mmyzo.com/sitemap.xml
