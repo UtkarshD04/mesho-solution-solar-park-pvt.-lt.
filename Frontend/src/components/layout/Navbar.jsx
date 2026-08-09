@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { NavLink, Link, useNavigate } from "react-router-dom";
+import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "../../context/UserContext";
 import { useCart } from "../../context/CartContext";
 
@@ -11,6 +11,10 @@ const seriesMeta = {
   "NeoPower Series": { label: "NeoPower Series" },
   "LEGEND Series": { label: "LEGEND Series" },
 };
+
+// Pages whose top section is light-colored (not a dark hero image) —
+// the navbar must render in its solid/dark-text state from the start.
+const LIGHT_TOP_ROUTES = ["/about"];
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -41,15 +45,17 @@ export default function Navbar() {
   const signupTimeout = useRef(null);
   const dropdownTimeout = useRef(null);
   const navigate = useNavigate();
+  const location = useLocation();
   const { isLoggedIn, logout } = useUser();
   const { totalItems } = useCart();
+  const isLightTopPage = LIGHT_TOP_ROUTES.includes(location.pathname);
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 10);
+    const handleScroll = () => setScrolled(isLightTopPage || window.scrollY > 10);
     handleScroll();
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  }, [isLightTopPage]);
 
   useEffect(() => {
     fetch(`${API_BASE}/api/products`)
