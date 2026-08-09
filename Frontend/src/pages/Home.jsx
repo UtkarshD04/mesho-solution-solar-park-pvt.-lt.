@@ -8,6 +8,7 @@ import EnergySolutionsSection from "../components/home/EnergySolutionsSection";
 import AnimatedPageBackground from "../components/ui/AnimatedPageBackground";
 import { whyChooseData } from "../data/homePageData.jsx";
 import { Link } from "react-router-dom";
+import SEO from "../components/common/SEO";
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -30,6 +31,11 @@ export default function Home() {
 
   return (
     <div className="bg-slate-50 min-h-screen text-slate-900 overflow-hidden relative">
+      <SEO
+        title="Buy High Quality Batteries & Energy Storage Solutions"
+        description="Myzo offers reliable lithium-ion batteries, energy storage systems, and power solutions for home, commercial, and industrial use. Explore our product range."
+        path="/"
+      />
 
       {/* ── Full-Page Animated Background (fixed, behind all content) ── */}
       <AnimatedPageBackground />

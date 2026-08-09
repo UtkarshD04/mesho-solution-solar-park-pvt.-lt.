@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import SEO from "../components/common/SEO";
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -139,6 +140,11 @@ export default function Reliability() {
 
   return (
     <div className="bg-white min-h-screen text-slate-900 overflow-x-hidden">
+      <SEO
+        title="Reliability"
+        description="Myzo batteries are built for long-term reliability with rigorous engineering, durability testing, and consistent performance under real-world conditions."
+        path="/reliability"
+      />
 
       {/* ── HERO ── */}
       <div className="relative w-full min-h-screen overflow-hidden flex items-center">

@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import SEO from "../components/common/SEO";
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -153,6 +154,11 @@ export default function Technology() {
 
   return (
     <div className="bg-white min-h-screen text-slate-900 overflow-x-hidden">
+      <SEO
+        title="Technology"
+        description="Explore the technology behind Myzo's battery systems — advanced cell chemistry, smart BMS, and innovative energy storage engineering."
+        path="/technology"
+      />
 
       {/* ── HERO ── */}
       <div className="relative w-full min-h-screen overflow-hidden flex items-center">

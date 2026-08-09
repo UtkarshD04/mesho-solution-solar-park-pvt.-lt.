@@ -1,4 +1,5 @@
 import { useEffect, useRef, useState } from "react";
+import SEO from "../components/common/SEO";
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -139,6 +140,11 @@ export default function Quality() {
 
   return (
     <div className="bg-white min-h-screen text-slate-900 overflow-x-hidden">
+      <SEO
+        title="Quality"
+        description="Discover Myzo's commitment to quality — rigorous testing, certified manufacturing, and reliable battery performance you can trust."
+        path="/quality"
+      />
 
       {/* ── HERO ── */}
       <div className="relative w-full min-h-screen overflow-hidden flex items-center">

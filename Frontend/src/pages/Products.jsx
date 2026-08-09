@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import useInView from "../hooks/useInView";
 import { resolveImageUrl } from "../utils/resolveImage";
 import { useCart } from "../context/CartContext";
+import SEO from "../components/common/SEO";
 
 const THEME = "#033e74";
 const TEAL = "#20b2aa";
@@ -35,6 +36,11 @@ export default function ProductsPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Batteries & Energy Storage Products"
+        description="Browse Myzo's full range of lithium-ion batteries across LIGHT, MaxPower, NeoPower, and LEGEND series for home and commercial energy storage."
+        path="/products"
+      />
 
       {/* ── Hero ── */}
       <section className="relative h-64 sm:h-80 flex items-end overflow-hidden">

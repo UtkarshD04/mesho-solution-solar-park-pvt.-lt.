@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import useInView from "../hooks/useInView";
+import SEO from "../components/common/SEO";
 
 const contactTypes = [
   {
@@ -94,6 +95,11 @@ export default function Contact() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Contact Us"
+        description="Get in touch with Myzo for product enquiries, after-sales service, or partnership opportunities. Contact us via email, phone, or WhatsApp."
+        path="/contact"
+      />
 
       {/* ── Hero + Cards combined ── */}
       <div className="relative overflow-hidden">

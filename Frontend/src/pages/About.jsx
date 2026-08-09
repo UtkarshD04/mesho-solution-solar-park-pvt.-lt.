@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import VisionMissionSection from '../components/home/VisionMissionSection';
 import useInView from '../hooks/useInView';
+import SEO from '../components/common/SEO';
 
 export default function About() {
   const [heroLoaded, setHeroLoaded] = useState(false);
@@ -14,6 +15,11 @@ export default function About() {
 
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="About Us"
+        description="Learn about Myzo Solar Park — our mission, vision, and commitment to delivering reliable energy storage and battery solutions."
+        path="/about"
+      />
 
       {/* HERO */}
       <section

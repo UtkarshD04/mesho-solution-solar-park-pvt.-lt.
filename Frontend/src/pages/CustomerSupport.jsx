@@ -1,10 +1,16 @@
 import AfterSalesService from '../components/contact/AfterSalesService'
+import SEO from '../components/common/SEO'
 
 const THEME = '#033e74'
 
 export default function CustomerSupport() {
   return (
     <div className="min-h-screen bg-white">
+      <SEO
+        title="Customer Support"
+        description="Find answers to common questions, troubleshooting guides, and after-sales service support for your Myzo battery products."
+        path="/customer-support"
+      />
       {/* HERO */}
       <section
         className="relative min-h-[50vh] flex items-center justify-center text-white text-center"

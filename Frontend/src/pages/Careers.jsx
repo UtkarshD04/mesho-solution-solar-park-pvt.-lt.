@@ -4,6 +4,7 @@ import { PhoneInput } from "react-international-phone";
 import "react-international-phone/style.css";
 import { useUser } from "../context/UserContext";
 import useInView from "../hooks/useInView";
+import SEO from "../components/common/SEO";
 
 const THEME = "#033e74";
 const THEME_DARK = "#022d56";
@@ -149,6 +150,11 @@ export default function Careers() {
       className="min-h-screen bg-white"
       style={{ opacity: visible ? 1 : 0, transform: visible ? "translateY(0)" : "translateY(16px)", transition: "opacity 0.4s ease, transform 0.4s ease" }}
     >
+      <SEO
+        title="Careers"
+        description="Explore career opportunities at Myzo. Join our team across Sales, Engineering, Operations, Marketing, and more."
+        path="/careers"
+      />
       {/* HERO */}
       <section className="relative min-h-[60vh] flex items-center justify-center text-white text-center">
         <img
