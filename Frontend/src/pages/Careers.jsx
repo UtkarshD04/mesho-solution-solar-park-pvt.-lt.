@@ -6,9 +6,9 @@ import { useUser } from "../context/UserContext";
 import useInView from "../hooks/useInView";
 import SEO from "../components/common/SEO";
 
-const THEME = "#033e74";
-const THEME_DARK = "#022d56";
+const ACCENT = "#033e74";
 const TEAL = "#20b2aa";
+const CARD_SHADOW = "0px 1px 8px 0px rgba(102,102,102,0.24)";
 
 const departments = [
   "Sales & Business Development",
@@ -26,8 +26,8 @@ const values = [
     title: "Meaningful Work",
     desc: "Every role here contributes directly to India's clean energy transition — real projects, real impact.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+      <svg className="w-7 h-7" fill="none" stroke={ACCENT} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 10V3L4 14h7v7l9-11h-7z" />
       </svg>
     ),
   },
@@ -35,8 +35,8 @@ const values = [
     title: "Room to Grow",
     desc: "A fast-growing company means fast-growing responsibility — we promote from within whenever we can.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+      <svg className="w-7 h-7" fill="none" stroke={ACCENT} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
       </svg>
     ),
   },
@@ -44,16 +44,14 @@ const values = [
     title: "Hands-On Culture",
     desc: "From the shop floor to site execution, our team builds and ships — not just plans on paper.",
     icon: (
-      <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1H3a1 1 0 01-1-1V9a1 1 0 011-1h1a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1V4z" />
+      <svg className="w-7 h-7" fill="none" stroke={ACCENT} viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M11 4a2 2 0 114 0v1a1 1 0 001 1h3a1 1 0 011 1v3a1 1 0 01-1 1h-1a2 2 0 100 4h1a1 1 0 011 1v3a1 1 0 01-1 1h-3a1 1 0 01-1-1v-1a2 2 0 10-4 0v1a1 1 0 01-1 1H6a1 1 0 01-1-1v-3a1 1 0 00-1-1H3a1 1 0 01-1-1V9a1 1 0 011-1h1a1 1 0 001-1V6a1 1 0 011-1h3a1 1 0 001-1V4z" />
       </svg>
     ),
   },
 ];
 
 function UnderlineInput({ label, required, error, children }) {
-
-    
   return (
     <div className="flex flex-col gap-1">
       <label className="text-sm font-medium text-gray-700">
@@ -91,6 +89,7 @@ export default function Careers() {
   const [submitted, setSubmitted] = useState(false);
   const [serverError, setServerError] = useState("");
   const [errors, setErrors] = useState({});
+  const [heroRef, heroInView] = useInView(0.05);
   const [valuesRef, valuesInView] = useInView();
 
   const [form, setForm] = useState({
@@ -136,10 +135,20 @@ export default function Careers() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center px-6">
         <div className="text-center max-w-md">
-          <div className="text-6xl mb-4">🎉</div>
-          <h2 className="text-3xl font-black uppercase mb-3" style={{ color: THEME }}>Application Submitted!</h2>
-          <p className="text-gray-500 mb-6">Our HR team will review your details and reach out if there's a fit.</p>
-          <button onClick={() => navigate(-1)} className="font-bold text-sm hover:underline" style={{ color: THEME }}>← Go Back</button>
+          <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-6" style={{ backgroundColor: `${TEAL}1A` }}>
+            <svg className="w-8 h-8" fill="none" stroke={TEAL} viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            </svg>
+          </div>
+          <h2 className="text-2xl font-bold text-gray-900 mb-3">Application Submitted!</h2>
+          <p className="text-gray-600 mb-6">Our HR team will review your details and reach out if there's a fit.</p>
+          <button
+            onClick={() => navigate(-1)}
+            className="inline-block font-bold rounded px-6 py-3 border-2 transition-colors"
+            style={{ borderColor: ACCENT, color: ACCENT }}
+          >
+            ← Go Back
+          </button>
         </div>
       </div>
     );
@@ -155,169 +164,179 @@ export default function Careers() {
         description="Explore career opportunities at Myzo. Join our team across Sales, Engineering, Operations, Marketing, and more."
         path="/careers"
       />
-      {/* HERO */}
-      <section className="relative min-h-[60vh] flex items-center justify-center text-white text-center">
-        <img
-          src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1920&q=80"
-          alt="Careers at Myzo"
-          className="absolute inset-0 w-full h-full object-cover object-center"
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/75" />
-        <div className="relative z-10 px-6 max-w-3xl mx-auto pt-16">
-          <p className="text-xs font-bold uppercase tracking-[0.3em] text-white/60 mb-4">Join Us</p>
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-black uppercase leading-tight mb-5">Careers</h1>
-          <p className="text-white/70 text-base max-w-xl mx-auto leading-relaxed">
-            Help us build India's clean energy future — on the factory floor, on-site, and everywhere in between.
-          </p>
+
+      {/* HERO — contained image card */}
+      <section className="bg-white pt-24 md:pt-24 lg:pt-36 pb-14">
+        <div className="max-w-[1220px] mx-auto px-4 sm:px-6">
+          <div
+            ref={heroRef}
+            className="relative rounded-lg overflow-hidden transition-all duration-1000"
+            style={{ boxShadow: CARD_SHADOW, opacity: heroInView ? 1 : 0, transform: heroInView ? "translateY(0)" : "translateY(16px)" }}
+          >
+            <img
+              src="https://images.unsplash.com/photo-1521737711867-e3b97375f902?w=1400&q=80"
+              alt="Myzo team at work"
+              className="w-full h-[380px] md:h-[460px] object-cover object-center"
+            />
+            <div className="absolute inset-0 bg-black/55" />
+            <div className="absolute inset-0 flex items-end">
+              <div className="p-8 md:p-12 max-w-2xl">
+                <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] mb-4" style={{ color: TEAL }}>
+                  Join Us
+                </span>
+                <h1 className="text-[32px] leading-[38px] md:text-[44px] md:leading-[50px] font-bold text-white mb-5">
+                  Help Build India's Clean Energy Future
+                </h1>
+                <p className="text-white/80 text-base leading-relaxed max-w-xl">
+                  On the factory floor, on-site, and everywhere in between — we're growing, and we're looking for people who build, not just plan.
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
       {/* WHY JOIN */}
-      <section className="py-20 bg-white">
-        <div ref={valuesRef} className="max-w-7xl mx-auto px-6">
-          <div
-            className="text-center max-w-2xl mx-auto mb-14 transition-all duration-1000"
-            style={{ opacity: valuesInView ? 1 : 0, transform: valuesInView ? "translateY(0)" : "translateY(24px)" }}
+      <section className="bg-[#f1f1f1] py-20">
+        <div ref={valuesRef} className="max-w-[1220px] mx-auto px-4 sm:px-6">
+          <h2
+            className="text-[28px] leading-[36px] md:text-[36px] md:leading-[44px] font-bold text-gray-900 text-center mb-12 transition-all duration-700"
+            style={{ opacity: valuesInView ? 1 : 0, transform: valuesInView ? "translateY(0)" : "translateY(16px)" }}
           >
-           
-            <h2 className="text-3xl sm:text-4xl font-black uppercase text-gray-900 leading-tight">Why Work With Us</h2>
-            <div className="w-24 h-[2px] bg-[#033e74] mx-auto mt-6" />
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6">
+            Why Work With Us
+          </h2>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
             {values.map((v, i) => (
               <div
                 key={v.title}
-                className="rounded-2xl border border-slate-100 bg-white shadow-sm hover:shadow-lg hover:-translate-y-1 transition-all duration-500 p-8"
-                style={{
-                  opacity: valuesInView ? 1 : 0,
-                  transform: valuesInView ? "translateY(0)" : "translateY(24px)",
-                  transitionDelay: `${i * 120 + 100}ms`,
-                }}
+                className="rounded-lg bg-white border border-gray-200 p-8 text-center flex flex-col items-center transition-all duration-700"
+                style={{ opacity: valuesInView ? 1 : 0, transform: valuesInView ? "translateY(0)" : "translateY(16px)", transitionDelay: `${i * 100}ms` }}
               >
-                <div className="w-14 h-14 rounded-2xl flex items-center justify-center mb-5" style={{ background: "#e6f7f7", color: TEAL }}>
+                <div className="w-16 h-16 rounded-full flex items-center justify-center mb-5" style={{ backgroundColor: `${ACCENT}0D` }}>
                   {v.icon}
                 </div>
-                <h3 className="text-lg font-bold text-slate-900 mb-2">{v.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{v.desc}</p>
+                <h3 className="text-[18px] font-bold text-gray-900 mb-2">{v.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{v.desc}</p>
               </div>
-            ))} ``
+            ))}
           </div>
         </div>
       </section>
 
       {/* OPEN POSITIONS NOTE */}
-      <section className="py-16 bg-gray-50">
-        <div className="max-w-3xl mx-auto px-6 text-center">
-          <h2 className="text-2xl sm:text-3xl font-black uppercase mb-4" style={{ color: THEME }}>
+      <section className="bg-white py-16">
+        <div className="max-w-2xl mx-auto px-6 text-center">
+          <h2 className="text-[22px] md:text-[26px] font-bold text-gray-900 mb-4">
             No Fixed Openings Listed Right Now
           </h2>
-          <p className="text-gray-600 text-sm leading-relaxed">
-            We're growing across Sales, Engineering, Site Operations, and Support — and we're always open to hearing
-            from talented people even without a specific vacancy. Tell us where you'd fit best below, and our HR
-            team will reach out if there's a match.
+          <p className="text-gray-600 leading-relaxed">
+            We're growing across Sales, Engineering, Site Operations, and Support — and we're always open to hearing from talented people even without a specific vacancy. Tell us where you'd fit best below, and our HR team will reach out if there's a match.
           </p>
         </div>
       </section>
 
       {/* APPLICATION FORM */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-6">
-          <div className="text-center mb-10">
-            <h2 className="text-3xl sm:text-4xl font-black uppercase mb-4" style={{ color: THEME }}>
-              Express Your Interest
-            </h2>
-            <p className="text-gray-600 text-sm max-w-xl mx-auto leading-relaxed">
-              Share a few details about yourself and the kind of role you're looking for.
-            </p>
-          </div>
+      <section className="bg-[#f1f1f1] py-20">
+        <div className="max-w-[880px] mx-auto px-6">
+          <div className="rounded-lg bg-white border border-gray-200 p-8 md:p-14" style={{ boxShadow: CARD_SHADOW }}>
+            <div className="text-center mb-12">
+              <h2 className="text-[24px] md:text-[28px] font-bold text-gray-900 mb-3">
+                Express Your Interest
+              </h2>
+              <p className="text-gray-600 text-sm max-w-xl mx-auto leading-relaxed">
+                Share a few details about yourself and the kind of role you're looking for.
+              </p>
+            </div>
 
-          <form onSubmit={handleSubmit} className="space-y-10">
-            <div className="grid sm:grid-cols-2 gap-x-10 gap-y-7">
+            <form onSubmit={handleSubmit} className="space-y-10">
+              <div className="grid sm:grid-cols-2 gap-x-12 gap-y-8">
 
-              <UnderlineInput label="First Name" required error={errors.firstName}>
-                <Field>
-                  <input type="text" placeholder="First Name*" value={form.firstName}
-                    onChange={(e) => handle("firstName", e.target.value)}
-                    className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
-                  />
-                </Field>
-              </UnderlineInput>
-
-              <UnderlineInput label="Last Name" required error={errors.lastName}>
-                <Field>
-                  <input type="text" placeholder="Last Name*" value={form.lastName}
-                    onChange={(e) => handle("lastName", e.target.value)}
-                    className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
-                  />
-                </Field>
-              </UnderlineInput>
-
-              <UnderlineInput label="Mobile Number" required error={errors.phone}>
-                <div className="border-b border-gray-300 py-1">
-                  <PhoneInput
-                    defaultCountry="in"
-                    value={form.phone}
-                    onChange={(v) => handle("phone", v)}
-                    style={{ border: "none", background: "transparent" }}
-                    inputStyle={{ border: "none", background: "transparent", fontSize: "14px", color: "#111827", outline: "none", width: "100%" }}
-                    countrySelectorStyleProps={{ buttonStyle: { border: "none", background: "transparent" } }}
-                  />
-                </div>  
-              </UnderlineInput>
-
-              <UnderlineInput label="Email Address" required error={errors.email}>
-                <Field>
-                  <input type="email" placeholder="Email Address*" value={form.email}
-                    onChange={(e) => handle("email", e.target.value)}
-                    className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
-                  />
-                </Field>
-              </UnderlineInput>
-
-              <UnderlineInput label="Department of Interest" required error={errors.department}>
-                <UnderlineSelect placeholder="Please select a department" options={departments}
-                  value={form.department} onChange={(v) => handle("department", v)}
-                />
-              </UnderlineInput>
-
-              <UnderlineInput label="Current Experience">
-                <Field>
-                  <input type="text" placeholder="e.g. 3 years" value={form.experience}
-                    onChange={(e) => handle("experience", e.target.value)}
-                    className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
-                  />
-                </Field>
-              </UnderlineInput>
-
-              <div className="sm:col-span-2">
-                <UnderlineInput label="Tell Us About Yourself">
+                <UnderlineInput label="First Name" required error={errors.firstName}>
                   <Field>
-                    <textarea placeholder="A short note about your background and what you're looking for" rows={4} value={form.message}
-                      onChange={(e) => handle("message", e.target.value)}
-                      className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none resize-none"
+                    <input type="text" placeholder="First Name*" value={form.firstName}
+                      onChange={(e) => handle("firstName", e.target.value)}
+                      className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
                     />
                   </Field>
                 </UnderlineInput>
+
+                <UnderlineInput label="Last Name" required error={errors.lastName}>
+                  <Field>
+                    <input type="text" placeholder="Last Name*" value={form.lastName}
+                      onChange={(e) => handle("lastName", e.target.value)}
+                      className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
+                    />
+                  </Field>
+                </UnderlineInput>
+
+                <UnderlineInput label="Mobile Number" required error={errors.phone}>
+                  <div className="border-b border-gray-300 py-1">
+                    <PhoneInput
+                      defaultCountry="in"
+                      value={form.phone}
+                      onChange={(v) => handle("phone", v)}
+                      style={{ border: "none", background: "transparent" }}
+                      inputStyle={{ border: "none", background: "transparent", fontSize: "14px", color: "#111827", outline: "none", width: "100%" }}
+                      countrySelectorStyleProps={{ buttonStyle: { border: "none", background: "transparent" } }}
+                    />
+                  </div>
+                </UnderlineInput>
+
+                <UnderlineInput label="Email Address" required error={errors.email}>
+                  <Field>
+                    <input type="email" placeholder="Email Address*" value={form.email}
+                      onChange={(e) => handle("email", e.target.value)}
+                      className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
+                    />
+                  </Field>
+                </UnderlineInput>
+
+                <UnderlineInput label="Department of Interest" required error={errors.department}>
+                  <UnderlineSelect placeholder="Please select a department" options={departments}
+                    value={form.department} onChange={(v) => handle("department", v)}
+                  />
+                </UnderlineInput>
+
+                <UnderlineInput label="Current Experience">
+                  <Field>
+                    <input type="text" placeholder="e.g. 3 years" value={form.experience}
+                      onChange={(e) => handle("experience", e.target.value)}
+                      className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none"
+                    />
+                  </Field>
+                </UnderlineInput>
+
+                <div className="sm:col-span-2">
+                  <UnderlineInput label="Tell Us About Yourself">
+                    <Field>
+                      <textarea placeholder="A short note about your background and what you're looking for" rows={4} value={form.message}
+                        onChange={(e) => handle("message", e.target.value)}
+                        className="w-full bg-transparent text-sm text-gray-900 placeholder-gray-400 py-1.5 focus:outline-none resize-none"
+                      />
+                    </Field>
+                  </UnderlineInput>
+                </div>
+
               </div>
 
-            </div>
-
-            <div className="text-center pt-4">
-              {serverError && <p className="text-sm text-red-500 mb-4">{serverError}</p>}
-              <button type="submit" disabled={loading}
-                className="text-white font-black uppercase tracking-wider px-16 py-4 rounded-lg text-sm transition-all duration-200 hover:shadow-lg hover:scale-[1.02] disabled:opacity-60 disabled:cursor-not-allowed"
-                style={{ backgroundColor: THEME }}
-                onMouseOver={e => !loading && (e.currentTarget.style.backgroundColor = THEME_DARK)}
-                onMouseOut={e => (e.currentTarget.style.backgroundColor = THEME)}
-              >
-                {loading ? "Submitting..." : "Submit Application"}
-              </button>
-              <p className="text-xs text-gray-400 mt-3">
-                Resume upload isn't available yet — our HR team will contact you directly for next steps.
-              </p>
-            </div>
-          </form>
+              <div className="text-center pt-4">
+                {serverError && <p className="text-sm text-red-500 mb-4">{serverError}</p>}
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="font-bold rounded px-10 py-3.5 border-2 transition-colors disabled:opacity-60 disabled:cursor-not-allowed"
+                  style={{ backgroundColor: ACCENT, borderColor: ACCENT, color: "#fff" }}
+                  onMouseEnter={(e) => { if (!loading) { e.currentTarget.style.backgroundColor = "#fff"; e.currentTarget.style.color = ACCENT; } }}
+                  onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.color = "#fff"; }}
+                >
+                  {loading ? "Submitting..." : "Submit Application"}
+                </button>
+                <p className="text-xs text-gray-400 mt-3">
+                  Resume upload isn't available yet — our HR team will contact you directly for next steps.
+                </p>
+              </div>
+            </form>
+          </div>
         </div>
       </section>
     </div>

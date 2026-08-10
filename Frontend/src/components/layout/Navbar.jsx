@@ -17,7 +17,7 @@ const seriesMeta = {
 
 // Pages whose top section is light-colored (not a dark hero image) —
 // the navbar must render in its solid/dark-text state from the start.
-const LIGHT_TOP_ROUTES = ["/", "/about", "/quality", "/reliability", "/technology"];
+const LIGHT_TOP_ROUTES = ["/", "/about", "/quality", "/reliability", "/technology", "/careers"];
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -29,6 +29,8 @@ const navLinks = [
       { label: "Technology", to: "/technology" },
     ]
   },
+
+  
   { label: "About Us", to: "/about" },
   { label: "Careers", to: "/careers" },
   { label: "Contact Us", to: "/contact" },
