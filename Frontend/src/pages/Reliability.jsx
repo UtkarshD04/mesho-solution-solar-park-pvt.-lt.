@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import SEO from "../components/common/SEO";
+
+const TEAL = "#20b2aa";
+const CARD_SHADOW = "0px 1px 8px 0px rgba(102,102,102,0.24)";
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -146,60 +150,65 @@ export default function Reliability() {
         path="/reliability"
       />
 
-      {/* ── HERO ── */}
-      <div className="relative w-full min-h-screen overflow-hidden flex items-center">
-        <img
-          src="/hero-reliability-v5.png"
-          alt="MYZO Industrial Reliability Testing"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ animation: "heroZoom 20s ease-in-out infinite alternate" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
+      {/* ── HERO — contained image card ── */}
+      <section className="bg-white pt-24 md:pt-24 lg:pt-36 pb-14">
+        <div className="max-w-[1220px] mx-auto px-4 sm:px-6">
+          <div
+            ref={heroRef}
+            className="relative rounded-lg overflow-hidden transition-all duration-1000"
+            style={{ boxShadow: CARD_SHADOW, opacity: heroInView ? 1 : 0, transform: heroInView ? "translateY(0)" : "translateY(16px)" }}
+          >
+            <img
+              src="/hero-reliability-v5.png"
+              alt="MYZO Industrial Reliability Testing"
+              className="w-full h-[440px] md:h-[520px] object-cover"
+              style={{ animation: "heroZoom 20s ease-in-out infinite alternate" }}
+            />
+            <div className="absolute inset-0 bg-black/55" />
 
-        {/* Floating badge top-right */}
-        <div className="absolute top-10 right-10 hidden lg:flex items-center gap-3 bg-white/8 border border-white/15 backdrop-blur-md rounded-2xl px-5 py-4">
-          <div className="w-10 h-10 rounded-full bg-[#20b2aa]/20 flex items-center justify-center text-lg">🛡️</div>
-          <div>
-            <div className="text-white text-xs font-bold">IEC 62619 Certified</div>
-            <div className="text-white/50 text-[10px]">Industrial Safety Standard</div>
+            {/* Certification badge */}
+            <div className="absolute top-6 right-6 hidden lg:flex items-center gap-3 bg-white rounded-md px-4 py-3" style={{ boxShadow: CARD_SHADOW }}>
+              <div className="w-9 h-9 rounded-full flex items-center justify-center text-base" style={{ backgroundColor: `${TEAL}1A` }}>🛡️</div>
+              <div>
+                <div className="text-gray-900 text-xs font-bold">IEC 62619 Certified</div>
+                <div className="text-gray-500 text-[10px]">Industrial Safety Standard</div>
+              </div>
+            </div>
+
+            <div className="absolute inset-0 flex items-end">
+              <div className="p-8 md:p-12 max-w-2xl">
+                <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] mb-4" style={{ color: TEAL }}>
+                  Myzo Reliability Engineering
+                </span>
+                <h1 className="text-[32px] leading-[38px] md:text-[44px] md:leading-[50px] font-bold text-white mb-5">
+                  Built to Endure India's Harshest Conditions
+                </h1>
+                <p className="text-white/80 text-base leading-relaxed mb-8 max-w-xl">
+                  From laser-welded bus bars to IP67 enclosures, every structural and electronic decision in a Myzo pack is made for one reason — to never fail in the field.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    to="/products"
+                    className="inline-flex items-center gap-2 font-bold rounded px-6 py-3 border-2 transition-colors text-sm"
+                    style={{ backgroundColor: TEAL, borderColor: TEAL, color: "#fff" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#fff"; e.currentTarget.style.color = TEAL; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = TEAL; e.currentTarget.style.color = "#fff"; }}
+                  >
+                    View All Products
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 font-bold rounded px-6 py-3 border-2 border-white/50 text-white hover:bg-white/10 transition-colors text-sm"
+                  >
+                    Talk to an Engineer
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
-
-        <div
-          ref={heroRef}
-          className={`relative z-10 max-w-7xl mx-auto px-6 lg:px-16 py-40 transition-all duration-1200 ${heroInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"}`}
-        >
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-px bg-[#20b2aa]" />
-              <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.3em]">MYZO RELIABILITY ENGINEERING</span>
-            </div>
-            <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-              Built to Endure<br />India's Harshest<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#20b2aa] to-teal-300">
-                Conditions
-              </span>
-            </h1>
-            <p className="text-white/70 text-lg lg:text-xl max-w-xl leading-relaxed mb-10">
-              From laser-welded bus bars to IP67 enclosures, every structural and electronic decision in a MYZO pack is made for one reason — to never fail in the field.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="/products" className="inline-flex items-center gap-2 bg-[#20b2aa] hover:bg-[#1a938c] text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-teal-500/30 text-sm">
-                View All Products
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-              </a>
-              <a href="/contact" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 text-sm backdrop-blur-sm">
-                Talk to an Engineer
-              </a>
-            </div>
-          </div>
-        </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-white/40 text-[10px] uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-[#20b2aa] to-transparent" />
-        </div>
-      </div>
+      </section>
 
       {/* ── STATS BAR ── */}
       <section ref={statsRef} className="py-16 bg-[#011d37] border-y border-[#20b2aa]/20 relative overflow-hidden">

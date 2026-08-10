@@ -1,118 +1,79 @@
-import { useState, useEffect, useRef } from "react";
+import { Link } from "react-router-dom";
 import Hero from "../components/ui/Hero";
 import ProductShowcase from "../components/ui/ProductShowcase";
 import AboutMyzoSection from "../components/home/AboutMyzoSection";
 import WhyChooseSection from "../components/home/WhyChooseSection";
-import VisionMissionSection from "../components/home/VisionMissionSection";
 import EnergySolutionsSection from "../components/home/EnergySolutionsSection";
-import AnimatedPageBackground from "../components/ui/AnimatedPageBackground";
+import MissionBand from "../components/home/MissionBand";
+import VideoShowcase from "../components/common/VideoShowcase";
 import { whyChooseData } from "../data/homePageData.jsx";
-import { Link } from "react-router-dom";
 import SEO from "../components/common/SEO";
+import useInView from "../hooks/useInView";
 
-function useInView(threshold = 0.15) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return [ref, inView];
-}
+const ACCENT = "#033e74";
 
 export default function Home() {
   const [ctaRef, ctaInView] = useInView();
-  const [MyzoAboutRef, MyzoAboutInView] = useInView();
-  const [whyRef, whyInView] = useInView();
 
   return (
-    <div className="bg-slate-50 min-h-screen text-slate-900 overflow-hidden relative">
+    <div className="bg-white min-h-screen text-gray-900">
       <SEO
-        title="Buy High Quality Batteries & Energy Storage Solutions"
-        description="Myzo offers reliable lithium-ion batteries, energy storage systems, and power solutions for home, commercial, and industrial use. Explore our product range."
+        title="Battery Energy Storage System (BESS) Company in India"
+        description="In India, For India — Myzo is a Battery Energy Storage System (BESS) company offering reliable lithium-ion batteries, energy storage systems, and power solutions for home, commercial, and industrial use."
         path="/"
       />
 
-      {/* ── Full-Page Animated Background (fixed, behind all content) ── */}
-      <AnimatedPageBackground />
+      {/* ── Hero Slider ─────────────────── */}
+      <Hero />
 
-      {/* ── All page content sits above the background ── */}
-      <div className="relative" style={{ zIndex: 2 }}>
+      {/* ── About Myzo Battery ──────────── */}
+      <AboutMyzoSection />
 
-        {/* ── Hero Slider ─────────────────── */}
-        <Hero />
+      {/* ── Why Choose Myzo Battery ─────── */}
+      <WhyChooseSection whyChooseData={whyChooseData} />
 
-        {/* ── About Myzo Battery ──────────── */}
-        <AboutMyzoSection aboutRef={MyzoAboutRef} aboutInView={MyzoAboutInView} />
+      {/* ── Energy Solutions ───────────── */}
+      <EnergySolutionsSection />
 
-        {/* ── Why Choose Myzo Battery ─────── */}
-        <WhyChooseSection whyRef={whyRef} whyInView={whyInView} whyChooseData={whyChooseData} />
+      {/* ── Featured Products ────────────── */}
+      <ProductShowcase />
 
-        {/* ── Stats Bar ───────────────────── */}
-        <EnergySolutionsSection />
+      {/* ── Our Mission ──────────────────── */}
+      <MissionBand />
 
-        {/* ── Featured Products ────────────── */}
-        <ProductShowcase />
+      {/* ── Watch Myzo in Action ────────── */}
+      <VideoShowcase title="Watch Myzo in Action" src="/video1.mp4" poster="/hero1.png" fullWidth heightClass="h-[220px] md:h-[280px]" autoPlay />
 
-        {/* ── Our Purpose (Vision & Mission) ── */}
-        <VisionMissionSection />
-
-        {/* ── CTA Banner ─────────── */}
-        <section
-          ref={ctaRef}
-          className="py-16 relative overflow-hidden"
-        >
-          <div className="absolute inset-0 bg-gradient-to-br from-[#011d37] via-[#033e74] to-[#033e74]" />
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute top-1/2 left-0 -translate-y-1/2 w-64 h-64 bg-[#20b2aa]/15 rounded-full blur-3xl" />
-            <div className="absolute top-1/2 right-0 -translate-y-1/2 w-96 h-96 bg-[#033e74]/40 rounded-full blur-3xl" />
-          </div>
-
-          <div
-            className={`max-w-7xl mx-auto px-6 lg:px-10 flex flex-col md:flex-row justify-between items-center gap-10 relative transition-all duration-1000 ${ctaInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-          >
-            <div className="space-y-4 text-center md:text-left">
-              <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-widest">Ready to Power Up?</span>
-              <h2 className="text-2xl lg:text-3xl font-extrabold text-white tracking-tight leading-snug">
-                Need custom battery sizing or <br className="hidden md:block" />
-                <span className="text-[#20b2aa]">proprietary BMS configuration?</span>
-              </h2>
-              <p className="text-white/70 text-sm max-w-xl leading-relaxed">
-                Get in touch with our cell testing and production engineers to customize pack shapes, high-discharge rates, or utility BESS parameters.
-              </p>
-            </div>
-            <div
-              className="flex flex-col sm:flex-row gap-4 shrink-0 transition-all duration-700"
-              style={{
-                opacity: ctaInView ? 1 : 0,
-                transform: ctaInView ? "translateY(0)" : "translateY(10px)",
-                transitionDelay: "200ms",
-              }}
+      {/* ── CTA Banner ─────────── */}
+      <section ref={ctaRef} className="py-14 text-center text-white" style={{ backgroundColor: ACCENT }}>
+        <div className="max-w-[760px] mx-auto px-6 transition-all duration-1000" style={{ opacity: ctaInView ? 1 : 0, transform: ctaInView ? "translateY(0)" : "translateY(16px)" }}>
+          <h2 className="text-[28px] leading-[36px] md:text-[36px] md:leading-[44px] font-bold mb-4">
+            Need custom battery sizing or a proprietary BMS configuration?
+          </h2>
+          <p className="text-white/80 mb-8 leading-relaxed">
+            Get in touch with our cell testing and production engineers to customize pack shapes, high-discharge rates, or utility BESS parameters.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <Link
+              to="/contact"
+              className="inline-block font-bold rounded px-6 py-3 border-2 border-white bg-white transition-colors"
+              style={{ color: ACCENT }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = "#fff"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "#fff"; e.currentTarget.style.color = ACCENT; }}
             >
-              <Link
-                to="/contact"
-                className="group flex items-center justify-center gap-2 bg-[#20b2aa] hover:bg-[#1a948e] text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-300 shadow-lg shadow-teal-500/30 hover:shadow-teal-500/50 hover:-translate-y-0.5 text-sm"
-              >
-                Contact Engineering
-                <svg className="w-4 h-4 group-hover:rotate-12 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                </svg>
-              </Link>
-              <Link
-                to="/products"
-                className="flex items-center justify-center gap-2 bg-white/10 hover:bg-white/20 text-white font-bold py-3.5 px-8 rounded-xl transition-all duration-300 border border-white/20 hover:border-white/40 hover:-translate-y-0.5 text-sm backdrop-blur-sm"
-              >
-                Explore Products
-              </Link>
-            </div>
+              Contact Engineering
+            </Link>
+            <Link
+              to="/products"
+              className="inline-block font-bold rounded px-6 py-3 border-2 border-white text-white hover:bg-white transition-colors"
+              onMouseEnter={(e) => { e.currentTarget.style.color = ACCENT; }}
+              onMouseLeave={(e) => { e.currentTarget.style.color = "#fff"; }}
+            >
+              Explore Products
+            </Link>
           </div>
-        </section>
-
-      </div>{/* end content wrapper */}
+        </div>
+      </section>
     </div>
   );
 }

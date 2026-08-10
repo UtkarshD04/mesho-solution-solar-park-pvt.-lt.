@@ -1,5 +1,9 @@
 import { useEffect, useRef, useState } from "react";
+import { Link } from "react-router-dom";
 import SEO from "../components/common/SEO";
+
+const TEAL = "#20b2aa";
+const CARD_SHADOW = "0px 1px 8px 0px rgba(102,102,102,0.24)";
 
 function useInView(threshold = 0.15) {
   const ref = useRef(null);
@@ -146,51 +150,55 @@ export default function Quality() {
         path="/quality"
       />
 
-      {/* ── HERO ── */}
-      <div className="relative w-full min-h-screen overflow-hidden flex items-center">
-        <img
-          src="/hero-quality-v5.png"
-          alt="MYZO Quality Control Laboratory"
-          className="absolute inset-0 w-full h-full object-cover"
-          style={{ animation: "heroZoom 20s ease-in-out infinite alternate" }}
-        />
-        <div className="absolute inset-0 bg-gradient-to-r from-black/60 via-black/30 to-transparent" />
-
-        <div
-          ref={heroRef}
-          className={`relative z-10 max-w-7xl mx-auto px-6 lg:px-16 py-40 transition-all duration-1200 ${heroInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-16"}`}
-        >
-          <div className="max-w-3xl">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-px bg-[#20b2aa]" />
-              <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.3em]">MYZO QUALITY ASSURANCE</span>
-            </div>
-            <h1 className="text-5xl lg:text-7xl font-black text-white leading-[1.05] tracking-tight mb-6">
-              Quality Is Not<br />a Feature —<br />
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#20b2aa] to-teal-300">
-                It's a Standard
-              </span>
-            </h1>
-            <p className="text-white/70 text-lg lg:text-xl max-w-2xl leading-relaxed mb-10">
-              Every MYZO battery pack passes a rigorous 4-stage quality gate — from Grade-A cell sorting to international certification — before it reaches your site.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <a href="/products" className="inline-flex items-center gap-2 bg-[#20b2aa] hover:bg-[#1a938c] text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 hover:-translate-y-0.5 shadow-lg shadow-teal-500/30 text-sm">
-                View Certified Products
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
-              </a>
-              <a href="/contact" className="inline-flex items-center gap-2 bg-white/10 hover:bg-white/20 border border-white/20 text-white font-bold py-4 px-8 rounded-xl transition-all duration-300 text-sm backdrop-blur-sm">
-                Request Quality Report
-              </a>
+      {/* ── HERO — contained image card ── */}
+      <section className="bg-white pt-24 md:pt-24 lg:pt-36 pb-14">
+        <div className="max-w-[1220px] mx-auto px-4 sm:px-6">
+          <div
+            ref={heroRef}
+            className="relative rounded-lg overflow-hidden transition-all duration-1000"
+            style={{ boxShadow: CARD_SHADOW, opacity: heroInView ? 1 : 0, transform: heroInView ? "translateY(0)" : "translateY(16px)" }}
+          >
+            <img
+              src="/hero-quality-v5.png"
+              alt="MYZO Quality Control Laboratory"
+              className="w-full h-[440px] md:h-[520px] object-cover"
+              style={{ animation: "heroZoom 20s ease-in-out infinite alternate" }}
+            />
+            <div className="absolute inset-0 bg-black/55" />
+            <div className="absolute inset-0 flex items-end">
+              <div className="p-8 md:p-12 max-w-2xl">
+                <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] mb-4" style={{ color: TEAL }}>
+                  Myzo Quality Assurance
+                </span>
+                <h1 className="text-[32px] leading-[38px] md:text-[44px] md:leading-[50px] font-bold text-white mb-5">
+                  Quality Is Not a Feature — It's a Standard
+                </h1>
+                <p className="text-white/80 text-base leading-relaxed mb-8 max-w-xl">
+                  Every Myzo battery pack passes a rigorous 4-stage quality gate — from Grade-A cell sorting to international certification — before it reaches your site.
+                </p>
+                <div className="flex flex-wrap gap-3">
+                  <Link
+                    to="/products"
+                    className="inline-flex items-center gap-2 font-bold rounded px-6 py-3 border-2 transition-colors text-sm"
+                    style={{ backgroundColor: TEAL, borderColor: TEAL, color: "#fff" }}
+                    onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#fff"; e.currentTarget.style.color = TEAL; }}
+                    onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = TEAL; e.currentTarget.style.color = "#fff"; }}
+                  >
+                    View Certified Products
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M14 5l7 7m0 0l-7 7m7-7H3" /></svg>
+                  </Link>
+                  <Link
+                    to="/contact"
+                    className="inline-flex items-center gap-2 font-bold rounded px-6 py-3 border-2 border-white/50 text-white hover:bg-white/10 transition-colors text-sm"
+                  >
+                    Request Quality Report
+                  </Link>
+                </div>
+              </div>
             </div>
           </div>
         </div>
-
-        <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 animate-bounce">
-          <span className="text-white/40 text-[10px] uppercase tracking-widest">Scroll</span>
-          <div className="w-px h-8 bg-gradient-to-b from-[#20b2aa] to-transparent" />
-        </div>
-      </div>
+      </section>
 
       {/* ── STATS BAR ── */}
       <section ref={statsRef} className="py-16 bg-[#011d37] border-y border-[#20b2aa]/20 relative overflow-hidden">

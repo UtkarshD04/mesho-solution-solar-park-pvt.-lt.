@@ -1,42 +1,55 @@
 import { Link } from "react-router-dom";
+import useInView from "../../hooks/useInView";
 
-export default function WhyChooseSection({ whyRef, whyInView, whyChooseData }) {
+const ACCENT = "#033e74";
+
+export default function WhyChooseSection({ whyChooseData }) {
+  const [ref, inView] = useInView(0.05);
+
   return (
-    <section
-      ref={whyRef}
-      className="relative overflow-hidden py-12"
-      style={{ background: "linear-gradient(135deg, #dff0f0 0%, #e8f4f8 40%, #d4eaf0 100%)" }}
-    >
-      <div
-        className="absolute inset-0 pointer-events-none opacity-[0.06]"
-        style={{ backgroundImage: "radial-gradient(#20b2aa 1px, transparent 1px)", backgroundSize: "28px 28px" }}
-      />
-      <div className={`max-w-7xl mx-auto px-6 lg:px-16 relative transition-all duration-1000 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}>
-        <h2 className="text-3xl md:text-4xl lg:text-[2.6rem] font-light text-slate-800 leading-snug mb-8 max-w-3xl">
-          Why Choose{" "}
-          <span className="font-extrabold text-slate-900">Myzo Battery</span>{" "}
-          for Your Energy Needs?
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-8">
+    <section className="bg-white py-20">
+      <div ref={ref} className="max-w-[1220px] mx-auto px-4 sm:px-6 grid lg:grid-cols-[340px_1fr] gap-14">
+        <div
+          className="lg:sticky lg:top-32 lg:self-start transition-all duration-700"
+          style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(16px)" }}
+        >
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] mb-4" style={{ color: ACCENT }}>
+            Why Myzo
+          </span>
+          <h2 className="text-[30px] leading-[36px] md:text-[36px] md:leading-[42px] font-bold text-gray-900 mb-4">
+            Why Choose Myzo Battery?
+          </h2>
+          <p className="text-gray-600 leading-relaxed mb-6">
+            Six reasons homes and businesses across India are replacing lead-acid backup with Myzo lithium-ion systems.
+          </p>
+          <Link
+            to="/products"
+            className="inline-block font-bold rounded px-6 py-3 border-2 transition-colors w-fit"
+            style={{ backgroundColor: ACCENT, borderColor: ACCENT, color: "#fff" }}
+            onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#fff"; e.currentTarget.style.color = ACCENT; }}
+            onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.color = "#fff"; }}
+          >
+            See All Products
+          </Link>
+        </div>
+
+        <div className="divide-y divide-gray-200 border-t border-gray-200">
           {whyChooseData.map((item, i) => (
             <div
               key={item.title}
-              className={`flex flex-col gap-3 group transition-all duration-700 ${whyInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-              style={{ transitionDelay: `${i * 120 + 150}ms` }}
+              className="py-7 flex gap-5 items-start transition-all duration-700"
+              style={{ opacity: inView ? 1 : 0, transform: inView ? "translateY(0)" : "translateY(12px)", transitionDelay: `${i * 80}ms` }}
             >
-              <div className={`w-[72px] h-[72px] rounded-full border-2 border-[#20b2aa]/40 bg-white/60 backdrop-blur-sm flex items-center justify-center shadow-sm group-hover:border-[#20b2aa] group-hover:shadow-md transition-all duration-300 shrink-0 ${item.iconBg}`}>
+              <div className={`w-11 h-11 rounded-full flex items-center justify-center shrink-0 ${item.iconBg}`}>
                 {item.icon}
               </div>
-              <div className="space-y-2">
-                <h3 className="text-lg md:text-xl font-bold text-slate-900 leading-snug group-hover:text-[#033e74] transition-colors duration-300">{item.title}</h3>
-                <p className="text-sm text-slate-600 leading-relaxed">{item.desc}</p>
+              <div className="flex-1 min-w-0">
+                <h3 className="font-bold text-gray-900 text-base mb-1">{item.title}</h3>
+                <p className="text-gray-600 text-sm leading-relaxed">{item.desc}</p>
               </div>
-              <Link to="/products" className="inline-flex items-center gap-1.5 text-[11px] font-extrabold uppercase tracking-[0.18em] text-[#20b2aa] hover:text-[#033e74] transition-colors duration-300 group/link">
-                Read More
-                <svg className="w-3.5 h-3.5 group-hover/link:translate-x-1 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M9 5l7 7-7 7" />
-                </svg>
-              </Link>
+              <span className="hidden sm:block text-3xl font-black text-gray-100 shrink-0 leading-none">
+                {String(i + 1).padStart(2, "0")}
+              </span>
             </div>
           ))}
         </div>

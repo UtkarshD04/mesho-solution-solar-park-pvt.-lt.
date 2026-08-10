@@ -9,8 +9,8 @@ const ACCENT = '#033e74';
 const highlights = [
   {
     badge: 'Est. 2015',
-    title: "India's First BESS Company",
-    desc: 'Pioneering advanced lithium-ion Battery Energy Storage Systems for the Indian market since day one.',
+    title: 'A Dedicated BESS Company',
+    desc: 'Focused on advanced lithium-ion Battery Energy Storage Systems for the Indian market since day one.',
     img: 'OfficeImage.jpeg',
   },
   {
@@ -100,22 +100,25 @@ export default function About() {
   return (
     <div className="min-h-screen bg-white">
       <SEO
-        title="About Us"
-        description="Learn about Myzo Solar Park — our mission, vision, and commitment to delivering reliable energy storage and battery solutions."
+        title="About Us — Battery Energy Storage System (BESS) Company"
+        description="In India, For India — learn about Myzo Solar Park, a Battery Energy Storage System (BESS) company committed to delivering reliable energy storage and battery solutions."
         path="/about"
       />
 
       {/* HERO — split, text left / angled image right */}
-      <section className="md:flex md:items-stretch bg-white relative">
+      <section className="md:flex md:items-stretch bg-white relative pt-24 md:pt-24 lg:pt-36">
         <div
-          className="md:w-1/2 px-6 pt-32 pb-12 md:pt-32 md:pb-16 md:pl-16 lg:px-12 lg:pt-40 lg:pb-20 flex flex-col justify-center transition-all duration-1000"
+          className="md:w-1/2 px-6 pb-12 md:pb-16 md:pl-16 lg:px-12 lg:pb-20 flex flex-col justify-center transition-all duration-1000"
           style={{ opacity: heroLoaded ? 1 : 0, transform: heroLoaded ? 'translateY(0)' : 'translateY(16px)' }}
         >
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] mb-4" style={{ color: ACCENT }}>
+            In India, For India
+          </span>
           <h1 className="text-[34px] leading-[40px] md:text-[48px] md:leading-[56px] font-bold text-gray-900 mb-6">
             About Myzo
           </h1>
           <p className="text-gray-700 text-base leading-relaxed">
-            As <Link to="/technology" className="font-medium underline" style={{ color: ACCENT }}>India's first Battery Energy Storage System company</Link>, we're busy building the lithium-ion infrastructure that will replace lead-acid and diesel backup — with{' '}
+            As a dedicated <Link to="/technology" className="font-medium underline" style={{ color: ACCENT }}>Battery Energy Storage System company</Link>, we're busy building the lithium-ion infrastructure that will replace lead-acid and diesel backup — with{' '}
             <Link to="/quality" className="font-medium underline" style={{ color: ACCENT }}>certified quality</Link> and{' '}
             <Link to="/reliability" className="font-medium underline" style={{ color: ACCENT }}>proven reliability</Link> at every step.
           </p>
@@ -150,7 +153,7 @@ export default function About() {
       <section className="bg-white py-14">
         <div ref={briefRef} className="max-w-[1220px] mx-auto px-4 sm:px-6">
           <div
-            className="rounded-lg bg-white overflow-hidden flex flex-col md:flex-row transition-all duration-700"
+            className="rounded-lg bg-white overflow-hidden flex flex-col md:flex-row md:h-[400px] transition-all duration-700"
             style={{ boxShadow: '0px 1px 8px 0px rgba(102,102,102,0.24)', opacity: briefInView ? 1 : 0, transform: briefInView ? 'translateY(0)' : 'translateY(16px)' }}
           >
             <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center order-2 md:order-1">
@@ -173,7 +176,7 @@ export default function About() {
                 Explore our technology
               </Link>
             </div>
-            <div className="md:w-1/2 h-60 md:h-auto order-1 md:order-2">
+            <div className="md:w-1/2 h-60 md:h-full order-1 md:order-2">
               <img src="OfficeImage.jpeg" alt="Myzo office" className="w-full h-full object-cover" />
             </div>
           </div>
@@ -212,13 +215,13 @@ export default function About() {
       <section className="bg-[#f1f1f1] py-14">
         <div ref={ownerRef} className="max-w-[1220px] mx-auto px-4 sm:px-6">
           <div
-            className="rounded-lg bg-white overflow-hidden flex flex-col md:flex-row transition-all duration-700"
+            className="rounded-lg bg-white overflow-hidden flex flex-col md:flex-row md:h-[400px] transition-all duration-700"
             style={{ boxShadow: '0px 1px 8px 0px rgba(102,102,102,0.24)', opacity: ownerInView ? 1 : 0, transform: ownerInView ? 'translateY(0)' : 'translateY(16px)' }}
           >
-            <div className="md:w-1/2 h-60 md:h-auto">
-              <img src="SirImage.jpeg" alt="Mr. Aseem Mishra" className="w-full h-full object-cover" />
+            <div className="md:w-1/2 h-60 md:h-full">
+              <img src="SirImage.jpeg" alt="Mr. Aseem Mishra" className="w-full h-full object-cover object-top" />
             </div>
-            <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center">
+            <div className="md:w-1/2 p-8 md:p-12 flex flex-col justify-center overflow-y-auto">
               <h2 className="text-[28px] leading-[36px] md:text-[32px] md:leading-[40px] font-bold text-gray-900 mb-4">
                 Message from Our Business Head
               </h2>

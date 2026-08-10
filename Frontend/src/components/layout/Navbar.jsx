@@ -4,6 +4,9 @@ import { useUser } from "../../context/UserContext";
 import { useCart } from "../../context/CartContext";
 
 const API_BASE = import.meta.env.VITE_API_URL ?? "http://localhost:5000";
+const ACCENT = "#033e74";
+const TEAL = "#20b2aa";
+const CARD_SHADOW = "0px 1px 8px 0px rgba(102,102,102,0.24)";
 
 const seriesMeta = {
   "LIGHT Series": { label: "LIGHT Series" },
@@ -14,7 +17,7 @@ const seriesMeta = {
 
 // Pages whose top section is light-colored (not a dark hero image) —
 // the navbar must render in its solid/dark-text state from the start.
-const LIGHT_TOP_ROUTES = ["/about"];
+const LIGHT_TOP_ROUTES = ["/", "/about", "/quality", "/reliability", "/technology"];
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -83,8 +86,8 @@ export default function Navbar() {
     >
       {/* Shutter background — desktop only, hide on mobile when menu open */}
       <div
-        className="absolute inset-0 bg-white/95 backdrop-blur-md shadow-lg border-b border-slate-200 transition-transform duration-500 ease-in-out"
-        style={{ transformOrigin: "top", transform: (scrolled && !menuOpen) ? "scaleY(1)" : "scaleY(0)" }}
+        className="absolute inset-0 bg-white border-b border-gray-200 transition-transform duration-300 ease-in-out"
+        style={{ transformOrigin: "top", transform: (scrolled && !menuOpen) ? "scaleY(1)" : "scaleY(0)", boxShadow: (scrolled && !menuOpen) ? CARD_SHADOW : "none" }}
       />
 
       {/* Navbar Content */}
@@ -93,8 +96,8 @@ export default function Navbar() {
           <div className="flex items-center justify-between py-1.5 overflow-visible">
 
             {/* Logo */}
-            <Link to="/" className="flex items-center group">
-              <img src="/logo.png" alt="Logo" className="h-16 w-auto object-contain transition-all duration-300 group-hover:scale-105" style={{ filter: (scrolled && !menuOpen) ? "none" : "brightness(0) invert(1)" }} onError={(e) => { e.target.style.display = "none"; }} />
+            <Link to="/" className="flex items-center">
+              <img src="/logo.png" alt="Logo" className="h-16 w-auto object-contain" style={{ filter: (scrolled && !menuOpen) ? "none" : "brightness(0) invert(1)" }} onError={(e) => { e.target.style.display = "none"; }} />
             </Link>
 
             {/* Desktop Nav */}
@@ -116,14 +119,15 @@ export default function Navbar() {
                         </svg>
                       </button>
                       <div
-                        className={`absolute left-0 top-full mt-4 w-44 rounded-xl border border-slate-200 bg-white shadow-lg transition-all duration-200 ${whyDropdown ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"}`}
+                        className={`absolute left-0 top-full mt-4 w-44 rounded-lg border border-gray-200 bg-white transition-all duration-200 ${whyDropdown ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"}`}
+                        style={{ boxShadow: CARD_SHADOW }}
                         onMouseEnter={() => { clearTimeout(whyTimeout.current); setWhyDropdown(true); }}
                         onMouseLeave={() => { whyTimeout.current = setTimeout(() => setWhyDropdown(false), 120); }}
                       >
                         {link.dropdown.map((item) => (
                           <Link key={item.to} to={item.to}
                             onClick={() => setWhyDropdown(false)}
-                            className="block px-4 py-2.5 text-sm font-semibold text-slate-600 hover:text-[#033e74] hover:bg-slate-50 transition-colors first:rounded-t-xl last:rounded-b-xl"
+                            className="block px-4 py-2.5 text-sm font-semibold text-slate-600 hover:text-[#033e74] hover:bg-gray-50 transition-colors first:rounded-t-lg last:rounded-b-lg"
                           >
                             {item.label}
                           </Link>
@@ -159,7 +163,8 @@ export default function Navbar() {
                       </button>
 
                       <div
-                        className={`absolute left-0 top-full mt-4 w-[500px] rounded-2xl border border-slate-200 bg-white shadow-2xl transition-all duration-300 ${productsDropdown ? "opacity-100 pointer-events-auto scale-100 translate-y-0" : "opacity-0 pointer-events-none scale-95 -translate-y-2"}`}
+                        className={`absolute left-0 top-full mt-4 w-[500px] rounded-lg border border-gray-200 bg-white transition-all duration-200 ${productsDropdown ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"}`}
+                        style={{ boxShadow: CARD_SHADOW }}
                         onMouseEnter={() => {
                           clearTimeout(dropdownTimeout.current);
                           setProductsDropdown(true);
@@ -169,14 +174,14 @@ export default function Navbar() {
                           dropdownTimeout.current = setTimeout(() => setProductsDropdown(false), 120);
                         }}
                       >
-                        <div className="flex overflow-hidden rounded-2xl">
-                          <div className="w-48 border-r border-slate-100 p-4 space-y-2 bg-gradient-to-b from-slate-50 to-white">
+                        <div className="flex overflow-hidden rounded-lg">
+                          <div className="w-48 border-r border-gray-100 p-4 space-y-2 bg-gray-50">
                             {categories.map((series) => (
                               <button
                                 key={series}
                                 type="button"
                                 onMouseEnter={() => setActiveSeries(series)}
-                                className={`block w-full text-left text-xs font-bold uppercase tracking-wider rounded-xl px-3 py-2.5 transition-all duration-200 ${activeSeries === series ? "bg-[#033e74] text-white shadow-md" : "text-slate-600 hover:bg-slate-100"
+                                className={`block w-full text-left text-xs font-bold uppercase tracking-wider rounded-md px-3 py-2.5 transition-colors duration-200 ${activeSeries === series ? "bg-[#033e74] text-white" : "text-slate-600 hover:bg-gray-100"
                                   }`}
                               >
                                 {seriesMeta[series]?.label || series}
@@ -194,11 +199,11 @@ export default function Navbar() {
                                 <button
                                   key={product.id}
                                   type="button"
-                                  className="w-full text-left rounded-xl p-3 transition-all duration-200 border border-transparent hover:border-[#20b2aa] hover:bg-gradient-to-r hover:from-[#f0f9f9] hover:to-white"
+                                  className="w-full text-left rounded-md p-3 transition-colors duration-200 border border-transparent hover:border-[#20b2aa] hover:bg-gray-50"
                                   onMouseEnter={() => setProductsDropdown(true)}
                                   onClick={() => { setProductsDropdown(false); navigate(`/products/${product._id}`); }}
                                 >
-                                  <div className="text-sm font-bold text-slate-900 group-hover:text-[#033e74]">{product.model}</div>
+                                  <div className="text-sm font-bold text-slate-900">{product.model}</div>
                                   <p className="text-xs text-slate-500 mt-0.5">{product.type}</p>
                                 </button>
                               ))}
@@ -224,7 +229,7 @@ export default function Navbar() {
                     {({ isActive }) => (
                       <>
                         {link.label}
-                        <span className={`absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#033e74] to-[#20b2aa] rounded-full transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
+                        <span className={`absolute -bottom-1 left-0 h-0.5 bg-[#033e74] rounded-full transition-all duration-300 ${isActive ? "w-full" : "w-0 group-hover:w-full"}`} />
                       </>
                     )}
                   </NavLink>
@@ -240,9 +245,9 @@ export default function Navbar() {
                 aria-label="Customer Support"
                 title="Customer Support"
                 className={({ isActive }) =>
-                  `relative p-2 rounded-lg transition-all duration-200 ${isActive
-                    ? (scrolled ? "text-[#033e74] bg-slate-100" : "text-white bg-white/10")
-                    : (scrolled ? "text-slate-700 hover:bg-slate-100" : "text-white hover:bg-white/10")
+                  `relative p-2 rounded-md transition-colors duration-200 ${isActive
+                    ? (scrolled ? "text-[#033e74] bg-gray-100" : "text-white bg-white/10")
+                    : (scrolled ? "text-slate-700 hover:bg-gray-100" : "text-white hover:bg-white/10")
                   }`
                 }
               >
@@ -255,14 +260,14 @@ export default function Navbar() {
               <Link
                 to="/cart"
                 aria-label="View cart"
-                className={`relative p-2 rounded-lg transition-all duration-200 ${scrolled ? "text-slate-700 hover:bg-slate-100" : "text-white hover:bg-white/10"
+                className={`relative p-2 rounded-md transition-colors duration-200 ${scrolled ? "text-slate-700 hover:bg-gray-100" : "text-white hover:bg-white/10"
                   }`}
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.994-4.694 2.591-7.159a1.125 1.125 0 00-1.087-1.391H5.106M7.5 14.25L5.106 5.106M7.5 14.25L5.85 17.25m0 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121zm9 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121z" />
                 </svg>
                 {totalItems > 0 && (
-                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-black text-white bg-gradient-to-r from-[#20b2aa] to-[#0d7a74] shadow-md">
+                  <span className="absolute -top-0.5 -right-0.5 flex items-center justify-center min-w-[18px] h-[18px] px-1 rounded-full text-[10px] font-black text-white" style={{ backgroundColor: TEAL }}>
                     {totalItems > 99 ? "99+" : totalItems}
                   </span>
                 )}
@@ -272,10 +277,11 @@ export default function Navbar() {
               {isLoggedIn ? (
                 <Link
                   to="/my-account"
-                  className={`flex items-center gap-2 text-base font-bold px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg ${scrolled
-                      ? "text-white bg-gradient-to-r from-[#033e74] to-[#20b2aa] hover:from-[#022d55] hover:to-[#1a948e]"
-                      : "text-white bg-white/20 hover:bg-white/30"
+                  className={`flex items-center gap-2 text-base font-bold px-6 py-2.5 rounded transition-colors duration-200 border-2 ${scrolled
+                      ? "text-white border-[#033e74]"
+                      : "text-white border-white/40 bg-white/10 hover:bg-white/20"
                     }`}
+                  style={scrolled ? { backgroundColor: ACCENT } : undefined}
                 >
                   <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -290,7 +296,8 @@ export default function Navbar() {
                 >
                   <button
                     type="button"
-                    className="flex items-center gap-2 text-base font-bold text-white bg-gradient-to-r from-[#033e74] to-[#20b2aa] hover:from-[#022d55] hover:to-[#1a948e] px-6 py-2.5 rounded-lg transition-all duration-200 shadow-md hover:shadow-lg"
+                    className="flex items-center gap-2 text-base font-bold text-white px-6 py-2.5 rounded border-2 transition-colors duration-200"
+                    style={{ backgroundColor: ACCENT, borderColor: ACCENT }}
                   >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
@@ -299,16 +306,17 @@ export default function Navbar() {
                   </button>
 
                   <div
-                    className={`absolute right-0 top-full mt-3 w-52 bg-white rounded-xl shadow-2xl border border-slate-200 overflow-hidden transition-all duration-200 ${signupDropdown ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"}`}
+                    className={`absolute right-0 top-full mt-3 w-52 bg-white rounded-lg border border-gray-200 overflow-hidden transition-all duration-200 ${signupDropdown ? "opacity-100 pointer-events-auto translate-y-0" : "opacity-0 pointer-events-none -translate-y-2"}`}
+                    style={{ boxShadow: CARD_SHADOW }}
                     onMouseEnter={() => { clearTimeout(signupTimeout.current); setSignupDropdown(true); }}
                     onMouseLeave={() => { signupTimeout.current = setTimeout(() => setSignupDropdown(false), 150); }}
                   >
                     <Link
                       to="/signup"
                       onClick={() => setSignupDropdown(false)}
-                      className="flex items-center gap-3 px-4 py-3.5 text-sm font-semibold text-slate-700 hover:bg-gradient-to-r hover:from-[#f0f9f9] hover:to-white hover:text-[#033e74] transition-all duration-200"
+                      className="flex items-center gap-3 px-4 py-3.5 text-sm font-semibold text-slate-700 hover:bg-gray-50 hover:text-[#033e74] transition-colors duration-200"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-[#20b2aa]/10 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-md bg-[#20b2aa]/10 flex items-center justify-center">
                         <svg className="w-4 h-4 text-[#033e74]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
@@ -318,13 +326,13 @@ export default function Navbar() {
                         <div className="text-xs text-slate-500">Access your account</div>
                       </div>
                     </Link>
-                    <div className="h-px bg-slate-100 mx-3" />
+                    <div className="h-px bg-gray-100 mx-3" />
                     <Link
                       to="/create-account"
                       onClick={() => setSignupDropdown(false)}
-                      className="flex items-center gap-3 px-4 py-3.5 text-sm font-semibold text-slate-700 hover:bg-gradient-to-r hover:from-[#f0f9f9] hover:to-white hover:text-[#033e74] transition-all duration-200"
+                      className="flex items-center gap-3 px-4 py-3.5 text-sm font-semibold text-slate-700 hover:bg-gray-50 hover:text-[#033e74] transition-colors duration-200"
                     >
-                      <div className="w-8 h-8 rounded-lg bg-[#20b2aa]/10 flex items-center justify-center">
+                      <div className="w-8 h-8 rounded-md bg-[#20b2aa]/10 flex items-center justify-center">
                         <svg className="w-4 h-4 text-[#033e74]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
                         </svg>
@@ -342,20 +350,20 @@ export default function Navbar() {
               <Link
                 to="/cart"
                 aria-label="View cart"
-                className={`relative p-2 rounded-lg transition-colors ${(scrolled && !menuOpen) ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
+                className={`relative p-2 rounded-md transition-colors ${(scrolled && !menuOpen) ? "text-slate-600 hover:bg-gray-100" : "text-white hover:bg-white/10"
                   }`}
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 1.994-4.694 2.591-7.159a1.125 1.125 0 00-1.087-1.391H5.106M7.5 14.25L5.106 5.106M7.5 14.25L5.85 17.25m0 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121zm9 0a1.5 1.5 0 102.121 2.121 1.5 1.5 0 00-2.12-2.121z" />
                 </svg>
                 {totalItems > 0 && (
-                  <span className="absolute top-0 right-0 flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9px] font-black text-white bg-gradient-to-r from-[#20b2aa] to-[#0d7a74] shadow-md">
+                  <span className="absolute top-0 right-0 flex items-center justify-center min-w-[16px] h-[16px] px-1 rounded-full text-[9px] font-black text-white" style={{ backgroundColor: TEAL }}>
                     {totalItems > 99 ? "99+" : totalItems}
                   </span>
                 )}
               </Link>
               <button
-                className={`p-2 rounded-lg transition-colors ${(scrolled && !menuOpen) ? "text-slate-600 hover:bg-slate-100" : "text-white hover:bg-white/10"
+                className={`p-2 rounded-md transition-colors ${(scrolled && !menuOpen) ? "text-slate-600 hover:bg-gray-100" : "text-white hover:bg-white/10"
                   }`}
                 onClick={() => setMenuOpen(!menuOpen)}
               >
@@ -375,7 +383,7 @@ export default function Navbar() {
         className="lg:hidden overflow-hidden transition-all duration-300 ease-in-out"
         style={{ maxHeight: menuOpen ? "2000px" : "0px", opacity: menuOpen ? 1 : 0, pointerEvents: menuOpen ? "auto" : "none" }}
       >
-        <div className="bg-white border-t border-slate-200 px-6 py-4 space-y-1 shadow-xl">
+        <div className="bg-white border-t border-gray-200 px-6 py-4 space-y-1" style={{ boxShadow: CARD_SHADOW }}>
           {/* Products accordion */}
           <div>
             <button
@@ -389,15 +397,15 @@ export default function Navbar() {
               </svg>
             </button>
             {mobileProductsOpen && (
-              <div className="mt-2 mb-3 border border-slate-200 rounded-xl overflow-hidden">
+              <div className="mt-2 mb-3 border border-gray-200 rounded-lg overflow-hidden">
                 {/* Series tabs */}
-                <div className="flex gap-1 flex-wrap p-3 bg-slate-50 border-b border-slate-200">
+                <div className="flex gap-1 flex-wrap p-3 bg-gray-50 border-b border-gray-200">
                   {categories.map((series) => (
                     <button
                       key={series}
                       type="button"
                       onClick={() => setActiveSeries(series)}
-                      className={`text-xs font-bold uppercase tracking-wider rounded-lg px-3 py-2 transition-all ${activeSeries === series ? "bg-[#033e74] text-white" : "text-slate-600 bg-white border border-slate-200"
+                      className={`text-xs font-bold uppercase tracking-wider rounded-md px-3 py-2 transition-colors ${activeSeries === series ? "bg-[#033e74] text-white" : "text-slate-600 bg-white border border-gray-200"
                         }`}
                     >
                       {seriesMeta[series]?.label || series}
@@ -411,7 +419,7 @@ export default function Navbar() {
                       key={product.id}
                       type="button"
                       onClick={() => { setMenuOpen(false); setMobileProductsOpen(false); navigate(`/products/${product._id}`); }}
-                      className="w-full text-left block rounded-lg px-3 py-2.5 border border-transparent hover:border-[#20b2aa] hover:bg-[#f0f9f9] transition-all"
+                      className="w-full text-left block rounded-md px-3 py-2.5 border border-transparent hover:border-[#20b2aa] hover:bg-gray-50 transition-colors"
                     >
                       <div className="text-sm font-bold text-slate-900">{product.model}</div>
                       <p className="text-xs text-slate-500 mt-0.5">{product.type}</p>
@@ -446,11 +454,11 @@ export default function Navbar() {
               </svg>
             </button>
             {mobileWhyOpen && (
-              <div className="mb-3 border border-slate-200 rounded-xl overflow-hidden">
+              <div className="mb-3 border border-gray-200 rounded-lg overflow-hidden">
                 {[{ label: "Quality", to: "/quality" }, { label: "Reliability", to: "/reliability" }, { label: "Technology", to: "/technology" }].map((item) => (
                   <Link key={item.to} to={item.to}
                     onClick={() => { setMenuOpen(false); setMobileWhyOpen(false); }}
-                    className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-[#f0f9f9] hover:text-[#033e74] border-b border-slate-100 last:border-0 transition-all"
+                    className="flex items-center gap-3 px-4 py-3 text-sm font-semibold text-slate-700 hover:bg-gray-50 hover:text-[#033e74] border-b border-gray-100 last:border-0 transition-colors"
                   >
                     <div className="w-1.5 h-1.5 rounded-full bg-[#20b2aa]" />
                     {item.label}
@@ -470,7 +478,7 @@ export default function Navbar() {
             Customer Support
           </NavLink>
 
-          <div className="h-px bg-slate-200 my-2" />
+          <div className="h-px bg-gray-200 my-2" />
 
           {isLoggedIn ? (
             <Link

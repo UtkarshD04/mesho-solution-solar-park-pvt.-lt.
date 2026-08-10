@@ -1,211 +1,99 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
+import useInView from "../../hooks/useInView";
 
-function useInView(threshold = 0.4) {
-  const ref = useRef(null);
-  const [inView, setInView] = useState(false);
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) { setInView(true); observer.disconnect(); } },
-      { threshold }
-    );
-    if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
-  }, [threshold]);
-  return [ref, inView];
-}
-
-function CountUp({ value, start, duration = 1600 }) {
-  const [display, setDisplay] = useState(0);
-  useEffect(() => {
-    if (!start) return;
-    let raf;
-    const begin = performance.now();
-    const tick = (now) => {
-      const progress = Math.min((now - begin) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-      setDisplay(Math.round(value * eased));
-      if (progress < 1) raf = requestAnimationFrame(tick);
-    };
-    raf = requestAnimationFrame(tick);
-    return () => raf && cancelAnimationFrame(raf);
-  }, [start, value, duration]);
-  return <>{display.toLocaleString()}</>;
-}
-
-const slides = [
-  {
-    image: "/hero1.png",
-    tag: "Clean Energy",
-    headline1: "Power the Future",
-    headline2: "With Solar Intelligence",
-    sub: "Next-gen lithium storage meets solar — built for India's energy revolution.",
-  },
-  {
-    image: "/hero2.png",
-    tag: "Energy Storage",
-    headline1: "Never Run Out",
-    headline2: "Of Power. Ever.",
-    sub: "Industrial-grade LFP batteries engineered for zero downtime, zero maintenance.",
-  },
-  {
-    image: "/hero3.png",
-    tag: "Made in India",
-    headline1: "Built Tough.",
-    headline2: "Charged Smarter.",
-    sub: "From homes to utility grids — Myzo delivers power you can trust for 12+ years.",
-  },
-];
+const ACCENT = "#033e74";
 
 const heroStats = [
-  {
-    icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" /></svg>),
-    value: 350, suffix: "+", unit: "MWh", label: "Annual Plant Capacity",
-  },
-  {
-    icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 7v10c0 2.21 3.582 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.582 4 8 4s8-1.79 8-4M4 7c0-2.21 3.582-4 8-4s8 1.79 8 4" /></svg>),
-    value: 30000, suffix: "+", unit: "Cycles", label: "LFP Cycle Lifespan",
-  },
-  {
-    icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>),
-    value: 6, suffix: "+", unit: "Cities", label: "Cities Served",
-  },
-  {
-    icon: (<svg className="w-6 h-6" fill="none" stroke="currentColor" strokeWidth={1.8} viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-2 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" /></svg>),
-    value: 10, suffix: "+", unit: "Years", label: "Years of Expertise",
-  },
+  { value: "350+", unit: "MWh", label: "Annual Plant Capacity" },
+  { value: "30,000+", unit: "Cycles", label: "LFP Cycle Lifespan" },
+  { value: "10+", unit: "Years", label: "Years of Expertise" },
 ];
 
 export default function Hero() {
-  const [current, setCurrent] = useState(0);
+  const [loaded, setLoaded] = useState(false);
   const [statsRef, statsInView] = useInView(0.3);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setCurrent((prev) => (prev + 1) % slides.length);
-    }, 4000);
-    return () => clearInterval(timer);
+    const t = setTimeout(() => setLoaded(true), 60);
+    return () => clearTimeout(t);
   }, []);
 
   return (
-    <div className="relative w-full overflow-hidden" style={{ minHeight: "100vh" }}>
-
-      {/* ── Image Slides ── */}
-      {slides.map((slide, i) => (
+    <div className="bg-white">
+      {/* HERO — split, text left / angled video right, larger scale than interior pages */}
+      <section className="md:flex md:items-stretch bg-white relative pt-28 md:pt-28 lg:pt-40">
         <div
-          key={i}
-          className="absolute inset-0 transition-opacity duration-1000"
-          style={{ opacity: i === current ? 1 : 0 }}
+          className="md:w-1/2 px-6 pb-16 md:pb-20 md:pl-16 lg:px-12 lg:pb-28 flex flex-col justify-center transition-all duration-1000"
+          style={{ opacity: loaded ? 1 : 0, transform: loaded ? "translateY(0)" : "translateY(16px)" }}
         >
-          <img
-            src={slide.image}
-            alt={slide.headline1}
-            className="w-full h-full object-cover object-center"
-          />
-          <div className="absolute inset-0 bg-gradient-to-r from-black/70 to-transparent" />
-          <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
+          <span className="inline-block text-xs font-bold uppercase tracking-[0.25em] mb-5" style={{ color: ACCENT }}>
+            In India, For India
+          </span>
+          <h1 className="text-[38px] leading-[44px] md:text-[56px] md:leading-[62px] font-bold text-gray-900 mb-6">
+            India's Battery Energy Storage System (BESS) Company
+          </h1>
+          <p className="text-gray-700 text-lg leading-relaxed mb-8 max-w-xl">
+            Myzo builds next-generation{" "}
+            <Link to="/technology" className="font-medium underline" style={{ color: ACCENT }}>Battery Energy Storage Systems (BESS)</Link>{" "}
+            engineered for India's grid — industrial-grade LFP batteries built for zero downtime, backed by a decade of{" "}
+            <Link to="/products" className="font-medium underline" style={{ color: ACCENT }}>proven products</Link>.
+          </p>
+          <div className="flex flex-wrap gap-3">
+            <Link
+              to="/products"
+              className="inline-block font-bold rounded px-7 py-3.5 border-2 transition-colors"
+              style={{ backgroundColor: ACCENT, borderColor: ACCENT, color: "#fff" }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = "#fff"; e.currentTarget.style.color = ACCENT; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.color = "#fff"; }}
+            >
+              Explore Products
+            </Link>
+            <Link
+              to="/contact"
+              className="inline-block font-bold rounded px-7 py-3.5 border-2 transition-colors"
+              style={{ borderColor: ACCENT, color: ACCENT }}
+              onMouseEnter={(e) => { e.currentTarget.style.backgroundColor = ACCENT; e.currentTarget.style.color = "#fff"; }}
+              onMouseLeave={(e) => { e.currentTarget.style.backgroundColor = "transparent"; e.currentTarget.style.color = ACCENT; }}
+            >
+              Get in Touch
+            </Link>
+          </div>
         </div>
-      ))}
+        <div className="md:w-1/2 relative overflow-hidden min-h-[280px] md:min-h-[540px] lg:min-h-[620px] bg-[#e8f2fa] md:[clip-path:polygon(8%_0,100%_0,100%_100%,0_100%)]">
+          <video
+            src="/video2.mp4"
+            poster="/hero1.png"
+            autoPlay
+            muted
+            loop
+            playsInline
+            className="absolute inset-0 w-full h-full object-cover"
+          />
+          {/* Covers the AI-generation watermark baked into the video's bottom-right corner */}
+          <div className="absolute bottom-0 right-10 z-10 bg-white/95 backdrop-blur-sm rounded-md px-3 py-1.5 shadow-md">
+            <img src="/logo.png" alt="Myzo" className="h-5 w-auto object-contain" />
+          </div>
+        </div>
+      </section>
 
-      {/* ── Slide Text Content ── */}
-      {slides.map((slide, i) => (
-        <div
-          key={`text-${i}`}
-          className="absolute inset-0 transition-opacity duration-1000 pointer-events-none"
-          style={{ opacity: i === current ? 1 : 0 }}
-        >
-
-          {/* Text Content */}
-          <div className="absolute inset-0 flex items-center">
-            <div className="max-w-7xl mx-auto px-6 lg:px-16 w-full">
-              <div
-                className="max-w-2xl space-y-5"
-                style={{ opacity: i === current ? 1 : 0, transform: i === current ? "translateY(0)" : "translateY(24px)", transition: "opacity 0.9s ease 0.3s, transform 0.9s ease 0.3s" }}
-              >
-                {/* Tag pill */}
-                <div className="inline-flex items-center gap-2 bg-[#20b2aa]/20 border border-[#20b2aa]/50 backdrop-blur-sm px-4 py-1.5 rounded-full">
-                  <span className="w-1.5 h-1.5 rounded-full bg-[#20b2aa] animate-pulse" />
-                  <span className="text-[#20b2aa] text-xs font-bold uppercase tracking-[0.2em]">{slide.tag}</span>
-                </div>
-
-                {/* 3D Headline */}
-                <div className="space-y-1">
-                  <h1
-                    className="text-5xl lg:text-7xl font-black leading-none tracking-[-0.03em]"
-                    style={{
-                      color: "#f8fbff",
-                      textShadow: "0 1px 0 rgba(255,255,255,0.16), 0 2px 0 rgba(3,62,116,0.35), 0 4px 0 rgba(3,62,116,0.28), 0 8px 0 rgba(3,62,116,0.18), 0 12px 24px rgba(0,0,0,0.6)",
-                      transform: "translateZ(0)",
-                      filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.45))",
-                    }}
-                  >
-                    {slide.headline1}
-                  </h1>
-                  <h1
-                    className="text-5xl lg:text-7xl font-black leading-none tracking-[-0.03em]"
-                    style={{
-                      color: "#20b2aa",
-                      textShadow: "0 1px 0 rgba(255,255,255,0.14), 0 2px 0 rgba(14,107,101,0.35), 0 4px 0 rgba(10,79,75,0.28), 0 8px 0 rgba(10,79,75,0.2), 0 12px 24px rgba(0,0,0,0.6)",
-                      transform: "translateZ(0)",
-                      filter: "drop-shadow(0 10px 18px rgba(0,0,0,0.45))",
-                    }}
-                  >
-                    {slide.headline2}
-                  </h1>
-                </div>
-
-                {/* Divider */}
-                <div className="w-16 h-1 rounded-full bg-[#20b2aa]" />
-
-                {/* Subtext */}
-                <p className="text-white/75 text-base lg:text-lg leading-relaxed max-w-lg font-light">
-                  {slide.sub}
-                </p>
-              </div>
+      {/* STATS STRIPE — signature homepage element, not used on interior pages */}
+      <section className="bg-[#f1f1f1] py-10">
+        <div ref={statsRef} className="max-w-[1220px] mx-auto px-4 sm:px-6 grid grid-cols-3 gap-y-8">
+          {heroStats.map((s, i) => (
+            <div
+              key={s.label}
+              className="text-center transition-all duration-700"
+              style={{ opacity: statsInView ? 1 : 0, transform: statsInView ? "translateY(0)" : "translateY(12px)", transitionDelay: `${i * 100}ms` }}
+            >
+              <p className="text-[28px] md:text-[36px] font-bold leading-none" style={{ color: ACCENT }}>
+                {s.value} <span className="text-[14px] font-semibold text-gray-500">{s.unit}</span>
+              </p>
+              <p className="text-gray-500 text-xs uppercase tracking-widest mt-2">{s.label}</p>
             </div>
-          </div>
+          ))}
         </div>
-      ))}
-
-      {/* Dots */}
-      <div className="absolute bottom-28 left-1/2 -translate-x-1/2 flex gap-3 z-10">
-        {slides.map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setCurrent(i)}
-            className={`w-3 h-3 rounded-full border-2 border-white/50 transition-all duration-300 ${i === current ? "bg-white scale-125 border-white" : "bg-transparent hover:border-white"}`}
-            aria-label={`Go to slide ${i + 1}`}
-          />
-        ))}
-      </div>
-
-      {/* Stats Strip – inside hero image at bottom */}
-      <div className="absolute bottom-0 left-0 right-0 z-10">
-        <div className="border-t border-white/10">
-          <div ref={statsRef} className="max-w-7xl mx-auto px-6 lg:px-10 grid grid-cols-2 md:grid-cols-4 divide-x divide-white/10">
-            {heroStats.map((s, i) => (
-              <div
-                key={s.label}
-                className="flex items-center gap-4 px-8 py-5 transition-all duration-700 ease-out"
-                style={{
-                  opacity: statsInView ? 1 : 0,
-                  transform: statsInView ? "translateY(0)" : "translateY(16px)",
-                  transitionDelay: `${i * 120}ms`,
-                }}
-              >
-                <div className="w-10 h-10 rounded-xl bg-[#20b2aa]/20 border border-[#20b2aa]/40 flex items-center justify-center text-[#20b2aa] shrink-0">
-                  {s.icon}
-                </div>
-                <div>
-                  <p className="text-white font-black text-2xl leading-none">
-                    <CountUp value={s.value} start={statsInView} duration={1400 + i * 200} />{s.suffix} <span className="text-[#20b2aa] text-sm font-bold">{s.unit}</span>
-                  </p>
-                  <p className="text-white/50 text-xs uppercase tracking-widest mt-1">{s.label}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
+      </section>
     </div>
   );
 }
