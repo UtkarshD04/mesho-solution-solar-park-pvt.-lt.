@@ -24,11 +24,13 @@ import Technology from "./pages/Technology";
 import Careers from "./pages/Careers";
 import Cart from "./pages/Cart";
 import { PageLoader, PageRouteTransition } from "./components/layout/PageEffects";
+import IndependenceDayIntro from "./FestivalAnimation/IndependenceDay";
 
 function App() {
   const [initialLoading, setInitialLoading] = useState(true);
   return (
     <>
+      <IndependenceDayIntro />
       {initialLoading && <PageLoader onComplete={() => setInitialLoading(false)} />}
       <BrowserRouter>
         <Routes>
