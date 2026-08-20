@@ -5,6 +5,7 @@ import AboutMyzoSection from "../components/home/AboutMyzoSection";
 import WhyChooseSection from "../components/home/WhyChooseSection";
 import EnergySolutionsSection from "../components/home/EnergySolutionsSection";
 import MissionBand from "../components/home/MissionBand";
+import IndustryAssociationSection from "../components/home/IndustryAssociationSection";
 import VideoShowcase from "../components/common/VideoShowcase";
 import { whyChooseData } from "../data/homePageData.jsx";
 import SEO from "../components/common/SEO";
@@ -37,6 +38,9 @@ export default function Home() {
 
       {/* ── Featured Products ────────────── */}
       <ProductShowcase />
+
+      {/* ── Our Industry Association ────── */}
+      <IndustryAssociationSection />
 
       {/* ── Our Mission ──────────────────── */}
       <MissionBand />

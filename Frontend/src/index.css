@@ -11,6 +11,7 @@
   --animate-float-medium: float 3s ease-in-out infinite;
   --animate-pulse-slow: pulse 4s ease-in-out infinite;
   --animate-pulse-medium: pulse 6s ease-in-out infinite reverse;
+  --animate-marquee: marquee 28s linear infinite;
 }
 
 @keyframes spin {
@@ -48,6 +49,16 @@
   50% {
     opacity: 0.5;
     transform: scale(1.05);
+  }
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
   }
 }
 
